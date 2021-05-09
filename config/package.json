@@ -1,0 +1,12 @@
+{
+  "name": "forestconfig",
+  "version": "1.0.0",
+  "description": "",
+  "main": "project.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Dichev",
+  "license": "ISC",
+  "types": "./project.config.d.ts"
+}

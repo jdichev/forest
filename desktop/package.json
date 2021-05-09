@@ -1,0 +1,35 @@
+{
+  "name": "forestdesktop",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "NODE_ENV=development electron index.js",
+    "build": "electron-builder build"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^11.2.1",
+    "electron-builder": "^22.10.5"
+  },
+  "devServer": {
+    "contentBase": "./dist"
+  },
+  "dependencies": {
+    "forestconfig": "~1.0.0",
+    "forestserver": "~1.0.0",
+    "forestwebapp": "~1.0.0",
+    "lodash.union": "^4.6.0",
+    "pino": "^6.11.2"
+  },
+  "build": {
+    "productName": "Forest",
+    "appId": "com.electron.ForestApp",
+    "directories": {
+      "output": "release"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "jdichev",
+      "repo": "forest-monorepo"
+    }
+  }
+}
