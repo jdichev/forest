@@ -6,7 +6,6 @@ import MixedDataModel from "./modules/MixedDataModel";
 import FeedUpdater from "./modules/FeedUpdater";
 import FeedFinder from "./modules/FeedFinder";
 import projectConfig from "forestconfig";
-import { Server } from "node:http";
 
 const pino = pinoLib({
   level: "trace",
@@ -279,7 +278,8 @@ app.use((req: Request, res: Response) => {
 });
 
 export default class server {
-  public static inst: Server;
+  //@ts-ignore
+  public static inst;
 
   public static start(config = { tempMode: false }) {
     pino.debug(config, "config");
