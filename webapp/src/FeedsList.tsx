@@ -14,10 +14,8 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
   const [showNewCategoryFeedForm, setShowNewCategoryFeedForm] = useState(false);
 
-  const [
-    selectedFeedCategory,
-    setSelectedFeedCategory,
-  ] = useState<FeedCategory>();
+  const [selectedFeedCategory, setSelectedFeedCategory] =
+    useState<FeedCategory>();
 
   const showFeedCategories = useCallback(async () => {
     const res = await ds.getFeedCategories();
@@ -263,28 +261,6 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
       <main id="main-content">
         <div id="table-panel">
-          {/* {topMenu.current &&
-            ReactDOM.createPortal(
-              <> */}
-          {/* <button
-                  type="button"
-                  className="btn btn-sm btn-link text-decoration-none text-truncate"
-                  onClick={() => importOpml()}
-                >
-                  <small>Import</small>
-                </button> */}
-
-          {/* <button
-                  type="button"
-                  className="btn btn-sm btn-link text-decoration-none text-truncate"
-                  onClick={() => removeFeeds()}
-                >
-                  <small>Remove feeds</small>
-                </button> */}
-          {/* </>,
-              topMenu.current
-            )} */}
-
           <form onSubmit={handleSubmit(onFeedSearch)}>
             <div className="input-group-sm">
               <input

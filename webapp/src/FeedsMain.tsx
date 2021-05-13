@@ -23,10 +23,8 @@ export default function Home({ topMenu }: HomeProps) {
 
   const [unreadOnly, setUnreadOnly] = useState<boolean>(false);
 
-  const [
-    selectedFeedCategory,
-    setSelectedFeedCategory,
-  ] = useState<FeedCategory>();
+  const [selectedFeedCategory, setSelectedFeedCategory] =
+    useState<FeedCategory>();
 
   const [selectedFeed, setSelectedFeed] = useState<Feed>();
 
@@ -180,19 +178,6 @@ export default function Home({ topMenu }: HomeProps) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
-
-  const refreshUI = useCallback(async () => {
-    // await ds.updateItems();
-    window.location.reload();
-
-    showItems();
-  }, [showItems]);
-
-  // const removeItems = useCallback(async () => {
-  //   await ds.removeItems();
-
-  //   showItems();
-  // }, [showItems]);
 
   /**
    * Load more items
