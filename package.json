@@ -1,0 +1,22 @@
+{
+  "name": "forest",
+  "version": "1.0.0",
+  "description": "A personal reader experiment",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/install.js",
+    "start": "node scripts/start.js",
+    "test": "node scripts/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdichev/forest.git"
+  },
+  "keywords": [],
+  "author": "Jordan Dichev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdichev/forest/issues"
+  },
+  "homepage": "https://github.com/jdichev/forest#readme"
+}
