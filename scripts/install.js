@@ -14,10 +14,12 @@ const install = async () => {
   run("npm link forestconfig", "./webapp");
   run("npm install", "./webapp");
   run("npm link", "./webapp");
+  run("npm run build", "./webapp");
 
   run("npm link forestconfig", "./server");
   run("npm install", "./server");
   run("npm link", "./server");
+  run("npm run build", "./server");
 
   run("npm link forestconfig forestserver forestwebapp", "./desktop");
   run("npm install", "./desktop");
