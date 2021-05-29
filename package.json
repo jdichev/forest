@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "node scripts/install.js",
     "start": "node scripts/start.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "build": "node scripts/build.js"
   },
   "repository": {
     "type": "git",
