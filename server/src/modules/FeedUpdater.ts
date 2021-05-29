@@ -9,7 +9,6 @@ import os from "os";
 import path from "path";
 import MixedDataModel from "./MixedDataModel";
 import Scheduler from "./Scheduler";
-import { update } from "lodash";
 
 const pino = pinoLib({
   level: "trace",
@@ -158,12 +157,12 @@ export default class FeedUpdater {
     return new Promise(async (resolve) => {
       const response = await axios
         .get(feed.feedUrl, {
-          timeout: 10000,
+          timeout: 2000,
         })
         .catch((reason) => {
           pino.error(reason, `error ${feed.feedUrl}: ${reason.code}`);
 
-          dataModel.markFeedError(feed);
+          // dataModel.markFeedError(feed);
 
           resolve({ feed, items: [] });
         });
@@ -182,7 +181,9 @@ export default class FeedUpdater {
       if (
         feed.lastHash === hash ||
         // @ts-ignore
-        response.headers["content-type"].indexOf("xml") === -1
+        (response.hasOwnProperty("headers") &&
+          // @ts-ignore
+          response.headers["content-type"].indexOf("xml") === -1)
       ) {
         // do nothing - return empty items
 
