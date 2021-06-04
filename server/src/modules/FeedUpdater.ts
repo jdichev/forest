@@ -20,7 +20,7 @@ const axios = axiosLib.create();
 export default class FeedUpdater {
   private rssParser: RssParser;
 
-  private chunkSize = 10;
+  private chunkSize = 6;
 
   private updateCacheFilePath;
 
@@ -160,7 +160,7 @@ export default class FeedUpdater {
           timeout: 2000,
         })
         .catch((reason) => {
-          pino.error(reason, `error ${feed.feedUrl}: ${reason.code}`);
+          pino.error(`Timeout error ${feed.feedUrl}: ${reason.code}`);
 
           // dataModel.markFeedError(feed);
 
@@ -180,8 +180,9 @@ export default class FeedUpdater {
 
       if (
         feed.lastHash === hash ||
-        // @ts-ignore
-        (response.hasOwnProperty("headers") &&
+        (response &&
+          // @ts-ignore
+          response.hasOwnProperty("headers") &&
           // @ts-ignore
           response.headers["content-type"].indexOf("xml") === -1)
       ) {
