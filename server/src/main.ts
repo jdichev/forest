@@ -14,6 +14,6 @@ export default {
     setTimeout(() => {
       updater.start();
       pino.debug("updater start");
-    }, 20000);
+    }, 30e3);
   },
 };

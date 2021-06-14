@@ -9,8 +9,8 @@
 // Configuration
 @import "~bootstrap/scss/functions";
 // @import "~bootstrap/scss/variables";
-// @import "./variables";
-@import "./variables.new";
+// replacing variables with customized variables
+@import "./variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
