@@ -25,19 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
       - name: Install packages
         run: npm install
 
-      # Runs a set of commands using the runners shell
       - name: Run tests
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run test
 
-      - name: Run build
-        with:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run build
