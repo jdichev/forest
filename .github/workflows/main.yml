@@ -32,4 +32,6 @@ jobs:
         run: npm run test
 
       - name: Run build
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run build
