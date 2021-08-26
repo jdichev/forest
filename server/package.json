@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon src/main-dev.ts",
     "build": "tsc -p .",
-    "test": "NODE_ENV=test jest"
+    "test": "jest"
   },
   "license": "MIT",
   "jest": {

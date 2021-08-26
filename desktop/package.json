@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "NODE_ENV=development electron index.js",
-    "build": "electron-builder build"
+    "build": "electron-builder build --publish never"
   },
   "license": "MIT",
   "devDependencies": {
