@@ -44,10 +44,10 @@
     --items-list-selected-active-bg: #094771;
     --main-bg: #1e1e1e;
     --main-color: #ddd;
-    --main-color-visited: #eeb279;
+    --main-color-visited: #dbd4c5;
     --border-color: #474747;
-    --link-color: #eeb279;
-    --link-hover-color: #eeb279;
+    --link-color: #dbd4c5;
+    --link-hover-color: #ffffff;
     --link-highlight-color: #fad591;
     --btn-bg-color: #252526;
     --btn-fg-color: #f8f9fa;
@@ -105,7 +105,7 @@ a,
 }
 
 a:hover {
-  color: var(--link-hover-color);
+  color: var(--link-highlight-color);
 }
 
 #wrapper {
@@ -408,16 +408,21 @@ a:hover {
 }
 
 #list-panel .item-list-details::before {
-  content: "● ";
+  content: "○ ";
   color: var(--weak-color);
 }
 
 #list-panel .item-unread .item-list-details::before {
-  color: var(--link-color);
+  content: "● ";
+  color: var(--link-highlight-color);
 }
 
 #list-panel .item-read .item-list-title {
   color: var(--main-color-visited);
+}
+
+#list-panel .item-read a:hover .item-list-title {
+  color: var(--link-highlight-color);
 }
 
 #list-panel .item-list-details {
