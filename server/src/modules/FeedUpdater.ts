@@ -20,7 +20,7 @@ const axios = axiosLib.create();
 export default class FeedUpdater {
   private rssParser: RssParser;
 
-  private chunkSize = 6;
+  private chunkSize = 3;
 
   private updateCacheFilePath;
 

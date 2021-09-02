@@ -11,7 +11,7 @@ const pino = pinoLib({
   level: "trace",
 });
 
-let dataModel: MixedDataModel;
+const dataModel = MixedDataModel.getInstance();
 
 const updater = new FeedUpdater();
 
@@ -283,8 +283,6 @@ export default class server {
 
   public static start(config = { tempMode: false }) {
     pino.debug(config, "config");
-
-    dataModel = MixedDataModel.getInstance();
 
     server.inst = app.listen(projectConfig.dataServerPort, () => {
       pino.debug(`Server running on port ${projectConfig.dataServerPort}`);
