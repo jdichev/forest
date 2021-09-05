@@ -19,19 +19,23 @@ export default function FeedEdit() {
   const [formFeedData, setFormFeedData] = useState<Feed>();
 
   useEffect(() => {
-    (async () => {
+    const loadFeedCategories = async () => {
       const res = await ds.getFeedCategories();
       res.sort((a, b) => a.title.localeCompare(b.title));
       setFeedCategories(res);
-    })();
+    };
+
+    loadFeedCategories();
   }, []);
 
   useEffect(() => {
-    (async () => {
+    const loadFormFeedData = async () => {
       const feed = await ds.getFeedById(feedIdNum);
 
       setFormFeedData(feed);
-    })();
+    };
+
+    loadFormFeedData();
   }, [feedId, feedIdNum]);
 
   const onSubmit = useCallback(
@@ -95,15 +99,23 @@ export default function FeedEdit() {
                   id="feedCategoryId"
                   name="feedCategoryId"
                   ref={register}
+                  value={formFeedData?.feedCategoryId}
+                  onChange={(e) => {
+                    if (formFeedData) {
+                      const newFormFeedData = { ...formFeedData };
+                      newFormFeedData.feedCategoryId = parseInt(
+                        e.target.value,
+                        10
+                      );
+                      setFormFeedData(newFormFeedData);
+                    }
+                  }}
                 >
                   {feedCategories.map((feedCategory) => {
                     return (
                       <option
                         key={feedCategory.id}
                         value={feedCategory.id}
-                        selected={
-                          feedCategory.id === formFeedData?.feedCategoryId
-                        }
                       >
                         {feedCategory.title}
                       </option>
