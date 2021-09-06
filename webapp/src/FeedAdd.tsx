@@ -20,11 +20,13 @@ export default function FeedAdd() {
   const [initialFormError, setInitialFormError] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const loadFeedCategories = async () => {
       const res = await ds.getFeedCategories();
       res.sort((a, b) => a.title.localeCompare(b.title));
       setFeedCategories(res);
-    })();
+    };
+
+    loadFeedCategories();
   }, []);
 
   const onSubmitFirstStep = useCallback(async (data) => {

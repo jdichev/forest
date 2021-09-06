@@ -17,7 +17,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
   const [selectedFeedCategory, setSelectedFeedCategory] =
     useState<FeedCategory>();
 
-  const showFeedCategories = useCallback(async () => {
+  const loadFeedCategories = useCallback(async () => {
     const res = await ds.getFeedCategories();
 
     res.sort((a, b) => a.title.localeCompare(b.title));
@@ -26,8 +26,8 @@ export default function Feeds({ topMenu }: FeedsProps) {
   }, []);
 
   useEffect(() => {
-    showFeedCategories();
-  }, [showFeedCategories]);
+    loadFeedCategories();
+  }, [loadFeedCategories]);
 
   const showFeeds = useCallback(async () => {
     const res = await ds.getFeeds({ selectedFeedCategory });
@@ -57,11 +57,11 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
       await ds.addFeedCategory(feedCategoryInput);
 
-      await showFeedCategories();
+      await loadFeedCategories();
 
       setShowNewCategoryFeedForm(false);
     },
-    [showFeedCategories, setShowNewCategoryFeedForm]
+    [loadFeedCategories, setShowNewCategoryFeedForm]
   );
 
   const selectFeedCategory = useCallback(
@@ -82,14 +82,14 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
         await ds.removeFeedCategory(feedCategoryId);
 
-        await showFeedCategories();
+        await loadFeedCategories();
 
         setShowNewCategoryFeedForm(false);
       } else {
         setSelectedFeedCategory(feedCategory);
       }
     },
-    [showFeedCategories]
+    [loadFeedCategories]
   );
 
   const showCategoryFeedForm = useCallback(() => {
@@ -148,10 +148,10 @@ export default function Feeds({ topMenu }: FeedsProps) {
       if (result) {
         setRenameCategoryId(undefined);
 
-        await showFeedCategories();
+        await loadFeedCategories();
       }
     },
-    [selectedFeedCategory?.id, showFeedCategories]
+    [selectedFeedCategory?.id, loadFeedCategories]
   );
 
   useEffect(() => {

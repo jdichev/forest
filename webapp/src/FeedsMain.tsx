@@ -4,7 +4,6 @@ import DataService from "./service/DataService";
 import Article from "./components/Article";
 import ItemsTable from "./components/ItemsTable";
 import CategoriesMain from "./components/CategoriesMain";
-// import { FeedCategory, HomeProps, Item } from '../global';
 
 const ds = DataService.getInstance();
 
