@@ -277,18 +277,24 @@ a:hover {
   font-size: 0.78rem;
 }
 
-#sidebar-menu li.feed-selected button:hover,
-#sidebar-menu li.feedcategory-selected button:hover,
-#sidebar-menu li.feed-selected button,
-#sidebar-menu li.feedcategory-selected button {
-  background: var(--sidebar-selected-bg);
-  border: none;
+#sidebar-menu {
+  li.feed-selected button,
+  li.feed-selected button:hover,
+  li.feedcategory-selected button,
+  li.feedcategory-selected button:hover {
+    background: var(--sidebar-selected-bg);
+    border: none;
+  }
 }
 
-#sidebar-menu[data-activenav="true"] li.feedcategory-selected button,
-#sidebar-menu[data-activenav="true"] li.feedcategory-selected button:hover {
-  box-shadow: 0 0 1px var(--link-color) inset;
-  background: var(--sidebar-selected-active-bg);
+#sidebar-menu[data-activenav="true"] {
+  li.feed-selected button,
+  li.feed-selected button:hover,
+  li.feedcategory-selected button,
+  li.feedcategory-selected button:hover {
+    box-shadow: 0 0 1px var(--link-color) inset;
+    background: var(--sidebar-selected-active-bg);
+  }
 }
 
 #sidebar-menu li button:hover {
