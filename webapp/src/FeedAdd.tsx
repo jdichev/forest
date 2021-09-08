@@ -72,7 +72,7 @@ export default function FeedAdd() {
         feedUrl: data[`feedUrl-${index}`],
         url: data[`url-${index}`],
         title: data[`title-${index}`],
-        feedCategoryId: parseInt(data[`feedCategory-${index}`], 10),
+        feedCategoryId: parseInt(data[`feedCategory-${index}`]),
       });
 
       setCheckedFeeds((prev) => {

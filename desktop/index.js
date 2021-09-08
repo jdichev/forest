@@ -3,21 +3,24 @@ const { app, BrowserWindow, shell } = require("electron");
 const projectConfig = require("forestconfig");
 const forestserver = require("forestserver").default;
 const MenuBuilder = require("./menu");
-// const pino = require("pino")({ level: "trace" });
+
+let serverStared = false;
 
 function startServer() {
+  if (serverStared) {
+    return;
+  }
+
   forestserver.start();
+
   app.on("will-quit", () => {
     forestserver.stop();
   });
+
+  serverStared = true;
 }
 
 function createWindow() {
-  // pino.debug("process.env.NODE_ENV");
-  // pino.debug(process.env.NODE_ENV);
-  // pino.debug("projectConfig.env.DEVELOPMENT");
-  // pino.debug(projectConfig.env.DEVELOPMENT);
-
   if (process.env.NODE_ENV !== projectConfig.env.DEVELOPMENT) {
     startServer();
   }
@@ -39,16 +42,14 @@ function createWindow() {
   });
 
   if (process.env.NODE_ENV === projectConfig.env.DEVELOPMENT) {
-    // pino.warn("DEV mode");
     win.loadURL(`http://localhost:${projectConfig.devServerPort}`);
   } else {
-    // pino.warn("PROD mode");
     win.loadFile(
       path.join("node_modules", "forestwebapp", "dist", "index.html")
     );
   }
 
-  // Open urls in the user's browser
+  // Open urls in system browser
   win.webContents.on("new-window", (event, url) => {
     event.preventDefault();
     shell.openExternal(url);

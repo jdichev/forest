@@ -29,15 +29,15 @@ app.get("/items", async (req: Request, res: Response) => {
   const unreadOnly = req.query.unread ? req.query.unread === "true" : false;
 
   const size = req.query.size
-    ? parseInt(req.query.size as string, 10)
+    ? parseInt(req.query.size as string)
     : undefined;
 
   const selectedFeedId = req.query.fid
-    ? parseInt(req.query.fid as string, 10)
+    ? parseInt(req.query.fid as string)
     : undefined;
 
   const selectedFeedCategoryId = req.query.cid
-    ? parseInt(req.query.cid as string, 10)
+    ? parseInt(req.query.cid as string)
     : undefined;
 
   let selectedFeed;
@@ -61,7 +61,7 @@ app.get("/items", async (req: Request, res: Response) => {
 });
 
 app.get("/items/:itemId", async (req: Request, res: Response) => {
-  const item = await dataModel.getItemById(parseInt(req.params.itemId, 10));
+  const item = await dataModel.getItemById(parseInt(req.params.itemId));
 
   res.json(item);
 });
@@ -74,7 +74,7 @@ app.delete("/items", async (req: Request, res: Response) => {
 
 app.get("/item/read", async (req: Request, res: Response) => {
   const itemId = req.query.id
-    ? parseInt(req.query.id as string, 10)
+    ? parseInt(req.query.id as string)
     : undefined;
 
   if (itemId === undefined) {
@@ -111,7 +111,7 @@ app.put("/categories", jsonParser, async (req: Request, res: Response) => {
 
 app.delete("/categories", async (req: Request, res: Response) => {
   const selectedFeedCategoryId = req.query.cid
-    ? parseInt(req.query.cid as string, 10)
+    ? parseInt(req.query.cid as string)
     : undefined;
 
   if (selectedFeedCategoryId) {
@@ -139,11 +139,11 @@ app.get("/categories/readstats", async (req: Request, res: Response) => {
 
 app.get("/itemsread", async (req: Request, res: Response) => {
   const selectedFeedId = req.query.fid
-    ? parseInt(req.query.fid as string, 10)
+    ? parseInt(req.query.fid as string)
     : undefined;
 
   const selectedFeedCategoryId = req.query.cid
-    ? parseInt(req.query.cid as string, 10)
+    ? parseInt(req.query.cid as string)
     : undefined;
 
   if (selectedFeedId !== undefined) {
@@ -176,11 +176,11 @@ app.get("/itemsread", async (req: Request, res: Response) => {
 
 app.get("/feeds", async (req: Request, res: Response) => {
   const selectedFeedId = req.query.fid
-    ? parseInt(req.query.fid as string, 10)
+    ? parseInt(req.query.fid as string)
     : undefined;
 
   const selectedFeedCategoryId = req.query.cid
-    ? parseInt(req.query.cid as string, 10)
+    ? parseInt(req.query.cid as string)
     : undefined;
 
   let selectedFeedCategory;
@@ -216,7 +216,7 @@ app.get("/feeds", async (req: Request, res: Response) => {
 
 app.delete("/feeds", async (req: Request, res: Response) => {
   const selectedFeedId = req.query.fid
-    ? parseInt(req.query.fid as string, 10)
+    ? parseInt(req.query.fid as string)
     : undefined;
 
   if (selectedFeedId) {

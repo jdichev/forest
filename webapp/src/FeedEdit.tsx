@@ -8,7 +8,7 @@ const ds = DataService.getInstance();
 export default function FeedEdit() {
   const { feedId } = useParams<{ feedId: string }>();
 
-  const feedIdNum = parseInt(feedId, 10);
+  const feedIdNum = parseInt(feedId);
 
   const history = useHistory();
 
@@ -41,9 +41,8 @@ export default function FeedEdit() {
   const onSubmit = useCallback(
     async (data) => {
       data.id = feedId;
-
-      data.feedCategoryId = parseInt(data.feedCategoryId, 10);
-      data.id = parseInt(data.id, 10);
+      data.feedCategoryId = parseInt(data.feedCategoryId);
+      data.id = parseInt(data.id);
 
       await ds.updateFeed(data);
 
@@ -103,20 +102,14 @@ export default function FeedEdit() {
                   onChange={(e) => {
                     if (formFeedData) {
                       const newFormFeedData = { ...formFeedData };
-                      newFormFeedData.feedCategoryId = parseInt(
-                        e.target.value,
-                        10
-                      );
+                      newFormFeedData.feedCategoryId = parseInt(e.target.value);
                       setFormFeedData(newFormFeedData);
                     }
                   }}
                 >
                   {feedCategories.map((feedCategory) => {
                     return (
-                      <option
-                        key={feedCategory.id}
-                        value={feedCategory.id}
-                      >
+                      <option key={feedCategory.id} value={feedCategory.id}>
                         {feedCategory.title}
                       </option>
                     );
