@@ -6,9 +6,10 @@ const pino = pinoLib({
   level: "trace",
 });
 
-let task;
 
-export default class updater {
+export default class Updater {
+  private static task: cron.ScheduledTask;
+
   public static start() {
     const UPDATE_FREQUENCY_MINUTES = 10;
 
@@ -17,7 +18,7 @@ export default class updater {
     pino.debug(`Updating every ${UPDATE_FREQUENCY_MINUTES} minutes`);
     feedUpdater.updateItems();
 
-    task = cron.schedule(
+    this.task = cron.schedule(
       `*/${UPDATE_FREQUENCY_MINUTES} * * * *`,
       () => {
         feedUpdater.updateItems();
@@ -27,6 +28,11 @@ export default class updater {
       }
     );
 
-    task.start();
+    this.task.start();
+  }
+
+  public static stop() {
+    this.task.stop();
+    this.task.destroy();
   }
 }

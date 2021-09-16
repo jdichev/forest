@@ -1,19 +1,24 @@
 import pinoLib from "pino";
 import server from "./server";
-import updater from "./updater";
+import Updater from "./updater";
 
 const pino = pinoLib({
   level: "trace",
 });
 
 export default {
-  start: () => {
-    server.start();
-    pino.debug("server start");
+  start: async () => {
+    await server.start();
+    pino.debug("Server start executed");
 
     setTimeout(() => {
-      updater.start();
-      pino.debug("updater start");
+      Updater.start();
+      pino.debug("Updater start executed");
     }, 30e3);
+  },
+
+  stop: async () => {
+    Updater.stop();
+    await server.stop();
   },
 };

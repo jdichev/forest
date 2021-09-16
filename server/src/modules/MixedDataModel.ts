@@ -95,8 +95,16 @@ export default class DataService {
     });
   }
 
-  public disconnect() {
-    this.database.close();
+  public disconnect(): Promise<void> {
+    return new Promise((resolve) => {
+      this.database.close((error) => {
+        if (error) {
+          pino.error(error, "Error closing database");
+        }
+
+        resolve();
+      });
+    });
   }
 
   public static getInstance(): DataService {

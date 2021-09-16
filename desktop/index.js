@@ -13,8 +13,8 @@ function startServer() {
 
   forestserver.start();
 
-  app.on("will-quit", () => {
-    forestserver.stop();
+  app.on("will-quit", async () => {
+    await forestserver.stop();
   });
 
   serverStared = true;

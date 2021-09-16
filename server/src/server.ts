@@ -1,3 +1,4 @@
+import { Server } from "net";
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -28,9 +29,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/items", async (req: Request, res: Response) => {
   const unreadOnly = req.query.unread ? req.query.unread === "true" : false;
 
-  const size = req.query.size
-    ? parseInt(req.query.size as string)
-    : undefined;
+  const size = req.query.size ? parseInt(req.query.size as string) : undefined;
 
   const selectedFeedId = req.query.fid
     ? parseInt(req.query.fid as string)
@@ -73,9 +72,7 @@ app.delete("/items", async (req: Request, res: Response) => {
 });
 
 app.get("/item/read", async (req: Request, res: Response) => {
-  const itemId = req.query.id
-    ? parseInt(req.query.id as string)
-    : undefined;
+  const itemId = req.query.id ? parseInt(req.query.id as string) : undefined;
 
   if (itemId === undefined) {
     res.json({ message: "id is needed" });
@@ -279,22 +276,41 @@ app.use((req: Request, res: Response) => {
 
 export default class server {
   //@ts-ignore
-  public static inst;
+  public static inst: Server;
 
-  public static start(config = { tempMode: false }) {
-    pino.debug(config, "config");
+  public static start(config = { tempMode: false }): Promise<void> {
+    return new Promise((resolve) => {
+      pino.debug(config, "config");
 
-    server.inst = app.listen(projectConfig.dataServerPort, () => {
-      pino.debug(`Server running on port ${projectConfig.dataServerPort}`);
+      server.inst = app.listen(projectConfig.dataServerPort, () => {
+        pino.debug(`Server running on port ${projectConfig.dataServerPort}`);
+
+        resolve();
+      });
     });
-
-    return app;
   }
 
-  public static stop() {
-    pino.debug("stopping server and disconnecting db");
+  public static stop(): Promise<void> {
+    return new Promise((resolve) => {
+      pino.debug("Stopping server and disconnecting db");
 
-    server.inst.close();
-    dataModel.disconnect();
+      const dataDisconnectPromise = dataModel.disconnect();
+
+      const serverDisconnectPromise = new Promise<void>(
+        (serverDisconnectResolve) => {
+          server.inst.close((error) => {
+            if (error) {
+              pino.error(error, "Error closing server");
+            }
+
+            serverDisconnectResolve();
+          });
+        }
+      );
+
+      Promise.all([dataDisconnectPromise, serverDisconnectPromise]).then(() => {
+        resolve();
+      });
+    });
   }
 }
