@@ -278,14 +278,14 @@ export default class server {
   //@ts-ignore
   public static inst: Server;
 
-  public static start(config = { tempMode: false }): Promise<void> {
+  public static start(config = { tempMode: false }) {
     return new Promise((resolve) => {
       pino.debug(config, "config");
 
       server.inst = app.listen(projectConfig.dataServerPort, () => {
         pino.debug(`Server running on port ${projectConfig.dataServerPort}`);
 
-        resolve();
+        resolve(app);
       });
     });
   }
