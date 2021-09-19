@@ -160,12 +160,13 @@ export default class FeedUpdater {
           timeout: 2000,
         })
         .catch((reason) => {
-          pino.error(`Timeout error ${feed.feedUrl}: ${reason.code}`);
-
-          // dataModel.markFeedError(feed);
-
-          resolve({ feed, items: [] });
+          pino.error(`Request error ${feed.feedUrl}:\n${reason}`);
         });
+
+      if (!response) {
+        resolve({ feed, items: [] });
+        return;
+      }
 
       let resString = response ? response.data : "";
 
@@ -204,7 +205,7 @@ export default class FeedUpdater {
             });
           })
           .catch(async (reason) => {
-            pino.error(reason, `parse error for resString:\n${resString}\n`);
+            pino.error(reason, `Parse error for resString:\n${resString}\n`);
 
             await dataModel.markFeedError(feed);
 
