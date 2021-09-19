@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "scripts": {
-    "start": "nodemon src/main-dev.ts",
+    "start": "nodemon src/main-dev.ts | pino-pretty",
     "build": "tsc -p .",
     "test": "jest"
   },
@@ -61,6 +61,7 @@
     "node-cron": "^2.0.3",
     "pino": "^6.11.1",
     "pino-http": "^5.5.0",
+    "pino-pretty": "^7.0.1",
     "pretty-ms": "^7.0.1",
     "rss-parser": "^3.10.0",
     "sqlite3": "^5.0.2",

@@ -2,7 +2,7 @@
   "name": "forestdesktop",
   "version": "1.0.0",
   "scripts": {
-    "start": "NODE_ENV=development electron index.js",
+    "start": "NODE_ENV=development electron index.js | pino-pretty",
     "build": "electron-builder build"
   },
   "license": "MIT",
@@ -18,7 +18,8 @@
     "forestserver": "~1.0.0",
     "forestwebapp": "~1.0.0",
     "lodash.union": "^4.6.0",
-    "pino": "^6.11.2"
+    "pino": "^6.11.2",
+    "pino-pretty": "^7.0.1"
   },
   "build": {
     "productName": "Forest",
