@@ -1,4 +1,4 @@
-A personal reader experiment
+A desktop reader experiment
 
 Main goal: to explore the possibilties of creating a desktop-based reader that
 can work independent of a server using web technology stack.
