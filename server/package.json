@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "scripts": {
-    "start": "nodemon src/main-dev.ts | pino-pretty",
+    "start": "nodemon src/scripts/dev-starter.ts | pino-pretty",
     "build": "tsc -p .",
     "test": "jest"
   },

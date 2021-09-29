@@ -12,21 +12,21 @@ export default class DataService {
   }
 
   public async getFeedCategories(): Promise<FeedCategory[]> {
-    const response = await fetch("http://localhost:3030/categories");
+    const response = await fetch("http://localhost:3031/categories");
     const categories = await response.json();
 
     return Promise.resolve(categories);
   }
 
   public async getFeedCategoryReadStats(): Promise<FeedCategoryReadStat[]> {
-    const response = await fetch("http://localhost:3030/categories/readstats");
+    const response = await fetch("http://localhost:3031/categories/readstats");
     const feedCategoryReadStats = response.json();
 
     return Promise.resolve(feedCategoryReadStats);
   }
 
   public async getFeedReadStats(): Promise<FeedReadStat[]> {
-    const response = await fetch("http://localhost:3030/feeds/readstats");
+    const response = await fetch("http://localhost:3031/feeds/readstats");
     const feedReadStats = response.json();
 
     return Promise.resolve(feedReadStats);
@@ -70,7 +70,7 @@ export default class DataService {
 
     const queryString = query.toString();
 
-    const response = await fetch(`http://localhost:3030/items?${queryString}`, {
+    const response = await fetch(`http://localhost:3031/items?${queryString}`, {
       signal: getItemsSignal,
     }).catch((reason) => {
       console.log(reason.code, reason.message, reason.name);
@@ -85,7 +85,7 @@ export default class DataService {
   }
 
   public async getItem(itemId: number | undefined): Promise<Item | undefined> {
-    const response = await fetch(`http://localhost:3030/items/${itemId}`);
+    const response = await fetch(`http://localhost:3031/items/${itemId}`);
     const item = await response.json();
 
     return Promise.resolve(item);
@@ -106,7 +106,7 @@ export default class DataService {
     const queryString = query.toString();
 
     const response = await fetch(
-      `http://localhost:3030/itemsread?${
+      `http://localhost:3031/itemsread?${
         params.feed || params.feedCategory ? queryString : ""
       }`
     );
@@ -123,7 +123,7 @@ export default class DataService {
     const queryString = query.toString();
 
     const response = await fetch(
-      `http://localhost:3030/item/read?${queryString}`
+      `http://localhost:3031/item/read?${queryString}`
     );
 
     const result = await response.json();
@@ -144,7 +144,7 @@ export default class DataService {
 
     const queryString = query.toString();
 
-    const response = await fetch(`http://localhost:3030/feeds?${queryString}`);
+    const response = await fetch(`http://localhost:3031/feeds?${queryString}`);
     const feeds = await response.json();
 
     return Promise.resolve(feeds);
@@ -157,7 +157,7 @@ export default class DataService {
 
     const queryString = query.toString();
 
-    const response = await fetch(`http://localhost:3030/feeds?${queryString}`);
+    const response = await fetch(`http://localhost:3031/feeds?${queryString}`);
 
     const result = await response.json();
 
@@ -171,7 +171,7 @@ export default class DataService {
 
     const queryString = query.toString();
 
-    const response = await fetch(`http://localhost:3030/feeds?${queryString}`, {
+    const response = await fetch(`http://localhost:3031/feeds?${queryString}`, {
       method: "DELETE",
     });
 
@@ -183,7 +183,7 @@ export default class DataService {
   public async updateFeed(feed: Feed): Promise<boolean> {
     const feedJson = JSON.stringify(feed);
 
-    const response = await fetch("http://localhost:3030/feeds", {
+    const response = await fetch("http://localhost:3031/feeds", {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -200,7 +200,7 @@ export default class DataService {
     const encodedFeedUrl = encodeURIComponent(feedUrl);
 
     const result = await fetch(
-      `http://localhost:3030/checkfeed?url=${encodedFeedUrl}`
+      `http://localhost:3031/checkfeed?url=${encodedFeedUrl}`
     );
 
     const resultJson = result.json();
@@ -210,7 +210,7 @@ export default class DataService {
 
   public async checkFeedUrls(feedUrls: string[]) {
     const feedJson = JSON.stringify(feedUrls);
-    const result = await fetch("http://localhost:3030/checkfeedurls", {
+    const result = await fetch("http://localhost:3031/checkfeedurls", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -226,7 +226,7 @@ export default class DataService {
   public async addFeed(feed: Feed) {
     const feedJson = JSON.stringify(feed);
 
-    const response = await fetch("http://localhost:3030/feeds", {
+    const response = await fetch("http://localhost:3031/feeds", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -242,7 +242,7 @@ export default class DataService {
   public async addFeedCategory(feedCategory: FeedCategory) {
     const feedCategoryJson = JSON.stringify(feedCategory);
 
-    const response = await fetch("http://localhost:3030/categories", {
+    const response = await fetch("http://localhost:3031/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -263,7 +263,7 @@ export default class DataService {
     const queryString = query.toString();
 
     const response = await fetch(
-      `http://localhost:3030/categories?${queryString}`,
+      `http://localhost:3031/categories?${queryString}`,
       {
         method: "DELETE",
       }
@@ -277,7 +277,7 @@ export default class DataService {
   public async updateFeedCategory(feedCategory: FeedCategory) {
     const feedCategoryJson = JSON.stringify(feedCategory);
 
-    const response = await fetch("http://localhost:3030/categories", {
+    const response = await fetch("http://localhost:3031/categories", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -293,7 +293,7 @@ export default class DataService {
   public async importOpmlFile(fileName: string) {
     const fileNameJson = JSON.stringify({ fileName });
 
-    const response = await fetch("http://localhost:3030/opml-import", {
+    const response = await fetch("http://localhost:3031/opml-import", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

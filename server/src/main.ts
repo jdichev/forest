@@ -1,24 +1,26 @@
-import pinoLib from "pino";
-import server from "./server";
-import Updater from "./updater";
+import { ChildProcess, fork } from "child_process";
+import path from "path";
 
-const pino = pinoLib({
-  level: "trace",
-});
-
-export default {
-  start: async () => {
-    await server.start();
-    pino.debug("Server start executed");
-
-    setTimeout(() => {
-      Updater.start();
-      pino.debug("Updater start executed");
-    }, 30e3);
-  },
-
-  stop: async () => {
-    Updater.stop();
-    await server.stop();
-  },
+const run = (program: string) => {
+  return fork(program, [], {
+    stdio: "inherit",
+  });
 };
+
+export default class Main {
+  private static serverStarter: ChildProcess;
+  private static updaterStarter: ChildProcess;
+  
+  static start() {
+    this.serverStarter = run(path.join(__dirname, "scripts", "server-starter"));
+    
+    this.updaterStarter = run(
+      path.join(__dirname, "scripts", "updater-starter")
+    );
+  }
+
+  static stop() {
+    this.serverStarter.kill();
+    this.updaterStarter.kill();
+  }
+}
