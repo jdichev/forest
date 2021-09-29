@@ -111,7 +111,10 @@ export default function Feeds({ topMenu }: FeedsProps) {
           data.feedSearchTerm !== "" &&
           feed.title
             .toLowerCase()
-            .indexOf(data.feedSearchTerm.toLowerCase()) === -1
+            .indexOf(data.feedSearchTerm.toLowerCase()) === -1 &&
+          feed.url &&
+          feed.url.toLowerCase().indexOf(data.feedSearchTerm.toLowerCase()) ===
+            -1
         ) {
           feed.hidden = true;
         } else {
@@ -268,7 +271,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
                 className="form-control input"
                 name="feedSearchTerm"
                 id="feedSearchTerm"
-                placeholder="🔎"
+                placeholder="Search by feed name"
                 ref={inputSearchRef}
               />
             </div>

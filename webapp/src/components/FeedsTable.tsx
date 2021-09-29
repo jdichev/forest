@@ -21,8 +21,10 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
       </thead>
       <tbody>
         {feeds.map((feed) => {
-          return (
-            <tr key={feed.id} className={feed.hidden ? "d-none" : ""}>
+          return feed.hidden ? (
+            null
+          ) : (
+            <tr key={feed.id}>
               <td data-testid="feed-edit-link">
                 <Link
                   to={{
