@@ -60,7 +60,7 @@
 }
 
 :root {
-  --header-height: 32px;
+  --header-height: 26px;
   --sidebar-width: 12fr;
   --sidebar-min-width: 160px;
   --center-column-size: 42fr;
@@ -121,8 +121,8 @@ a:hover {
 #top-nav-brand,
 #top-nav-content {
   -webkit-app-region: drag;
-  // background: var(--header-bg);
-  border-bottom: 1px solid var(--header-bg);
+  background: var(--header-bg);
+  // border-bottom: 1px solid var(--header-bg);
 }
 
 #top-nav-brand a,
@@ -142,8 +142,8 @@ a:hover {
 #top-nav-content a {
   display: inline-block;
   padding: 0 16px;
-  line-height: 32px;
-  height: 32px;
+  line-height: var(--header-height);
+  height: var(--header-height);
   margin: 0 6px 0 0;
   border-radius: 0;
   cursor: pointer;
