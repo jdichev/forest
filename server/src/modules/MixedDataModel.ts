@@ -52,6 +52,10 @@ CREATE TABLE IF NOT EXISTS "items" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 COMMIT;
+
+INSERT INTO feed_categories (id, title, text)
+VALUES (0, "Uncategorized", "Uncategorized");
+
 `;
 
 // main data service
