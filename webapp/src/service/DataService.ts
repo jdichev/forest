@@ -1,7 +1,7 @@
 // main data service
 export default class DataService {
   private static instance: DataService;
-  private static getItemsController: AbortController;
+  private static getItemsController?: AbortController;
 
   public static getInstance(): DataService {
     if (this.instance === undefined) {
@@ -75,6 +75,8 @@ export default class DataService {
     }).catch((reason) => {
       console.log(reason.code, reason.message, reason.name);
     });
+
+    DataService.getItemsController = undefined;
 
     if (response) {
       const items = await response.json();
