@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS "feeds" (
 );
 CREATE TABLE IF NOT EXISTS "items" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"url"	TEXT NOT NULL,
+	"url"	TEXT NOT NULL UNIQUE,
 	"title"	TEXT NOT NULL,
 	"content"	TEXT,
 	"feed_id"	INTEGER NOT NULL DEFAULT 0,
@@ -929,12 +929,6 @@ export default class DataService {
       INSERT INTO items (url, title, content, feed_id, published, comments, created, json_content)
       VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
-
-    const itemExists = await this.itemExists(item);
-
-    if (itemExists) {
-      return Promise.resolve();
-    }
 
     return new Promise<void>((resolve) => {
       let content = "";

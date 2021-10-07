@@ -385,6 +385,7 @@ export default class FeedUpdater {
     bulkData = bulkData.filter((feedData) => {
       return feedData.items.length > 0;
     });
+
     const crawlEnd = Date.now();
 
     pino.trace("Crawl time %s", prettyMs(crawlEnd - crawlStart));
