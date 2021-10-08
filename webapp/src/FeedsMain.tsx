@@ -99,7 +99,9 @@ export default function Home({ topMenu }: HomeProps) {
   }, [showFeedCategories, updateFeedCategoryReadStats]);
 
   useEffect(() => {
-    const handleKeyUp = (e: KeyboardEvent) => {
+    const handleKeyUp = (e: KeyboardEvent) => {};
+
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Enter") {
         visitSite();
       }
@@ -163,10 +165,6 @@ export default function Home({ topMenu }: HomeProps) {
         setActiveNav("categories");
         showUnreadOnly();
       }
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // console.log(e);
     };
 
     window.addEventListener("keyup", handleKeyUp);
