@@ -1,4 +1,3 @@
-import crypto from "crypto";
 import axiosLib from "axios";
 import chunk from "lodash/chunk";
 import RssParser from "rss-parser";
@@ -28,12 +27,14 @@ export default class FeedUpdater {
     feeds?: Feed[] | undefined;
     updateLaunch?: number;
     nextUpdateTimes: { [key: string]: number };
-    lastFirstItems: { [key: string]: string };
-    lastFirstItemsInitialized: boolean;
+    feedFrequencies: { [key: string]: number };
+    feedProcessedItems: { [key: string]: string[] };
+    feedProcessedItemsInitialized: boolean;
   } = {
     nextUpdateTimes: {},
-    lastFirstItems: {},
-    lastFirstItemsInitialized: false,
+    feedFrequencies: {},
+    feedProcessedItems: {},
+    feedProcessedItemsInitialized: false,
   };
 
   constructor() {
@@ -43,22 +44,21 @@ export default class FeedUpdater {
       },
     });
 
+    // when testing
     const tempInstance = process.env.NODE_ENV === "test";
 
     const storageDir = tempInstance
       ? path.join(os.tmpdir(), ".forest-temp")
       : path.join(os.homedir(), ".forest");
 
-    const dbFileName = "update-cache.json";
+    const updateCacheFileName = "update-cache.json";
 
-    this.updateCacheFilePath = path.join(storageDir, dbFileName);
+    this.updateCacheFilePath = path.join(storageDir, updateCacheFileName);
 
     if (fs.existsSync(this.updateCacheFilePath)) {
-      const persistedCache = JSON.parse(
+      this.updateCache = JSON.parse(
         fs.readFileSync(this.updateCacheFilePath, "utf-8")
       );
-
-      this.updateCache = persistedCache;
     }
   }
 
@@ -89,8 +89,9 @@ export default class FeedUpdater {
 
           this.updateCache = {
             nextUpdateTimes: {},
-            lastFirstItems: {},
-            lastFirstItemsInitialized: false,
+            feedFrequencies: {},
+            feedProcessedItems: {},
+            feedProcessedItemsInitialized: false,
           };
 
           this.saveUpdateCache();
@@ -105,37 +106,48 @@ export default class FeedUpdater {
     });
   }
 
-  private async insertItems(individualData: FeedData) {
+  private async insertItems(feedData: FeedData) {
     return new Promise(async (resolve) => {
-      const feedKey = `${individualData.feed.id}`;
-      const itemsLength = individualData.items.length;
+      const feedKey = `${feedData.feed.id}`;
+      const itemsLen = feedData.items.length;
+
+      if (!this.updateCache.feedProcessedItems.hasOwnProperty(feedKey)) {
+        this.updateCache.feedProcessedItems[feedKey] = [];
+      }
 
       let iterations = 0;
-      for (const individualItem of individualData.items) {
-        if (this.updateCache.lastFirstItems[feedKey] === individualItem.link) {
-          break;
+
+      for (const individualItem of feedData.items) {
+        if (
+          this.updateCache.feedProcessedItems[feedKey].includes(
+            individualItem.link
+          )
+        ) {
+          continue;
         }
 
-        await dataModel.insertItem(individualItem, individualData.feed.id);
+        await dataModel.insertItem(individualItem, feedData.feed.id);
 
         iterations += 1;
       }
 
-      pino.debug(
-        "Full iterations %d for %d incoming items",
-        iterations,
-        itemsLength
-      );
+      pino.debug("%d added of total %d", iterations, itemsLen);
+      pino.trace("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
 
-      if (iterations === 0 && itemsLength > 0) {
-        pino.debug(
-          "0 iterations but not filtered via response hash for %s",
-          individualData.feed.feedUrl
-        );
+      if (iterations === 0 && itemsLen > 0) {
+        pino.debug("0 iterations", feedData.feed.feedUrl);
       }
 
-      if (itemsLength) {
-        this.updateCache.lastFirstItems[feedKey] = individualData.items[0].link;
+      if (itemsLen > 0) {
+        feedData.items.forEach((item) => {
+          if (
+            this.updateCache.feedProcessedItems[feedKey] &&
+            !this.updateCache.feedProcessedItems[feedKey].includes(item.link)
+          ) {
+            this.updateCache.feedProcessedItems[feedKey].push(item.link);
+          }
+        });
+
         this.saveUpdateCache();
       }
 
@@ -146,14 +158,17 @@ export default class FeedUpdater {
   private async insertBulkItems(bulkData: FeedData[]) {
     return new Promise(async (resolve) => {
       for (const individualData of bulkData) {
+        await this.updateFeedFrequencyData(individualData);
         await this.insertItems(individualData);
       }
+
+      this.saveUpdateCache();
 
       resolve(true);
     });
   }
 
-  private async loadIndividualFeedData(feed: Feed): Promise<FeedData> {
+  private async loadFeedData(feed: Feed): Promise<FeedData> {
     return new Promise(async (resolve) => {
       const response = await axios
         .get(feed.feedUrl, {
@@ -161,60 +176,47 @@ export default class FeedUpdater {
         })
         .catch((reason) => {
           pino.error(`Request error ${feed.feedUrl}:\n${reason}`);
-        });
 
-      if (!response) {
-        resolve({ feed, items: [] });
-        return;
-      }
+          resolve({ feed, items: [] });
+        });
 
       let resString = response ? response.data : "";
 
-      // remove some info because some sites like YT update the feed
-      // without actually adding articles which is OK but we don't need it
-      resString = resString.replace(/<pubdate>.*<\/pubdate>/g, "");
-      resString = resString.replace(/<published>.*<\/published>/g, "");
-      resString = resString.replace(/<lastBuildDate>.*<\/lastBuildDate>/g, "");
-      resString = resString.replace(/<media:(starRating|statistics).*\/>/g, "");
-
-      const hash = crypto.createHash("md5").update(resString).digest("hex");
-
-      if (
-        feed.lastHash === hash ||
-        (response &&
-          // @ts-ignore
-          response.hasOwnProperty("headers") &&
-          // @ts-ignore
-          response.headers["content-type"].indexOf("xml") === -1)
-      ) {
-        // do nothing - return empty items
-
-        resolve({
-          feed,
-          items: [],
-        });
-      } else {
-        await dataModel.updateHashForFeed(hash, feed);
-
-        this.rssParser
-          .parseString(resString)
-          .then((feedRes) => {
-            resolve({
-              feed,
-              items: feedRes.items as Item[],
-            });
-          })
-          .catch(async (reason) => {
-            pino.error(reason, `Parse error for resString:\n${resString}\n`);
-
-            await dataModel.markFeedError(feed);
-
-            resolve({
-              feed,
-              items: [],
-            });
+      this.rssParser
+        .parseString(resString)
+        .then((feedRes) => {
+          resolve({
+            feed,
+            items: feedRes.items as Item[],
           });
-      }
+        })
+        .catch(async (reason) => {
+          pino.error(
+            reason,
+            `Parse error for resString:\n----\n${resString}\n---`
+          );
+
+          await dataModel.markFeedError(feed);
+
+          resolve({
+            feed,
+            items: [],
+          });
+        });
+    });
+  }
+
+  public async updateFeedFrequencyData(feedData: FeedData) {
+    const publishedTimes = feedData.items.map((item) =>
+      MixedDataModel.getItemPublishedTime(item)
+    );
+
+    const avg = Scheduler.computeFrequency(publishedTimes);
+
+    this.updateCache.feedFrequencies[`${feedData.feed.id}`] = avg;
+
+    await dataModel.updateFeedTimings(feedData.feed, {
+      updateFrequency: avg,
     });
   }
 
@@ -224,7 +226,7 @@ export default class FeedUpdater {
       selectedFeed: feed,
     });
 
-    const avg = Scheduler.computeItemsFrequence(items);
+    const avg = Scheduler.computeItemsFrequency(items);
 
     await dataModel.updateFeedTimings(feed, {
       updateFrequency: avg,
@@ -243,9 +245,9 @@ export default class FeedUpdater {
     });
   }
 
-  private async loadBulkFeedData(feeds: Feed[]): Promise<FeedData[]> {
+  private async processBulkFeedData(feeds: Feed[]): Promise<FeedData[]> {
     const chunks = chunk(feeds, this.chunkSize);
-    pino.debug(`Chunks number: ${chunks.length}, ${this.chunkSize} feeds each`);
+    pino.debug(`Chunks num ${chunks.length}, ${this.chunkSize} feeds each`);
 
     return new Promise(async (resolve) => {
       let resultData: FeedData[] = [];
@@ -255,7 +257,7 @@ export default class FeedUpdater {
 
         const resultOfFeeds = await Promise.all(
           feedsChunk.map((feed) => {
-            return this.loadIndividualFeedData(feed);
+            return this.loadFeedData(feed);
           })
         );
 
@@ -277,117 +279,86 @@ export default class FeedUpdater {
     });
   }
 
-  private updateNextUpdateTimes(feeds: Feed[]) {
-    const now = Date.now();
+  // private updateNextUpdateTimes(feeds: Feed[]) {
+  //   const now = Date.now();
 
-    feeds.forEach((feed) => {
-      const feedKey = `${feed.id}`;
-      const ufr = feed.updateFrequency;
+  //   feeds.forEach((feed) => {
+  //     const feedKey = `${feed.id}`;
+  //     const ufr = feed.updateFrequency;
 
-      if (ufr && ufr > Scheduler.dayLength) {
-        this.updateCache.nextUpdateTimes[feedKey] =
-          now + Scheduler.quarterDayLength / 2;
-      } else if (
-        ufr &&
-        ufr > Scheduler.hafDayLength &&
-        ufr < Scheduler.dayLength
-      ) {
-        this.updateCache.nextUpdateTimes[feedKey] =
-          now + Scheduler.quarterDayLength / 2;
-      } else {
-        this.updateCache.nextUpdateTimes[feedKey] = now;
+  //     if (ufr && ufr > Scheduler.dayLength) {
+  //       this.updateCache.nextUpdateTimes[feedKey] =
+  //         now + Scheduler.quarterDayLength / 2;
+  //     } else if (
+  //       ufr &&
+  //       ufr > Scheduler.hafDayLength &&
+  //       ufr < Scheduler.dayLength
+  //     ) {
+  //       this.updateCache.nextUpdateTimes[feedKey] =
+  //         now + Scheduler.quarterDayLength / 2;
+  //     } else {
+  //       this.updateCache.nextUpdateTimes[feedKey] = now;
+  //     }
+  //   });
+
+  //   this.saveUpdateCache();
+  // }
+
+  // private filterByNextUpdateTime(feeds: Feed[]) {
+  //   const feedKeys = Object.keys(this.updateCache.nextUpdateTimes);
+
+  //   if (feedKeys.length === 0) {
+  //     pino.debug("no computed next times, returning");
+  //     return feeds;
+  //   }
+
+  //   const now = Date.now();
+
+  //   pino.debug(`unfiltered feeds length ${feeds.length}`);
+
+  //   const filteredFeeds = feeds.filter((feed) => {
+  //     const feedKey = `${feed.id}`;
+  //     return now > this.updateCache.nextUpdateTimes[feedKey];
+  //   });
+
+  //   pino.debug(`filtered feeds length ${filteredFeeds.length}`);
+
+  //   return filteredFeeds;
+  // }
+
+  private capProcessedItemsPerFeed() {
+    const processedItemsCap = 100;
+
+    const processedItems = this.updateCache.feedProcessedItems;
+
+    Object.keys(processedItems).forEach((feedKey) => {
+      const processedItemsLength = processedItems[feedKey].length;
+
+      if (processedItemsLength > processedItemsCap) {
+        this.updateCache.feedProcessedItems[feedKey] = processedItems[
+          feedKey
+        ].slice(processedItemsLength - processedItemsCap);
       }
-      this.saveUpdateCache();
     });
-  }
-
-  private filterByNextUpdateTime(feeds: Feed[]) {
-    const feedKeys = Object.keys(this.updateCache.nextUpdateTimes);
-
-    if (feedKeys.length === 0) {
-      pino.debug("no computed next times, returning");
-      return feeds;
-    }
-
-    const now = Date.now();
-
-    pino.debug(`unfiltered feeds length ${feeds.length}`);
-    const filteredFeeds = feeds.filter((feed) => {
-      const feedKey = `${feed.id}`;
-      return now > this.updateCache.nextUpdateTimes[feedKey];
-    });
-    pino.debug(`filtered feeds length ${filteredFeeds.length}`);
-
-    return filteredFeeds;
   }
 
   private saveUpdateCache() {
+    this.capProcessedItemsPerFeed();
+
     const updateCacheJson = JSON.stringify(this.updateCache);
 
     fs.writeFileSync(this.updateCacheFilePath, updateCacheJson);
   }
 
   public async updateItems() {
-    pino.debug(new Date().toISOString());
+    const feeds = await dataModel.getFeeds();
 
-    if (this.updateCache.updateLaunch === undefined) {
-      this.updateCache.updateLaunch = Date.now();
-      this.saveUpdateCache();
-      pino.debug(
-        "Started updates at %s",
-        prettyMs(this.updateCache.updateLaunch)
-      );
+    const updateStart = Date.now();
 
-      pino.debug("will update feed frequencies");
-      await this.updateFeedFrequencies();
-      pino.debug("updated feed frequencies");
-    }
+    await this.processBulkFeedData(feeds);
 
-    let feeds: Feed[];
-    if (this.updateCache.feeds?.length) {
-      pino.debug("Loading feeds from cache");
-      feeds = this.updateCache.feeds;
-    } else {
-      pino.debug("Loading feeds from db");
-      feeds = await dataModel.getFeeds();
-      this.updateCache.feeds = feeds;
-      this.saveUpdateCache();
-    }
+    const updateEnd = Date.now();
 
-    if (!this.updateCache.lastFirstItemsInitialized) {
-      pino.debug("Last first items not initialized.");
-      this.updateCache.lastFirstItemsInitialized = true;
-      this.saveUpdateCache();
-      const lastFirstItems = await dataModel.getFeedsLastFirstItems();
-
-      pino.debug(
-        "Initialized last first items with length: %d",
-        lastFirstItems.length
-      );
-
-      lastFirstItems.forEach((lastFirstItem) => {
-        const feedKey = `${lastFirstItem.id}`;
-        this.updateCache.lastFirstItems[feedKey] = lastFirstItem.url;
-        this.saveUpdateCache();
-      });
-    }
-
-    feeds = this.filterByNextUpdateTime(feeds);
-    this.updateNextUpdateTimes(feeds);
-
-    const crawlStart = Date.now();
-    const filteredFeeds = feeds.filter((feed) => {
-      return feed.error === undefined || feed.error < 30;
-    });
-
-    let bulkData = await this.loadBulkFeedData(filteredFeeds);
-
-    bulkData = bulkData.filter((feedData) => {
-      return feedData.items.length > 0;
-    });
-
-    const crawlEnd = Date.now();
-
-    pino.trace("Crawl time %s", prettyMs(crawlEnd - crawlStart));
+    pino.trace("Crawl time %s", prettyMs(updateEnd - updateStart));
   }
 }

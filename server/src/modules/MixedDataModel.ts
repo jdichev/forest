@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS "feeds" (
 	"feedType"	TEXT,
 	"error"	INTEGER DEFAULT 0,
 	"feedCategoryId"	INTEGER DEFAULT 0,
-	"lastHash"	TEXT,
 	"updateFrequency"	INTEGER DEFAULT 0,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
@@ -174,7 +173,6 @@ export default class DataService {
         feeds.feedUrl,
         feeds.feedType,
         feeds.feedCategoryId,
-        feeds.lastHash,
         feeds.error,
         feeds.updateFrequency,
         feed_categories.title as categoryTitle
@@ -924,6 +922,21 @@ export default class DataService {
     });
   }
 
+
+  public static getItemPublishedTime(item: Item) {
+    const possibleDateProperties = ["pubDate", "date", "isoDate"];
+    const dateProperty: string =
+      possibleDateProperties.find((datePropertyName) => {
+        return item.hasOwnProperty(datePropertyName);
+      }) || "";
+
+    const publishedTime = possibleDateProperties.includes(dateProperty)
+      ? Date.parse(item[dateProperty])
+      : Date.now();
+
+    return publishedTime;
+  }
+
   public async insertItem(item: Item, feedId: number | undefined) {
     const query = `
       INSERT INTO items (url, title, content, feed_id, published, comments, created, json_content)
@@ -966,20 +979,9 @@ export default class DataService {
         });
       }
 
-      const possibleDateProperties = ["pubDate", "date", "isoDate"];
-      const dateProperty: string =
-        possibleDateProperties.find((datePropertyName) => {
-          return item.hasOwnProperty(datePropertyName);
-        }) || "";
-
-      let publishedTime = possibleDateProperties.includes(dateProperty)
-        ? Date.parse(item[dateProperty])
-        : Date.now();
+      const publishedTime = DataService.getItemPublishedTime(item);
 
       const createdTime = Date.now();
-      if (!publishedTime) {
-        publishedTime = createdTime;
-      }
 
       this.database.run(
         query,
@@ -999,6 +1001,7 @@ export default class DataService {
         (error) => {
           if (error) {
             pino.error(error);
+            pino.trace("ITEM URL: %s,\nFEED: %s", item.link, feedId);
           }
 
           resolve();
@@ -1046,24 +1049,6 @@ export default class DataService {
         }
 
         resolve(rows || []);
-      });
-    });
-  }
-
-  public async updateHashForFeed(hash: string, feed: Feed) {
-    const query = `
-      UPDATE feeds
-      SET lastHash = ?
-      WHERE id = ?
-    `;
-
-    return new Promise((resolve) => {
-      this.database.run(query, [hash, feed.id], (error) => {
-        if (error) {
-          pino.error(error);
-        }
-
-        resolve(true);
       });
     });
   }

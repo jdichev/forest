@@ -8,17 +8,21 @@ export default class Scheduler {
 
   public static quarterDayLength = 1000 * 60 * 60 * 6;
 
-  public static computeItemsFrequence(items: Item[]) {
-    const publishedTimes = items
-      .map((item) => {
-        return item.published;
-      })
-      .sort((a, b) => b - a);
+  public static computeItemsFrequency(items: Item[]) {
+    const publishedTimes = items.map((item) => {
+      return item.published;
+    });
 
-    const timesBetweenA = publishedTimes.reverse().map((pubTime, i) => {
+    return this.computeFrequency(publishedTimes);
+  }
+
+  public static computeFrequency(publishedTimes: number[]) {
+    const sortedPublishedTimes = publishedTimes.sort((a, b) => b - a);
+
+    const timesBetweenA = sortedPublishedTimes.reverse().map((pubTime, i) => {
       if (i === 0) return 0;
 
-      return pubTime - publishedTimes[i - 1];
+      return pubTime - sortedPublishedTimes[i - 1];
     });
 
     const timesBetweenB = timesBetweenA.filter((pubTime) => {

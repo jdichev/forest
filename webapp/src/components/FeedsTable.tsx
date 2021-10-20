@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import prettyMs from "pretty-ms";
 
 export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
   return (
@@ -15,17 +16,20 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
             <small>Errors</small>
           </th>
           <th>
+            <small>Freq</small>
+          </th>
+          <th>
             <small>Actions</small>
           </th>
         </tr>
       </thead>
       <tbody>
         {feeds.map((feed) => {
-          return feed.hidden ? (
-            null
-          ) : (
+          return feed.hidden ? null : (
             <tr key={feed.id}>
               <td data-testid="feed-edit-link">
+                <small>{feed.id} </small>
+
                 <Link
                   to={{
                     pathname: `/feeds/edit/${feed.id}`,
@@ -40,6 +44,14 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
               </td>
               <td>
                 <small>{feed.error}</small>
+              </td>
+              <td>
+                <small>
+                  {feed.updateFrequency &&
+                    prettyMs(feed.updateFrequency, {
+                      colonNotation: true
+                    })}
+                </small>
               </td>
               <td>
                 <a

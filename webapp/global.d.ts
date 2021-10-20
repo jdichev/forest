@@ -10,6 +10,7 @@ interface Feed {
   feedCategoryId?: number;
   categoryTitle?: string;
   hidden?: boolean;
+  updateFrequency?: number
 }
 
 interface FeedCategory {
