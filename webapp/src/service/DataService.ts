@@ -76,9 +76,10 @@ export default class DataService {
       console.log(reason.code, reason.message, reason.name);
     });
 
+    DataService.getItemsController = undefined;
+    
     if (response) {
       const items = await response.json();
-      DataService.getItemsController = undefined;
       return Promise.resolve(items);
     }
 
