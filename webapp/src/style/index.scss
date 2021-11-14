@@ -131,10 +131,15 @@ a:hover {
   color: var(--main-color);
   border: none;
 }
+
 #top-nav-brand a:hover,
 #top-nav-content a:hover,
 #top-nav-content button:hover {
   color: var(--button-color-highlight);
+}
+
+#top-nav-brand a:focus-visible {
+  outline: none;
 }
 
 #top-nav-brand a,
