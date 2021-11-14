@@ -11,7 +11,7 @@ export default class Updater {
   private static task: cron.ScheduledTask;
 
   public static start() {
-    const UPDATE_FREQUENCY_MINUTES = 10;
+    const UPDATE_FREQUENCY_MINUTES = 30;
 
     const feedUpdater = new FeedUpdater();
 
