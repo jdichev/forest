@@ -63,7 +63,6 @@ export default function Home({ topMenu }: HomeProps) {
     let res;
     if (selectedFeed) {
       res = await ds.getItems({ size, unreadOnly, selectedFeed });
-      console.log(res);
     } else {
       res = await ds.getItems({ size, unreadOnly, selectedFeedCategory });
     }
@@ -101,7 +100,7 @@ export default function Home({ topMenu }: HomeProps) {
   useEffect(() => {
     const handleKeyUp = (e: KeyboardEvent) => {};
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
       if (e.code === "Enter") {
         visitSite();
       }
@@ -125,13 +124,39 @@ export default function Home({ topMenu }: HomeProps) {
       if (e.code === "KeyA") {
         if (activeNav === "items") {
           setActiveNav("categories");
-          document
-            .getElementById(
-              `category-${
-                selectedFeedCategory ? selectedFeedCategory.id : "all"
-              }`
-            )
-            ?.focus();
+
+          if (selectedFeed) {
+            document.getElementById(`feed-${selectedFeed.id}`)?.focus();
+          } else {
+            document
+              .getElementById(
+                `category-${
+                  selectedFeedCategory ? selectedFeedCategory.id : "all"
+                }`
+              )
+              ?.focus();
+          }
+        } else {
+          if (selectedFeedCategory) {
+            if (selectedFeedCategory.expanded) {
+              setSelectedFeed(undefined);
+            }
+
+            setFeedCategories((prev) => {
+              return prev.map((feedCategoryInner) => {
+                if (feedCategoryInner.id === selectedFeedCategory.id) {
+                  feedCategoryInner.expanded = !feedCategoryInner.expanded;
+                } else {
+                  feedCategoryInner.expanded = false;
+                }
+
+                return feedCategoryInner;
+              });
+            });
+
+            await loadCategoryFeeds(selectedFeedCategory);
+            await updateFeedReadStats();
+          }
         }
       }
 
@@ -280,8 +305,6 @@ export default function Home({ topMenu }: HomeProps) {
 
           return next;
         });
-
-        console.log(categoryFeeds);
       }
     },
     [categoryFeeds]
@@ -346,8 +369,6 @@ export default function Home({ topMenu }: HomeProps) {
         }
       );
 
-      console.log(`feedIndex ${feedIndex}`);
-
       const newFeedIndex = feedIndex + 1;
 
       if (newFeedIndex < categoryFeeds[`${selectedFeedCategory.id}`].length) {
@@ -383,15 +404,15 @@ export default function Home({ topMenu }: HomeProps) {
         }
       );
 
-      console.log(`feedIndex ${feedIndex}`);
-
       const newFeedIndex = feedIndex - 1;
 
       if (newFeedIndex === -1) {
         selectFeed(undefined);
+
         return;
       } else if (newFeedIndex >= 0) {
         selectFeed(categoryFeeds[`${selectedFeedCategory.id}`][newFeedIndex]);
+
         return;
       }
     }
@@ -405,7 +426,15 @@ export default function Home({ topMenu }: HomeProps) {
     if (newIndex === -1) {
       selectFeedCategory(undefined, undefined);
     } else if (newIndex >= 0) {
-      selectFeedCategory(feedCategories[newIndex], undefined);
+      const selectedFeedCategoryInner = feedCategories[newIndex];
+      selectFeedCategory(selectedFeedCategoryInner, undefined);
+
+      if (selectedFeedCategoryInner?.expanded) {
+        const selectedCategoryFeeds =
+          categoryFeeds[`${selectedFeedCategoryInner.id}`];
+
+        selectFeed(selectedCategoryFeeds[selectedCategoryFeeds.length - 1]);
+      }
     }
   }, [
     feedCategories,
