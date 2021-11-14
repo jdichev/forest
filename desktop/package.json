@@ -7,8 +7,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^11.2.1",
-    "electron-builder": "^22.10.5"
+    "electron": "^15.3.1",
+    "electron-builder": "^22.13.1"
   },
   "devServer": {
     "contentBase": "./dist"
@@ -18,8 +18,8 @@
     "forestserver": "~1.0.0",
     "forestwebapp": "~1.0.0",
     "lodash.union": "^4.6.0",
-    "pino": "^6.11.2",
-    "pino-pretty": "^7.0.1"
+    "pino": "^7.2.0",
+    "pino-pretty": "^7.2.0"
   },
   "build": {
     "productName": "Forest",
