@@ -108,7 +108,7 @@ export default function Home({ topMenu }: HomeProps) {
 
       if (e.code === "KeyW") {
         if (activeNav === "categories") {
-          selectPrevFeedCategory();
+          selectPrevFeedOrCategory();
         } else if (activeNav === "items") {
           selectPreviousItem();
         }
@@ -116,7 +116,7 @@ export default function Home({ topMenu }: HomeProps) {
 
       if (e.code === "KeyS") {
         if (activeNav === "categories") {
-          selectNextFeedCategory();
+          selectNextFeedOrCategory();
         } else if (activeNav === "items") {
           selectNextItem();
         }
@@ -304,11 +304,7 @@ export default function Home({ topMenu }: HomeProps) {
         .getElementById(`category-${feedCategory ? feedCategory.id : "all"}`)
         ?.focus();
 
-      if (
-        e &&
-        (e.target.classList.contains("categoryChevron") ||
-          (e.type === "dblclick" && feedCategory))
-      ) {
+      if (e && e.target.classList.contains("categoryChevron")) {
         setFeedCategories((prev) => {
           return prev.map((feedCategoryInner) => {
             if (feedCategoryInner.id === feedCategory.id) {
@@ -328,7 +324,39 @@ export default function Home({ topMenu }: HomeProps) {
     [loadCategoryFeeds, setFeedCategories, updateFeedReadStats]
   );
 
-  const selectNextFeedCategory = useCallback(() => {
+  /**
+   * Select a feed
+   */
+  const selectFeed = useCallback(
+    (feed) => {
+      setSize(50);
+      setSelectedFeed(feed);
+      setUnreadOnly(false);
+      listRef.current?.scrollTo(0, 0);
+      document.getElementById(`feed-${feed.id}`)?.focus();
+    },
+    [setSize]
+  );
+
+  const selectNextFeedOrCategory = useCallback(() => {
+    if (selectedFeedCategory?.expanded) {
+      const feedIndex = categoryFeeds[`${selectedFeedCategory.id}`].findIndex(
+        (categoryFeed) => {
+          return categoryFeed.id === selectedFeed?.id;
+        }
+      );
+
+      console.log(`feedIndex ${feedIndex}`);
+
+      const newFeedIndex = feedIndex + 1;
+
+      if (newFeedIndex < categoryFeeds[`${selectedFeedCategory.id}`].length) {
+        selectFeed(categoryFeeds[`${selectedFeedCategory.id}`][newFeedIndex]);
+
+        return;
+      }
+    }
+
     const index = feedCategories.findIndex((feedCategory) => {
       return feedCategory.id === selectedFeedCategory?.id;
     });
@@ -338,9 +366,36 @@ export default function Home({ topMenu }: HomeProps) {
     if (newIndex < feedCategories.length) {
       selectFeedCategory(feedCategories[newIndex], undefined);
     }
-  }, [feedCategories, selectedFeedCategory, selectFeedCategory]);
+  }, [
+    feedCategories,
+    selectedFeedCategory,
+    selectFeedCategory,
+    categoryFeeds,
+    selectedFeed,
+    selectFeed,
+  ]);
 
-  const selectPrevFeedCategory = useCallback(() => {
+  const selectPrevFeedOrCategory = useCallback(() => {
+    if (selectedFeedCategory?.expanded) {
+      const feedIndex = categoryFeeds[`${selectedFeedCategory.id}`].findIndex(
+        (categoryFeed) => {
+          return categoryFeed.id === selectedFeed?.id;
+        }
+      );
+
+      console.log(`feedIndex ${feedIndex}`);
+
+      const newFeedIndex = feedIndex - 1;
+
+      if (newFeedIndex === -1) {
+        selectFeed(undefined);
+        return;
+      } else if (newFeedIndex >= 0) {
+        selectFeed(categoryFeeds[`${selectedFeedCategory.id}`][newFeedIndex]);
+        return;
+      }
+    }
+
     const index = feedCategories.findIndex((feedCategory) => {
       return feedCategory.id === selectedFeedCategory?.id;
     });
@@ -352,7 +407,14 @@ export default function Home({ topMenu }: HomeProps) {
     } else if (newIndex >= 0) {
       selectFeedCategory(feedCategories[newIndex], undefined);
     }
-  }, [feedCategories, selectedFeedCategory, selectFeedCategory]);
+  }, [
+    feedCategories,
+    selectedFeedCategory,
+    selectFeedCategory,
+    categoryFeeds,
+    selectedFeed,
+    selectFeed,
+  ]);
 
   const selectNextItem = useCallback(() => {
     const index = items.findIndex((item) => {
@@ -381,19 +443,6 @@ export default function Home({ topMenu }: HomeProps) {
   const visitSite = useCallback(() => {
     article && window.open(article.url, "", "noopener,noreferrer");
   }, [article]);
-
-  /**
-   * Select a feed
-   */
-  const selectFeed = useCallback(
-    async (feed) => {
-      setSize(50);
-      setSelectedFeed(feed);
-      setUnreadOnly(false);
-      listRef.current?.scrollTo(0, 0);
-    },
-    [setSize]
-  );
 
   /**
    * Show unread only

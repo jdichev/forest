@@ -74,6 +74,7 @@ export default function CategoriesMain({
                           }
                         >
                           <button
+                            id={`feed-${categoryFeed.id}`}
                             type="button"
                             className="btn btn-sm btn-link text-decoration-none text-truncate"
                             onClick={() => selectFeed(categoryFeed)}
