@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
 import Feeds from "./FeedsMain";
 import FeedsList from "./FeedsList";
@@ -25,25 +25,42 @@ export default function App() {
     <div id="wrapper" className={twoColLayout ? "two-columns" : ""}>
       <Router>
         <div id="top-nav-brand">
-          <Link to="/" className="text-decoration-none" />
+          <NavLink to="/" className="text-decoration-none" />
         </div>
 
         <div className="main-content" id="top-nav-content">
           <div id="top-nav-menu" ref={navMenu} />
 
-          <div id="top-nav-options">
-            <Link
-              to="/feeds/add"
-              className="text-decoration-none"
-              id="add-feeds"
-            >
-              <i className="bi bi-plus"></i>
-            </Link>
+          <div id="top-nav-options"></div>
+        </div>
 
-            <Link to="/feeds/list" className="text-decoration-none">
-              <small>Feeds</small>
-            </Link>
-          </div>
+        <div id="side-menu">
+          <NavLink
+            exact
+            to="/"
+            className="text-decoration-none"
+            activeClassName="active-nav"
+          >
+            <i className="bi bi-book-fill"></i>
+          </NavLink>
+
+          <NavLink
+            exact
+            to="/feeds/list"
+            className="text-decoration-none"
+            activeClassName="active-nav"
+          >
+            <i className="bi bi-rss-fill"></i>
+          </NavLink>
+
+          <NavLink
+            exact
+            to="/feeds/add"
+            className="text-decoration-none"
+            activeClassName="active-nav"
+          >
+            <i className="bi bi-plus-square-fill"></i>
+          </NavLink>
         </div>
 
         <Switch>

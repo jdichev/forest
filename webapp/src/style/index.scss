@@ -62,6 +62,7 @@
 :root {
   --header-height: 26px;
   --sidebar-width: 12fr;
+  --side-menu-width: 40px;
   --sidebar-min-width: 160px;
   --center-column-size: 42fr;
   --right-column-size: 58fr;
@@ -110,7 +111,9 @@ a:hover {
 
 #wrapper {
   display: grid;
-  grid-template-columns: var(--sidebar-width) var(--main-column-size);
+  grid-template-columns: var(--side-menu-width) var(--sidebar-width) var(
+      --main-column-size
+    );
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
 }
 
@@ -138,10 +141,6 @@ a:hover {
   color: var(--button-color-highlight);
 }
 
-#top-nav-brand a:focus-visible {
-  outline: none;
-}
-
 #top-nav-brand a,
 #top-nav-content .btn,
 #top-nav-content a {
@@ -165,6 +164,8 @@ a:hover {
 
 #top-nav-brand {
   text-align: right;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 #top-nav-brand a {
@@ -183,11 +184,6 @@ a:hover {
   padding: 0 8px;
 }
 
-#add-feeds i {
-  font-size: 1.3rem;
-  line-height: calc(var(--header-height) - 2px);
-}
-
 #main-filter {
   display: inline-block;
   width: 50px;
@@ -199,6 +195,31 @@ a:hover {
 
 #unread-only {
   font-size: 0.7rem;
+}
+
+#side-menu {
+  background: var(--content-body-color);
+}
+
+#side-menu a {
+  color: var(--main-bg);
+  display: block;
+  width: var(--side-menu-width);
+  height: var(--side-menu-width);
+  line-height: var(--side-menu-width);
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  opacity: 0.6;
+}
+
+#side-menu a.active-nav {
+  opacity: 1;
+}
+
+#side-menu a:hover {
+  color: var(--button-color-highlight);
+  opacity: 1;
 }
 
 #sidebar-menu {
