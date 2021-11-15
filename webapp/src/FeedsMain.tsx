@@ -29,6 +29,8 @@ export default function Home({ topMenu }: HomeProps) {
 
   const [article, setArticle] = useState<Item>();
 
+  const [selectedItem, setSelectedItem] = useState<Item>();
+
   const [categoryFeeds, setCategoryFeeds] = useState<{
     [key: string]: FeedCategory[];
   }>({});
@@ -215,42 +217,46 @@ export default function Home({ topMenu }: HomeProps) {
     async (e: Event | undefined, item: Item) => {
       e?.preventDefault();
 
+      setSelectedItem(item);
+
       const article = await ds.getItem(item.id);
 
       if (article) {
         article.feedTitle = item.feedTitle;
       }
 
-      setArticle(article);
+      setTimeout(() => {
+        setArticle(article);
 
-      articleRef.current?.scrollTo(0, 0);
+        articleRef.current?.scrollTo(0, 0);
 
-      setActiveNav("items");
+        setActiveNav("items");
 
-      if (item.read === 0) {
-        ds.markItemRead(item)
-          .then(async () => {
-            await updateFeedCategoryReadStats();
-            await updateFeedReadStats();
+        if (item.read === 0) {
+          ds.markItemRead(item)
+            .then(async () => {
+              await updateFeedCategoryReadStats();
+              await updateFeedReadStats();
 
-            return null;
-          })
-          .catch((reason) => {
-            console.error(reason);
+              return null;
+            })
+            .catch((reason) => {
+              console.error(reason);
+            });
+
+          setItems((prevItems) => {
+            const nextItems = prevItems.map((prevItem) => {
+              if (prevItem === item) {
+                prevItem.read = 1;
+              }
+
+              return prevItem;
+            });
+
+            return nextItems;
           });
-
-        setItems((prevItems) => {
-          const nextItems = prevItems.map((prevItem) => {
-            if (prevItem === item) {
-              prevItem.read = 1;
-            }
-
-            return prevItem;
-          });
-
-          return nextItems;
-        });
-      }
+        }
+      }, 0);
     },
     [updateFeedCategoryReadStats, updateFeedReadStats]
   );
@@ -319,6 +325,7 @@ export default function Home({ topMenu }: HomeProps) {
       setSize(50);
       setSelectedFeedCategory(feedCategory);
       setArticle(undefined);
+      setSelectedItem(undefined);
       listRef.current?.scrollTo(0, 0);
       setActiveNav("categories");
 
@@ -478,6 +485,7 @@ export default function Home({ topMenu }: HomeProps) {
    */
   const showUnreadOnly = useCallback(async () => {
     setArticle(undefined);
+    setSelectedItem(undefined);
     setUnreadOnly(!unreadOnly);
   }, [unreadOnly]);
 
@@ -596,7 +604,7 @@ export default function Home({ topMenu }: HomeProps) {
 
           <ItemsTable
             items={items}
-            selectedItem={article}
+            selectedItem={selectedItem}
             selectItem={selectItem}
           />
         </div>
