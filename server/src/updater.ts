@@ -6,7 +6,6 @@ const pino = pinoLib({
   level: "trace",
 });
 
-
 export default class Updater {
   private static task: cron.ScheduledTask;
 
@@ -28,7 +27,9 @@ export default class Updater {
       }
     );
 
-    this.task.start();
+    setTimeout(() => {
+      this.task.start();
+    }, 1000 * 60);
   }
 
   public static stop() {
