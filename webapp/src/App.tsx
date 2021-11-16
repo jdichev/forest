@@ -41,7 +41,7 @@ export default function App() {
             className="text-decoration-none"
             activeClassName="active-nav"
           >
-            <i className="bi bi-book-fill"></i>
+            <i className="bi bi-layout-text-sidebar-reverse"></i>
           </NavLink>
 
           <NavLink
