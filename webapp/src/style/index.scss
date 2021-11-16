@@ -69,6 +69,8 @@
   --main-column-size: 88fr;
   --right-column-unitless-size: 62;
   --total-main-size: 100;
+  --side-menu-bg: #2d2d2d;
+  --side-menu-fg: #cccccc;
 }
 
 body#app-body {
@@ -198,11 +200,11 @@ a:hover {
 }
 
 #side-menu {
-  background: var(--content-body-color);
+  background: var(--side-menu-bg);
 }
 
 #side-menu a {
-  color: var(--main-bg);
+  color: var(--side-menu-fg);
   display: block;
   width: var(--side-menu-width);
   height: var(--side-menu-width);
