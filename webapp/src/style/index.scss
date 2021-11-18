@@ -143,6 +143,10 @@ a:hover {
   color: var(--button-color-highlight);
 }
 
+#top-nav-brand a:focus-visible {
+  outline: none;
+}
+
 #top-nav-brand a,
 #top-nav-content .btn,
 #top-nav-content a {
