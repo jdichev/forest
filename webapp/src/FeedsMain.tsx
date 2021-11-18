@@ -214,12 +214,14 @@ export default function Home({ topMenu }: HomeProps) {
       e?.preventDefault();
 
       setSelectedItem(item);
+      document.getElementById(`item-${item.id}`)?.focus();
 
       const article = await ds.getItem(item.id);
 
       if (article) {
         article.feedTitle = item.feedTitle;
       }
+
 
       setTimeout(() => {
         setArticle(article);
@@ -456,7 +458,7 @@ export default function Home({ topMenu }: HomeProps) {
     const newIndex = index + 1;
 
     if (newIndex < items.length) {
-      document.getElementById(`item-${items[newIndex].id}`)?.focus();
+      selectItem(undefined, items[newIndex]);
     }
   }, [article, items, selectItem]);
 
@@ -468,7 +470,7 @@ export default function Home({ topMenu }: HomeProps) {
     const newIndex = index - 1;
 
     if (newIndex >= 0) {
-      document.getElementById(`item-${items[newIndex].id}`)?.focus();
+      selectItem(undefined, items[newIndex]);
     }
   }, [article, items, selectItem]);
 
