@@ -731,9 +731,17 @@ export default class DataService {
 
   public async getItemById(itemId: number): Promise<Item | undefined> {
     const query = `
-      SELECT *
-      FROM items
-      WHERE id = ?
+      SELECT
+        items.id,
+        items.title,
+        items.published,
+        items.read,
+        feeds.title AS feedTitle
+      FROM
+        items
+      LEFT JOIN feeds ON
+        feeds.id = items.feed_id
+      WHERE items.id = ?
     `;
 
     return new Promise((resolve) => {
