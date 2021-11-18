@@ -100,8 +100,6 @@ export default function Home({ topMenu }: HomeProps) {
   }, [showFeedCategories, updateFeedCategoryReadStats]);
 
   useEffect(() => {
-    const handleKeyUp = (e: KeyboardEvent) => {};
-
     const handleKeyDown = async (e: KeyboardEvent) => {
       if (e.code === "Enter") {
         visitSite();
@@ -194,11 +192,9 @@ export default function Home({ topMenu }: HomeProps) {
       }
     };
 
-    window.addEventListener("keyup", handleKeyUp);
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
