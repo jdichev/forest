@@ -736,6 +736,7 @@ export default class DataService {
         items.title,
         items.published,
         items.read,
+        items.url,
         feeds.title AS feedTitle
       FROM
         items
