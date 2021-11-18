@@ -214,47 +214,36 @@ export default function Home({ topMenu }: HomeProps) {
       e?.preventDefault();
 
       setSelectedItem(item);
+
+      setActiveNav("items");
+
       document.getElementById(`item-${item.id}`)?.focus();
+
+      articleRef.current?.scrollTo(0, 0);
 
       const article = await ds.getItem(item.id);
 
-      if (article) {
-        article.feedTitle = item.feedTitle;
+      setArticle(article);
+
+      if (item.read === 0) {
+        await ds.markItemRead(item).catch((reason) => {
+          console.error(reason);
+        });
+        await updateFeedCategoryReadStats();
+        await updateFeedReadStats();
       }
+      
+      setItems((prevItems) => {
+        const nextItems = prevItems.map((prevItem) => {
+          if (prevItem === item) {
+            prevItem.read = 1;
+          }
 
+          return prevItem;
+        });
 
-      setTimeout(() => {
-        setArticle(article);
-
-        articleRef.current?.scrollTo(0, 0);
-
-        setActiveNav("items");
-
-        if (item.read === 0) {
-          ds.markItemRead(item)
-            .then(async () => {
-              await updateFeedCategoryReadStats();
-              await updateFeedReadStats();
-
-              return null;
-            })
-            .catch((reason) => {
-              console.error(reason);
-            });
-
-          setItems((prevItems) => {
-            const nextItems = prevItems.map((prevItem) => {
-              if (prevItem === item) {
-                prevItem.read = 1;
-              }
-
-              return prevItem;
-            });
-
-            return nextItems;
-          });
-        }
-      }, 0);
+        return nextItems;
+      });
     },
     [updateFeedCategoryReadStats, updateFeedReadStats]
   );
