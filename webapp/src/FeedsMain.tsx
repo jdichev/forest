@@ -226,24 +226,25 @@ export default function Home({ topMenu }: HomeProps) {
       setArticle(article);
 
       if (item.read === 0) {
+        setItems((prevItems) => {
+          const nextItems = prevItems.map((prevItem) => {
+            if (prevItem === item) {
+              prevItem.read = 1;
+            }
+
+            return prevItem;
+          });
+
+          return nextItems;
+        });
+
         await ds.markItemRead(item).catch((reason) => {
           console.error(reason);
         });
         await updateFeedCategoryReadStats();
-        await updateFeedReadStats();
+
+        updateFeedReadStats();
       }
-
-      setItems((prevItems) => {
-        const nextItems = prevItems.map((prevItem) => {
-          if (prevItem === item) {
-            prevItem.read = 1;
-          }
-
-          return prevItem;
-        });
-
-        return nextItems;
-      });
     },
     [updateFeedCategoryReadStats, updateFeedReadStats]
   );
