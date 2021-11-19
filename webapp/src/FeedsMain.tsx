@@ -232,7 +232,7 @@ export default function Home({ topMenu }: HomeProps) {
         await updateFeedCategoryReadStats();
         await updateFeedReadStats();
       }
-      
+
       setItems((prevItems) => {
         const nextItems = prevItems.map((prevItem) => {
           if (prevItem === item) {
@@ -441,7 +441,7 @@ export default function Home({ topMenu }: HomeProps) {
 
   const selectNextItem = useCallback(() => {
     const index = items.findIndex((item) => {
-      return item.id === article?.id;
+      return item.id === selectedItem?.id;
     });
 
     const newIndex = index + 1;
@@ -449,7 +449,7 @@ export default function Home({ topMenu }: HomeProps) {
     if (newIndex < items.length) {
       selectItem(undefined, items[newIndex]);
     }
-  }, [article, items, selectItem]);
+  }, [items, selectItem, selectedItem]);
 
   const selectPreviousItem = useCallback(() => {
     const index = items.findIndex((item) => {
