@@ -90,9 +90,8 @@ export default function Home({ topMenu }: HomeProps) {
 
   useEffect(() => {
     const updatesInterval = setInterval(() => {
-      // showFeedCategories();
       updateFeedCategoryReadStats();
-    }, 60000);
+    }, 6e4);
 
     return () => {
       clearInterval(updatesInterval);
