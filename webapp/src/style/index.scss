@@ -525,12 +525,12 @@ a:hover {
 #player {
   width: calc(
     (((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) -
-      82px
+      82px - var(--side-menu-width)
   );
   height: calc(
     (
         (((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) -
-          82px
+          82px - var(--side-menu-width)
       ) / 16 * 9
   );
 }
