@@ -69,6 +69,12 @@ export default function Home({ topMenu }: HomeProps) {
       res = await ds.getItems({ size, unreadOnly, selectedFeedCategory });
     }
 
+    if (unreadOnly) {
+      setActiveNav("categories");
+      setArticle(undefined);
+      setSelectedItem(undefined);
+    }
+
     setItems(res);
     updateFeedCategoryReadStats();
   }, [
