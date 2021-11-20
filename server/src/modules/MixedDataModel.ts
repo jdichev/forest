@@ -734,6 +734,8 @@ export default class DataService {
       SELECT
         items.id,
         items.title,
+        items.content,
+        items.json_content,
         items.published,
         items.read,
         items.url,
