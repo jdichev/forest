@@ -46,11 +46,8 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
                 <small>{feed.error}</small>
               </td>
               <td>
-                <small>
-                  {feed.updateFrequency &&
-                    prettyMs(feed.updateFrequency, {
-                      colonNotation: true
-                    })}
+                <small className="text-nowrap">
+                  {feed.updateFrequency && prettyMs(feed.updateFrequency)}
                 </small>
               </td>
               <td>
