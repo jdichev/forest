@@ -228,6 +228,17 @@ a:hover {
   opacity: 1;
 }
 
+#welcome-content {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  padding: 10% 15%;
+
+  h1, h2 {
+    font-weight: 400;
+    opacity: .8;
+  }
+}
+
 #sidebar-menu {
   padding-top: 8px;
   padding-left: 8px;

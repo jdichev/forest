@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { HashRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
-import Feeds from "./FeedsMain";
+import Home from "./Home";
+import FeedsMain from "./FeedsMain";
 import FeedsList from "./FeedsList";
 import FeedAdd from "./FeedAdd";
 import FeedEdit from "./FeedEdit";
@@ -37,7 +38,7 @@ export default function App() {
         <div id="side-menu">
           <NavLink
             exact
-            to="/"
+            to="/feeds/read"
             className="text-decoration-none"
             activeClassName="active-nav"
           >
@@ -64,7 +65,9 @@ export default function App() {
         </div>
 
         <Switch>
-          <Route path="/" exact render={() => <Feeds topMenu={navMenu} />} />
+          <Route path="/" exact component={Home} />
+
+          <Route path="/feeds/read" exact render={() => <FeedsMain topMenu={navMenu} />} />
 
           <Route
             path="/feeds/list"

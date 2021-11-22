@@ -7,7 +7,7 @@ import CategoriesMain from "./components/CategoriesMain";
 
 const ds = DataService.getInstance();
 
-export default function Home({ topMenu }: HomeProps) {
+export default function FeedsMain({ topMenu }: HomeProps) {
   const [items, setItems] = useState<Item[]>([]);
 
   const [feedCategories, setFeedCategories] = useState<FeedCategory[]>([]);
