@@ -603,7 +603,11 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         </div>
 
         <div id="content-panel" ref={articleRef}>
-          <Article article={article} />
+          <Article
+            article={article}
+            selectedFeedCategory={selectedFeedCategory}
+            selectedFeed={selectedFeed}
+          />
         </div>
       </main>
     </>

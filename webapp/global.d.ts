@@ -10,7 +10,7 @@ interface Feed {
   feedCategoryId?: number;
   categoryTitle?: string;
   hidden?: boolean;
-  updateFrequency?: number
+  updateFrequency?: number;
 }
 
 interface FeedCategory {
@@ -35,16 +35,29 @@ interface FeedCategoryReadStat {
 interface Item {
   id?: number;
   title: string;
-  read: 0 | 1;
+  read: 0 | 1 | number;
   published: number;
+  created: number;
   feedTitle?: string;
   url?: string;
+  comments?: string;
+  feed_id?: number;
+  jsonContent?: {
+    "yt-id"?: string;
+  };
+  content?: string;
 }
 
 // Components
 
 interface HomeProps {
   topMenu: React.RefObject<HTMLDivElement>;
+}
+
+interface ArticleProps {
+  article?: Item;
+  selectedFeedCategory?: FeedCategory;
+  selectedFeed?: Feed;
 }
 
 interface ItemsTableProps {

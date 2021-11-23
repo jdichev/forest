@@ -13,7 +13,7 @@ const textArticle = {
   comments: "https://elevenews.com/test-comments-link",
   read: 0,
   created: 1616342416254,
-  json_content: "",
+  json_content: {},
 };
 
 test("renders article", async () => {
@@ -45,7 +45,7 @@ const ytVideoArticle = {
   content: "",
   feed_id: 1068,
   published: 1616328013000,
-  comments: null,
+  comments: undefined,
   read: 1,
   created: 1616328618312,
   jsonContent: { "yt-id": "oCGAk-keIv4" },

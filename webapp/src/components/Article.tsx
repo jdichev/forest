@@ -2,7 +2,11 @@
 import FormattedDate from "./FormattedDate";
 
 // @ts-ignore
-export default function Article({ article }: ArticleProps) {
+export default function Article({
+  article,
+  selectedFeedCategory,
+  selectedFeed,
+}: ArticleProps) {
   if (article) {
     return (
       <article>
@@ -55,7 +59,13 @@ export default function Article({ article }: ArticleProps) {
           ) : (
             <></>
           )}
-          <div dangerouslySetInnerHTML={{ __html: article.content }} />
+
+          <div
+            dangerouslySetInnerHTML={{
+              //@ts-ignore
+              __html: article.content,
+            }}
+          />
         </div>
 
         <ul className="mt-4 fs-6" id="content-options">
@@ -92,9 +102,26 @@ export default function Article({ article }: ArticleProps) {
     );
   }
 
+  if (selectedFeed) {
+    return (
+      <article data-testid="article-placeholder">
+        <h2>{selectedFeed.title}</h2>
+      </article>
+    );
+  }
+
+  if (selectedFeedCategory) {
+    return (
+      <article data-testid="article-placeholder">
+        <h2>{selectedFeedCategory.title}</h2>
+      </article>
+    );
+  }
+
   return (
     <article data-testid="article-placeholder">
-      <h2>Happy reading!</h2>
+      <h2>Seeing all categories</h2>
+      <h3>Happy reading!</h3>
     </article>
   );
 }
