@@ -37,7 +37,7 @@ interface Item {
   title: string;
   read: 0 | 1 | number;
   published: number;
-  created: number;
+  created?: number;
   feedTitle?: string;
   url?: string;
   comments?: string;
