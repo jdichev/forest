@@ -1,7 +1,6 @@
 // main data service
 export default class DataService {
   private static instance: DataService;
-  private static getItemsController?: AbortController;
 
   public static getInstance(): DataService {
     if (this.instance === undefined) {
@@ -45,13 +44,6 @@ export default class DataService {
       selectedFeed: undefined,
     }
   ): Promise<Item[]> {
-    if (DataService.getItemsController) {
-      DataService.getItemsController.abort();
-    }
-
-    DataService.getItemsController = new AbortController();
-    const getItemsSignal = DataService.getItemsController.signal;
-
     const query = new URLSearchParams();
 
     if (params.size > 0) {
@@ -71,13 +63,10 @@ export default class DataService {
     const queryString = query.toString();
 
     const response = await fetch(`http://localhost:3031/items?${queryString}`, {
-      signal: getItemsSignal,
     }).catch((reason) => {
       console.log(reason.code, reason.message, reason.name);
     });
 
-    DataService.getItemsController = undefined;
-    
     if (response) {
       const items = await response.json();
       return Promise.resolve(items);
