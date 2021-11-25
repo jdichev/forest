@@ -1,6 +1,11 @@
 // main data service
 export default class DataService {
   private static instance: DataService;
+  private itemsPromiseReject: null | ((reason?: any) => void);
+
+  constructor() {
+    this.itemsPromiseReject = null;
+  }
 
   public static getInstance(): DataService {
     if (this.instance === undefined) {
@@ -29,6 +34,35 @@ export default class DataService {
     const feedReadStats = response.json();
 
     return Promise.resolve(feedReadStats);
+  }
+
+  private itemsTimeout: number = 0;
+
+  public async getItemsDeferred(
+    params: {
+      size: number;
+      unreadOnly: boolean;
+      selectedFeedCategory?: FeedCategory | undefined;
+      selectedFeed?: Feed | undefined;
+    } = {
+      size: 50,
+      unreadOnly: false,
+      selectedFeedCategory: undefined,
+      selectedFeed: undefined,
+    }
+  ): Promise<Item[]> {
+    this.itemsTimeout && clearTimeout(this.itemsTimeout);
+    this.itemsPromiseReject &&
+      this.itemsPromiseReject("Deferred call cancelled; new is scheduled");
+
+    return new Promise((resolve, reject) => {
+      this.itemsPromiseReject = reject;
+
+      this.itemsTimeout = window.setTimeout(async () => {
+        const res = await this.getItems(params);
+        resolve(res);
+      }, 350);
+    });
   }
 
   public async getItems(
@@ -62,8 +96,10 @@ export default class DataService {
 
     const queryString = query.toString();
 
-    const response = await fetch(`http://localhost:3031/items?${queryString}`, {
-    }).catch((reason) => {
+    const response = await fetch(
+      `http://localhost:3031/items?${queryString}`,
+      {}
+    ).catch((reason) => {
       console.log(reason.code, reason.message, reason.name);
     });
 

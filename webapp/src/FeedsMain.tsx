@@ -64,9 +64,21 @@ export default function FeedsMain({ topMenu }: HomeProps) {
   const showItems = useCallback(async () => {
     let res;
     if (selectedFeed) {
-      res = await ds.getItems({ size, unreadOnly, selectedFeed });
+      res = await ds
+        .getItemsDeferred({ size, unreadOnly, selectedFeed })
+        .catch((e) => {
+          console.log(e);
+        });
     } else {
-      res = await ds.getItems({ size, unreadOnly, selectedFeedCategory });
+      res = await ds
+        .getItemsDeferred({
+          size,
+          unreadOnly,
+          selectedFeedCategory,
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
 
     if (unreadOnly) {
@@ -75,8 +87,10 @@ export default function FeedsMain({ topMenu }: HomeProps) {
       setSelectedItem(undefined);
     }
 
-    setItems(res);
-    updateFeedCategoryReadStats();
+    if (res) {
+      setItems(res);
+      updateFeedCategoryReadStats();
+    }
   }, [
     size,
     selectedFeedCategory,
