@@ -314,7 +314,9 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         setCategoryFeeds((prev) => {
           const next = { ...prev };
 
-          next[feedIdStr] = feeds;
+          next[feedIdStr] = feeds.sort((a, b) =>
+            a.title.localeCompare(b.title)
+          );
 
           return next;
         });
