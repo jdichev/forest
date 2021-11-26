@@ -175,12 +175,19 @@ export default class DataService {
         feeds.feedCategoryId,
         feeds.error,
         feeds.updateFrequency,
-        feed_categories.title as categoryTitle
+        feed_categories.title as categoryTitle,
+        count(items.feed_id) as itemsCount
       FROM
         feeds
       LEFT JOIN feed_categories ON
         feed_categories.id = feeds.feedCategoryId
+      LEFT JOIN
+        items
+      ON
+        items.feed_id = feeds.id
       __WHERE_PLACEHOLDER__
+      GROUP BY
+        feeds.id
     `;
 
     let whereQuery = `
@@ -932,7 +939,6 @@ export default class DataService {
       });
     });
   }
-
 
   public static getItemPublishedTime(item: Item) {
     const possibleDateProperties = ["pubDate", "date", "isoDate"];

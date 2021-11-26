@@ -7,6 +7,7 @@ interface Feed {
   feedUrl: string;
   feedType?: string;
   error?: number;
+  itemsCount?: number;
   feedCategoryId?: number;
   categoryTitle?: string;
   hidden?: boolean;

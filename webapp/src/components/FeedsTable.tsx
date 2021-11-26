@@ -10,7 +10,7 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
             <small>Feed {feeds.length}</small>
           </th>
           <th>
-            <small>Link</small>
+            <small>Items</small>
           </th>
           <th>
             <small>Errors</small>
@@ -28,19 +28,21 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
           return feed.hidden ? null : (
             <tr key={feed.id}>
               <td data-testid="feed-edit-link">
-                <small>{feed.id} </small>
-
-                <Link
-                  to={{
-                    pathname: `/feeds/edit/${feed.id}`,
-                  }}
-                  className="text-decoration-none"
-                >
-                  {feed.title}
-                </Link>
+                <small>
+                  {feed.id}
+                  &nbsp;
+                  <Link
+                    to={{
+                      pathname: `/feeds/edit/${feed.id}`,
+                    }}
+                    className="text-decoration-none"
+                  >
+                    {feed.title}
+                  </Link>
+                </small>
               </td>
               <td>
-                <small> {feed.feedUrl}</small>
+                <small>{feed.itemsCount}</small>
               </td>
               <td>
                 <small>{feed.error}</small>
@@ -51,20 +53,20 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
                 </small>
               </td>
               <td>
-                <a
-                  data-testid="feed-delete-link"
-                  href="/"
-                  className="text-decoration-none"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // @ts-ignore
-                    removeFeed(feed.id);
-                  }}
-                >
-                  <small>
+                <small>
+                  <a
+                    data-testid="feed-delete-link"
+                    href="/"
+                    className="text-decoration-none"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // @ts-ignore
+                      removeFeed(feed.id);
+                    }}
+                  >
                     <i className="bi bi-trash"></i>
-                  </small>
-                </a>
+                  </a>
+                </small>
               </td>
             </tr>
           );
