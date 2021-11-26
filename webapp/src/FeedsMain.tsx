@@ -272,7 +272,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
    * Mark items as read. If filtered, only the ones matching
    * the filter wll be marked as read
    */
-  const markItemsRead = useCallback(() => {
+  const markItemsRead = useCallback(async () => {
     setUnreadOnly(false);
     setItems((prevItems) => {
       const nextItems = prevItems.map((prevItem) => {
@@ -284,17 +284,17 @@ export default function FeedsMain({ topMenu }: HomeProps) {
       return nextItems;
     });
 
-    ds.markItemsRead({
-      feedCategory: selectedFeedCategory,
-      feed: selectedFeed,
-    })
-      .then(async () => {
-        await updateFeedCategoryReadStats();
-        await updateFeedReadStats();
+    await ds
+      .markItemsRead({
+        feedCategory: selectedFeedCategory,
+        feed: selectedFeed,
       })
       .catch((reason) => {
         console.error(reason);
       });
+
+    await updateFeedCategoryReadStats();
+    await updateFeedReadStats();
   }, [
     selectedFeedCategory,
     selectedFeed,
