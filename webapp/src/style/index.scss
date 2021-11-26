@@ -233,9 +233,10 @@ a:hover {
   grid-column-end: 4;
   padding: 10% 15%;
 
-  h1, h2 {
+  h1,
+  h2 {
     font-weight: 400;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -296,9 +297,12 @@ a:hover {
 }
 
 #sidebar-menu li button span.menu-marker {
-  color: var(--link-color);
   font-size: 0.6rem;
   padding-left: 4px;
+}
+
+#sidebar-menu li button:hover span.menu-marker {
+  color: var(--link-color);
 }
 
 #sidebar-menu li button span.inner-label {
