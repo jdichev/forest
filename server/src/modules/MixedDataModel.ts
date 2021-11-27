@@ -84,6 +84,21 @@ export default class DataService {
         pino.error("Database opening error: ", err);
       }
 
+      const pragmaSettings = `
+        pragma journal_mode = WAL;
+        pragma synchronous = off;
+        pragma temp_store = memory;
+        pragma mmap_size = 30000000000;
+      `;
+
+      this.database.exec(pragmaSettings, (innerErr) => {
+        if (innerErr) {
+          pino.error(innerErr, "Error pragma settings");
+        }
+
+        pino.debug("pragma seetings executed");
+      });
+
       this.database.exec(seed, (innerErr) => {
         if (innerErr) {
           pino.error(innerErr, "Error executing seed:");
@@ -768,7 +783,14 @@ export default class DataService {
 
             row.content = domPurify.sanitize(row.content, {
               FORBID_TAGS: ["style"],
-              FORBID_ATTR: ["style", "width", "height", "class", "id"],
+              FORBID_ATTR: [
+                "style",
+                "width",
+                "height",
+                "class",
+                "id",
+                "bgcolor",
+              ],
             });
 
             row.content = row.content.replace(
