@@ -184,8 +184,6 @@ app.get("/feeds", async (req: Request, res: Response) => {
   let feeds;
   let selectedFeed;
 
-  // console.log(selectedFeedCategoryId);
-
   if (selectedFeedId !== undefined) {
     selectedFeed = await dataModel.getFeedById(selectedFeedId);
 
