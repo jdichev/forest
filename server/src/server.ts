@@ -273,7 +273,6 @@ app.use((req: Request, res: Response) => {
 });
 
 export default class server {
-  //@ts-ignore
   public static inst: Server;
 
   public static start(
