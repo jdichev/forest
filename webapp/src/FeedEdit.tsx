@@ -59,7 +59,10 @@ export default function FeedEdit() {
         <div id="feed-panel" className="p-4">
           <div id="panel-single-column">
             <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
-              <h3>Edit feed &quot;{formFeedData?.title}&quot;</h3>
+              <h3>
+                Edit feed{" "}
+                {formFeedData?.title ? formFeedData.title : "NO_TITLE"}
+              </h3>
               <div className="mb-3  input-group-sm">
                 <label htmlFor="feedUrl" className="form-label">
                   Feed URL

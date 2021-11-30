@@ -82,7 +82,11 @@ export default function CategoriesMain({
                               categoryFeed.title
                             } ${getUnreadCountForFeed(categoryFeed.id)}`}
                           >
-                            <span>{categoryFeed.title}</span>
+                            <span>
+                              {categoryFeed.title
+                                ? categoryFeed.title
+                                : "NO_TITLE"}
+                            </span>
 
                             <span className="menu-marker">
                               {getUnreadCountForFeed(categoryFeed.id)}
