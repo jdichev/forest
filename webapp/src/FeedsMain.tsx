@@ -545,10 +545,13 @@ export default function FeedsMain({ topMenu }: HomeProps) {
 
   const handleScroll = useCallback(
     (e) => {
+      const bottomScrollOffset = 5;
+
       if (
         Math.ceil(
           e.nativeEvent.target.scrollTop + e.nativeEvent.target.offsetHeight
-        ) >= e.nativeEvent.target.scrollHeight
+        ) >=
+        e.nativeEvent.target.scrollHeight - bottomScrollOffset
       ) {
         loadMore();
       }
