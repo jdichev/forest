@@ -13,7 +13,8 @@ export default function Article({
         <h2 id="title" dangerouslySetInnerHTML={{ __html: article.title }} />
 
         <p>
-          {article.feedTitle}, <FormattedDate pubDate={article.published} />
+          {article.feedTitle ? article.feedTitle : "NO_TITLE"},{" "}
+          <FormattedDate pubDate={article.published} />
           &nbsp;|&nbsp;♥&nbsp;
           <a
             data-testid="upper-outbound-link"

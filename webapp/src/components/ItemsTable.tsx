@@ -31,7 +31,7 @@ export default function ItemsTable({
                   />
                   <br />
                   <small className="item-list-details">
-                    {item.feedTitle},&nbsp;
+                    {item.feedTitle ? item.feedTitle : "NO_TITLE"},&nbsp;
                     <FormattedDate pubDate={item.published} />
                   </small>
                 </a>
