@@ -240,10 +240,6 @@ export default function FeedsMain({ topMenu }: HomeProps) {
 
       articleRef.current?.scrollTo(0, 0);
 
-      const article = await ds.getItem(item.id);
-
-      setArticle(article);
-
       if (item.read === 0) {
         setItems((prevItems) => {
           const nextItems = prevItems.map((prevItem) => {
@@ -260,10 +256,14 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         await ds.markItemRead(item).catch((reason) => {
           console.error(reason);
         });
+
         await updateFeedCategoryReadStats();
 
         updateFeedReadStats();
       }
+
+      const article = await ds.getItem(item.id);
+      setArticle(article);
     },
     [updateFeedCategoryReadStats, updateFeedReadStats]
   );
