@@ -83,7 +83,6 @@ export default function FeedsMain({ topMenu }: HomeProps) {
 
     if (unreadOnly) {
       setActiveNav("categories");
-      setArticle(undefined);
       setSelectedItem(undefined);
     }
 
