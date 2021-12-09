@@ -22,7 +22,7 @@ export default function ItemsTable({
                   aria-label={item.title}
                   className="text-decoration-none"
                   onClick={(e) => selectItem(e, item)}
-                  // onFocus={(e) => selectItem(e, item)}
+                  onFocus={(e) => selectItem(e, item)}
                   id={`item-${item.id}`}
                 >
                   <span

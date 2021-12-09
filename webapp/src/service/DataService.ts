@@ -1,12 +1,14 @@
 // main data service
 export default class DataService {
   private static instance: DataService;
-  private itemsPromiseReject: null | ((reason?: any) => void);
-  private itemPromiseReject: null | ((reason?: any) => void);
+  private itemsPromiseReject: undefined | ((reason?: any) => void);
+  private itemPromiseReject: undefined | ((reason?: any) => void);
+  private lastItemId: undefined | number;
 
   constructor() {
-    this.itemsPromiseReject = null;
-    this.itemPromiseReject = null;
+    this.itemsPromiseReject = undefined;
+    this.itemPromiseReject = undefined;
+    this.lastItemId = undefined;
   }
 
   public static getInstance(): DataService {
@@ -114,11 +116,18 @@ export default class DataService {
     return Promise.resolve([]);
   }
 
-  public async getItemDeferred(itemId: number | undefined): Promise<Item | undefined> {
+  public async getItemDeferred(
+    itemId: number | undefined
+  ): Promise<Item | undefined> {
+    if (this.lastItemId === itemId) {
+      return Promise.reject("Item already requested");
+    }
+
     this.itemTimeout && clearTimeout(this.itemTimeout);
     this.itemPromiseReject &&
       this.itemPromiseReject("Deferred item call cancelled; new is scheduled");
 
+    this.lastItemId = itemId;
     return new Promise((resolve, reject) => {
       this.itemPromiseReject = reject;
 
