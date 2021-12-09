@@ -261,7 +261,8 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         updateFeedReadStats();
       }
 
-      const article = await ds.getItem(item.id);
+      setArticle({ ...item, content: "Loading..." });
+      const article = await ds.getItemDeferred(item.id);
       setArticle(article);
     },
     [updateFeedCategoryReadStats, updateFeedReadStats]
