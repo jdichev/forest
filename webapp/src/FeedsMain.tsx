@@ -261,11 +261,13 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         updateFeedReadStats();
       }
 
-      setArticle({ ...item, content: "Loading..." });
-      const article = await ds.getItemDeferred(item.id);
-      setArticle(article);
+      if (article?.id !== item.id) {
+        setArticle({ ...item, content: "Loading..." });
+      }
+      const newArticle = await ds.getItemDeferred(item.id);
+      setArticle(newArticle);
     },
-    [updateFeedCategoryReadStats, updateFeedReadStats]
+    [article, updateFeedCategoryReadStats, updateFeedReadStats]
   );
 
   /**
