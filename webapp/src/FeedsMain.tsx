@@ -560,7 +560,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         showItems();
       }
     },
-    [showItems]
+    [loadMore, showItems]
   );
 
   return (
