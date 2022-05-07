@@ -32,6 +32,6 @@ export default class Updater {
 
   public static stop() {
     this.task.stop();
-    this.task.destroy();
+    // this.task.destroy();
   }
 }
