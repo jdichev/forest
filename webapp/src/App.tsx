@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { HashRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 
 import Home from "./Home";
 import FeedsMain from "./FeedsMain";
@@ -36,49 +36,30 @@ export default function App() {
         </div>
 
         <div id="side-menu">
-          <NavLink
-            exact
-            to="/feeds/read"
-            className="text-decoration-none"
-            activeClassName="active-nav"
-          >
+          <NavLink to="/feeds/read" className="text-decoration-none">
             <i className="bi bi-layout-text-sidebar-reverse"></i>
           </NavLink>
 
-          <NavLink
-            exact
-            to="/feeds/list"
-            className="text-decoration-none"
-            activeClassName="active-nav"
-          >
+          <NavLink to="/feeds/list" className="text-decoration-none">
             <i className="bi bi-rss-fill"></i>
           </NavLink>
 
-          <NavLink
-            exact
-            to="/feeds/add"
-            className="text-decoration-none"
-            activeClassName="active-nav"
-          >
+          <NavLink to="/feeds/add" className="text-decoration-none">
             <i className="bi bi-plus-square-fill"></i>
           </NavLink>
         </div>
 
-        <Switch>
-          <Route path="/" exact component={Home} />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-          <Route path="/feeds/read" exact render={() => <FeedsMain topMenu={navMenu} />} />
+          <Route path="/feeds/read" element={<FeedsMain topMenu={navMenu} />} />
 
-          <Route
-            path="/feeds/list"
-            exact
-            render={() => <FeedsList topMenu={navMenu} />}
-          />
+          <Route path="/feeds/list" element={<FeedsList topMenu={navMenu} />} />
 
-          <Route path="/feeds/add" exact component={FeedAdd} />
+          <Route path="/feeds/add" element={<FeedAdd />} />
 
-          <Route path="/feeds/edit/:feedId" component={FeedEdit} />
-        </Switch>
+          <Route path="/feeds/edit/:feedId" element={<FeedEdit />} />
+        </Routes>
       </Router>
     </div>
   );

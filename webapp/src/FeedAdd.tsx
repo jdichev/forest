@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { useHistory, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useNavigate, Link } from "react-router-dom";
+import { FieldValues, useForm } from "react-hook-form";
 import DataService from "./service/DataService";
 
 const ds = DataService.getInstance();
 
 export default function FeedAdd() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, getValues } = useForm();
   const useFormMethods2 = useForm();
@@ -29,43 +29,46 @@ export default function FeedAdd() {
     loadFeedCategories();
   }, []);
 
-  const onSubmitFirstStep = useCallback(async (data) => {
-    const inputFieldInitial = document.getElementById("feedUrlInitial");
-    inputFieldInitial?.setAttribute("disabled", "disabled");
+  const onSubmitFirstStep = useCallback(
+    async (data: FieldValues) => {
+      const inputFieldInitial = document.getElementById("feedUrlInitial");
+      inputFieldInitial?.setAttribute("disabled", "disabled");
 
-    const submitInitial = document.getElementById("feedSubmitInitial");
-    if (submitInitial) {
-      submitInitial.innerText = "Loading...";
-    }
-    submitInitial?.setAttribute("disabled", "disabled");
+      const submitInitial = document.getElementById("feedSubmitInitial");
+      if (submitInitial) {
+        submitInitial.innerText = "Loading...";
+      }
+      submitInitial?.setAttribute("disabled", "disabled");
 
-    const feeds = await ds.checkFeed(data.feedUrlInitial);
-    console.log(feeds);
+      const feeds = await ds.checkFeed(data.feedUrlInitial);
+      console.log(feeds);
 
-    if (submitInitial) {
-      submitInitial.innerText = "Go";
-    }
-    submitInitial?.removeAttribute("disabled");
-    inputFieldInitial?.removeAttribute("disabled");
+      if (submitInitial) {
+        submitInitial.innerText = "Go";
+      }
+      submitInitial?.removeAttribute("disabled");
+      inputFieldInitial?.removeAttribute("disabled");
 
-    if (feeds.length === 0) {
-      setInitialFormError(true);
-      setFormFeedData([]);
-      setCheckedFeeds([]);
-    } else {
-      setInitialFormError(false);
-      setFormFeedData(feeds);
-      const feedUrlsToCheck = feeds.map((feed) => {
-        return feed.feedUrl;
-      });
-      console.log(feedUrlsToCheck);
-      const checkedFeedsRes = await ds.checkFeedUrls(feedUrlsToCheck);
-      setCheckedFeeds(checkedFeedsRes);
-    }
-  }, []);
+      if (feeds.length === 0) {
+        setInitialFormError(true);
+        setFormFeedData([]);
+        setCheckedFeeds([]);
+      } else {
+        setInitialFormError(false);
+        setFormFeedData(feeds);
+        const feedUrlsToCheck = feeds.map((feed) => {
+          return feed.feedUrl;
+        });
+        console.log(feedUrlsToCheck);
+        const checkedFeedsRes = await ds.checkFeedUrls(feedUrlsToCheck);
+        setCheckedFeeds(checkedFeedsRes);
+      }
+    },
+    []
+  );
 
   const onSubmitSecondStep = useCallback(
-    async (index) => {
+    async (index: number) => {
       const data = getValues();
 
       await ds.addFeed({
@@ -83,19 +86,22 @@ export default function FeedAdd() {
       });
 
       if (formFeedData.length === checkedFeeds.length + 1) {
-        history.push("/feeds/list");
+        navigate("/feeds/list");
       }
     },
-    [getValues, history, checkedFeeds, formFeedData]
+    [getValues, navigate, checkedFeeds, formFeedData]
   );
 
-  const onSubmitFileImport = useCallback((data) => {
-    console.log(data);
+  const onSubmitFileImport = useCallback(
+    (data: FieldValues) => {
+      console.log(data);
 
-    const fileName = data.importFile[0].path;
+      const fileName = data.importFile[0].path;
 
-    ds.importOpmlFile(fileName);
-  }, []);
+      ds.importOpmlFile(fileName);
+    },
+    []
+  );
 
   return (
     <>
@@ -116,8 +122,8 @@ export default function FeedAdd() {
                   // placeholder="E.g. http://example.com or http://example.com/feed.rss"
                   className="form-control input"
                   id="feedUrlInitial"
-                  name="feedUrlInitial"
-                  ref={register({ required: true })}
+                  required
+                  {...register("feedUrlInitial")}
                 />
 
                 {initialFormError && (
@@ -154,26 +160,22 @@ export default function FeedAdd() {
                       <div className="col">
                         <input
                           type="hidden"
-                          name={`title-${i}`}
-                          ref={register}
+                          {...register(`title-${i}`)}
                           value={feedData.title}
                         />
                         <input
                           type="hidden"
-                          name={`url-${i}`}
-                          ref={register}
+                          {...register(`url-${i}`)}
                           value={feedData.url}
                         />
                         <input
                           type="hidden"
-                          name={`feedUrl-${i}`}
-                          ref={register}
+                          {...register(`feedUrl-${i}`)}
                           value={feedData.feedUrl}
                         />
                         <select
-                          name={`feedCategory-${i}`}
                           className="form-select form-select-sm"
-                          ref={register}
+                          {...register(`feedCategory-${i}`)}
                         >
                           {feedCategories.map((feedCategory) => {
                             return (
@@ -221,9 +223,9 @@ export default function FeedAdd() {
                   <input
                     className="form-control"
                     type="file"
-                    name="importFile"
                     id="importFile"
-                    ref={useFormMethods2.register({ required: true })}
+                    required
+                    {...useFormMethods2.register("importFile")}
                   />
                 </div>
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import ReactDOM from "react-dom";
 import DataService from "./service/DataService";
 import Article from "./components/Article";
@@ -305,8 +305,8 @@ export default function FeedsMain({ topMenu }: HomeProps) {
   ]);
 
   const loadCategoryFeeds = useCallback(
-    async (feedCategory) => {
-      const feedIdStr = `${feedCategory.id}`;
+    async (feedCategory: FeedCategory | undefined) => {
+      const feedIdStr = `${feedCategory?.id}`;
 
       if (!categoryFeeds[feedIdStr]) {
         const feeds = await ds.getFeeds({
@@ -331,7 +331,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
    * Select feed category, filtering items
    */
   const selectFeedCategory = useCallback(
-    async (feedCategory, e) => {
+    async (feedCategory: FeedCategory | undefined, e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined) => {
       setSelectedFeed(undefined);
       setSize(50);
       setSelectedFeedCategory(feedCategory);
@@ -345,10 +345,10 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         .getElementById(`category-${feedCategory ? feedCategory.id : "all"}`)
         ?.focus();
 
-      if (e && e.target.classList.contains("categoryChevron")) {
+      if (e && e.currentTarget.classList.contains("categoryChevron")) {
         setFeedCategories((prev) => {
           return prev.map((feedCategoryInner) => {
-            if (feedCategoryInner.id === feedCategory.id) {
+            if (feedCategoryInner.id === feedCategory?.id) {
               feedCategoryInner.expanded = !feedCategoryInner.expanded;
             } else {
               feedCategoryInner.expanded = false;
@@ -369,12 +369,12 @@ export default function FeedsMain({ topMenu }: HomeProps) {
    * Select a feed
    */
   const selectFeed = useCallback(
-    (feed) => {
+    (feed: FeedCategory | undefined) => {
       setSize(50);
-      setSelectedFeed(feed);
+      setSelectedFeed(feed as Feed);
       setUnreadOnly(false);
       listRef.current?.scrollTo(0, 0);
-      document.getElementById(`feed-${feed.id}`)?.focus();
+      document.getElementById(`feed-${feed?.id}`)?.focus();
     },
     [setSize]
   );
@@ -546,19 +546,19 @@ export default function FeedsMain({ topMenu }: HomeProps) {
   }, [feedCategoryReadStats]);
 
   const handleScroll = useCallback(
-    (e) => {
+    (e: React.UIEvent<HTMLDivElement>) => {
       const bottomScrollOffset = 5;
 
       if (
         Math.ceil(
-          e.nativeEvent.target.scrollTop + e.nativeEvent.target.offsetHeight
+          e.currentTarget.scrollTop + e.currentTarget.offsetHeight
         ) >=
-        e.nativeEvent.target.scrollHeight - bottomScrollOffset
+        e.currentTarget.scrollHeight - bottomScrollOffset
       ) {
         loadMore();
       }
 
-      if (e.nativeEvent.target.scrollTop === 0) {
+      if (e.currentTarget.scrollTop === 0) {
         showItems();
       }
     },

@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect, useCallback } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import DataService from "./service/DataService";
 import FeedsTable from "./components/FeedsTable";
 
@@ -40,7 +40,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
   }, [showFeeds]);
 
   const removeFeed = useCallback(
-    async (feedId) => {
+    async (feedId: number) => {
       await ds.removeFeed(feedId);
 
       showFeeds();
@@ -49,7 +49,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
   );
 
   const onAddFeedCategory = useCallback(
-    async (data) => {
+    async (data: FieldValues) => {
       const feedCategoryInput: FeedCategory = {
         title: data.feedCategoryName,
         text: data.feedCategoryName,
@@ -65,10 +65,13 @@ export default function Feeds({ topMenu }: FeedsProps) {
   );
 
   const selectFeedCategory = useCallback(
-    async (feedCategory, e) => {
-      if (e.target.classList.contains("deleteIcon")) {
+    async (
+      feedCategory: FeedCategory | null,
+      e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+      if (e.currentTarget.classList.contains("deleteIcon")) {
         const feedCategoryId = parseInt(
-          e.target.getAttribute("data-category-id"),
+          e.currentTarget.getAttribute("data-category-id") || "",
           10
         );
 
@@ -86,7 +89,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
         setShowNewCategoryFeedForm(false);
       } else {
-        setSelectedFeedCategory(feedCategory);
+        setSelectedFeedCategory(feedCategory as FeedCategory);
       }
     },
     [loadFeedCategories]
@@ -100,10 +103,10 @@ export default function Feeds({ topMenu }: FeedsProps) {
     setShowNewCategoryFeedForm(false);
   }, [setShowNewCategoryFeedForm]);
 
-  const inputRef = register({ required: true });
-  const inputSearchRef = register();
+  // const inputRef = register({ required: true });
+  // const inputSearchRef = register();
 
-  const onFeedSearch = useCallback((data) => {
+  const onFeedSearch = useCallback((data: FieldValues) => {
     console.log(data);
     setFeeds((prev) => {
       return prev.map((feed) => {
@@ -127,7 +130,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
 
   const [renameCategoryId, setRenameCategoryId] = useState();
 
-  const beginRenameFeedCategory = useCallback((category) => {
+  const beginRenameFeedCategory = useCallback((category: FieldValues) => {
     if (category.id !== 0) {
       setRenameCategoryId(category.id);
     }
@@ -138,7 +141,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
   }, []);
 
   const onRenameFeedCategory = useCallback(
-    async (data) => {
+    async (data: FieldValues) => {
       const feedCategoryInput: FeedCategory = {
         id: selectedFeedCategory?.id,
         title: data.feedCategoryName,
@@ -194,14 +197,13 @@ export default function Feeds({ topMenu }: FeedsProps) {
                       <input
                         type="text"
                         className="form-control input"
-                        name="feedCategoryName"
+                        {...register("feedCategoryName")}
                         id="feedCategoryName"
                         onBlur={stopRenameFeedCategory}
                         onKeyUp={(e) => {
                           e.code === "Escape" && stopRenameFeedCategory();
                         }}
                         defaultValue={feedCategory.title}
-                        ref={inputRef}
                       />
                     </div>
                   </form>
@@ -237,13 +239,12 @@ export default function Feeds({ topMenu }: FeedsProps) {
               <input
                 type="text"
                 className="form-control input"
-                name="feedCategoryName"
+                {...register("feedCategoryName")}
                 id="feedCategoryName"
                 onBlur={hideCategoryFeedForm}
                 onKeyUp={(e) => {
                   e.code === "Escape" && hideCategoryFeedForm();
                 }}
-                ref={inputRef}
               />
             </div>
           </form>
@@ -269,10 +270,9 @@ export default function Feeds({ topMenu }: FeedsProps) {
               <input
                 type="text"
                 className="form-control input"
-                name="feedSearchTerm"
+                {...register("feedSearchTerm")}
                 id="feedSearchTerm"
                 placeholder="Search by feed name"
-                ref={inputSearchRef}
               />
             </div>
           </form>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { useHistory, useParams, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { FieldValues, useForm } from "react-hook-form";
 import DataService from "./service/DataService";
 
 const ds = DataService.getInstance();
@@ -8,11 +8,15 @@ const ds = DataService.getInstance();
 export default function FeedEdit() {
   const { feedId } = useParams<{ feedId: string }>();
 
-  const feedIdNum = parseInt(feedId);
+  const feedIdNum = parseInt(feedId || "0");
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [feedCategories, setFeedCategories] = useState<FeedCategory[]>([]);
 
@@ -39,16 +43,16 @@ export default function FeedEdit() {
   }, [feedId, feedIdNum]);
 
   const onSubmit = useCallback(
-    async (data) => {
+    async (data: FieldValues) => {
       data.id = feedId;
       data.feedCategoryId = parseInt(data.feedCategoryId);
       data.id = parseInt(data.id);
 
-      await ds.updateFeed(data);
+      await ds.updateFeed(data as Feed);
 
-      history.push("/feeds/list");
+      navigate("/feeds/list");
     },
-    [history, feedId]
+    [navigate, feedId]
   );
 
   return (
@@ -71,8 +75,8 @@ export default function FeedEdit() {
                   type="url"
                   className="form-control"
                   id="feedUrl"
-                  name="feedUrl"
-                  ref={register({ required: true })}
+                  required
+                  {...register("feedUrl")}
                   defaultValue={formFeedData?.feedUrl}
                 />
                 {errors.feedUrl && <p>Feed URL is needed</p>}
@@ -85,9 +89,8 @@ export default function FeedEdit() {
                   type="text"
                   className="form-control"
                   id="feedTitle"
-                  name="title"
                   maxLength={256}
-                  ref={register}
+                  {...register("title")}
                   defaultValue={formFeedData?.title}
                 />
               </div>
@@ -99,8 +102,7 @@ export default function FeedEdit() {
                   className="form-select"
                   aria-label="Default select example"
                   id="feedCategoryId"
-                  name="feedCategoryId"
-                  ref={register}
+                  {...register("feedCategoryId")}
                   value={formFeedData?.feedCategoryId}
                   onChange={(e) => {
                     if (formFeedData) {
