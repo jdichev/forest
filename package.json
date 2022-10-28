@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/jdichev/forest#readme",
   "devDependencies": {
-    "husky": "^7.0.0"
+    "husky": "^8.0.1"
   }
 }
