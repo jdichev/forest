@@ -15,6 +15,7 @@ export default function FeedEdit() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -37,10 +38,14 @@ export default function FeedEdit() {
       const feed = await ds.getFeedById(feedIdNum);
 
       setFormFeedData(feed);
+
+      setValue("feedUrl", feed?.feedUrl)
+      setValue("title", feed?.title)
+      setValue("feedCategoryId", feed?.feedCategoryId)
     };
 
     loadFormFeedData();
-  }, [feedId, feedIdNum]);
+  }, [feedId, feedIdNum, setValue]);
 
   const onSubmit = useCallback(
     async (data: FieldValues) => {
@@ -77,21 +82,19 @@ export default function FeedEdit() {
                   id="feedUrl"
                   required
                   {...register("feedUrl")}
-                  defaultValue={formFeedData?.feedUrl}
                 />
                 {errors.feedUrl && <p>Feed URL is needed</p>}
               </div>
               <div className="mb-3  input-group-sm">
-                <label htmlFor="feedTitle" className="form-label">
+                <label htmlFor="title" className="form-label">
                   Feed Title
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="feedTitle"
+                  id="title"
                   maxLength={256}
                   {...register("title")}
-                  defaultValue={formFeedData?.title}
                 />
               </div>
               <div className="mb-3  input-group-sm">
@@ -103,7 +106,6 @@ export default function FeedEdit() {
                   aria-label="Default select example"
                   id="feedCategoryId"
                   {...register("feedCategoryId")}
-                  value={formFeedData?.feedCategoryId}
                   onChange={(e) => {
                     if (formFeedData) {
                       const newFormFeedData = { ...formFeedData };
