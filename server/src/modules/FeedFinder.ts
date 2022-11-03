@@ -46,7 +46,7 @@ export default class FeedFinder {
   }
 
   static async getContentType(url: string): Promise<string | undefined> {
-    const res = await axios.head(url).catch((reson) => {
+    const res = await axios.get(url).catch((reson) => {
       pino.error(reson);
     });
 
