@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "scripts": {
     "upd": "ncu -u --target patch",
-    "start": "nodemon src/scripts/dev-starter.ts",
+    "start": "nodemon src/scripts/dev-starter.ts | pino-pretty",
     "build": "tsc -p .",
     "test": "jest"
   },
