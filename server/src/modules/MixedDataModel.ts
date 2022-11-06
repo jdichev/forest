@@ -99,17 +99,25 @@ export default class DataService {
         pino.debug("pragma seetings executed");
       });
 
-      this.database.exec(seed, (innerErr) => {
-        if (innerErr) {
-          pino.error(innerErr, "Error executing seed:");
-        }
+      // Check if DB initialized
+      this.database.get(
+        "SELECT FROM feed_categories WHERE id = 0",
+        (innerErr) => {
+          if (!innerErr) {
+            this.database.exec(seed, (seedErr) => {
+              if (seedErr) {
+                pino.error(seedErr, "Error executing seed");
+              }
 
-        pino.debug(
-          `Database initialized OK in mode ${
-            tempInstance ? "temp" : "not-temp"
-          }`
-        );
-      });
+              pino.debug(
+                `Database initialized in mode ${
+                  tempInstance ? "temp" : "not-temp"
+                }`
+              );
+            });
+          }
+        }
+      );
     });
   }
 
