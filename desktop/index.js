@@ -1,7 +1,6 @@
 const path = require("path");
 const { app, BrowserWindow, shell } = require("electron");
 const projectConfig = require("forestconfig");
-const forestserver = require("forestserver").default;
 const MenuBuilder = require("./menu");
 
 let serverStared = false;
@@ -10,6 +9,7 @@ function startServer() {
   if (serverStared) {
     return;
   }
+  const forestserver = require("forestserver").default;
 
   forestserver.start();
 
