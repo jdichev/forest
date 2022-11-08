@@ -123,7 +123,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         visitSite();
       }
 
-      if (e.code === "KeyW") {
+      if (e.code === "KeyW" || e.code === "KeyK") {
         if (activeNav === "categories") {
           selectPrevFeedOrCategory();
         } else if (activeNav === "items") {
@@ -131,7 +131,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyS") {
+      if (e.code === "KeyS" || e.code === "KeyJ") {
         if (activeNav === "categories") {
           selectNextFeedOrCategory();
         } else if (activeNav === "items") {
@@ -139,7 +139,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyA") {
+      if (e.code === "KeyA" || e.code === "KeyH") {
         if (activeNav === "items") {
           setActiveNav("categories");
 
@@ -178,7 +178,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyD") {
+      if (e.code === "KeyD" || e.code === "KeyL") {
         if (items.length === 0) {
           return;
         }
