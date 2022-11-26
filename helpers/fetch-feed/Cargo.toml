@@ -1,0 +1,23 @@
+[package]
+name = "fetch-feed"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1", features = ["full"] }
+syndication = "0.5.0"
+serde_json = "1.0"
+dateparser = "0.1.7"
+ammonia = "3"
+libc = "0.2.137"
+futures = "0.3"
+
+[dev-dependencies]
+httpmock = "0.6"
+
+[lib]
+name = "fetch_feed"
+crate-type = ["rlib", "dylib"]

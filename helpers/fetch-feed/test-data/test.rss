@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>Excepteur sint occaecat cupidatat</title>
+  <link>https://as.df.com</link>
+  <description>Quis autem vel eum iure reprehenderit</description>
+  <item>
+    <title>Item 1</title>
+    <link>https://as.df.com/1</link>
+    <description>Nam libero tempore, cum soluta nobis</description>
+  </item>
+  <item>
+    <title>Item 2</title>
+    <link>https://as.df.com/2</link>
+    <description>Et harum quidem rerum facilis est et expedita</description>
+  </item>
+</channel>
+
+</rss>

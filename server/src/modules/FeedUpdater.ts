@@ -1,6 +1,4 @@
-import axiosLib from "axios";
 import chunk from "lodash/chunk";
-import RssParser from "rss-parser";
 import pinoLib from "pino";
 import prettyMs from "pretty-ms";
 import fs from "fs";
@@ -8,17 +6,15 @@ import os from "os";
 import path from "path";
 import MixedDataModel from "./MixedDataModel";
 import Scheduler from "./Scheduler";
+//@ts-ignore
+import { fetchFeed } from "fetch-feed";
 
 const pino = pinoLib({
   level: "trace",
 });
 const dataModel = MixedDataModel.getInstance();
 
-const axios = axiosLib.create();
-
 export default class FeedUpdater {
-  private rssParser: RssParser;
-
   private chunkSize = 3;
 
   private updateCacheFilePath;
@@ -38,12 +34,6 @@ export default class FeedUpdater {
   };
 
   constructor() {
-    this.rssParser = new RssParser({
-      xml2js: {
-        emptyTag: "EMPTY_TAG",
-      },
-    });
-
     // when testing
     const tempInstance = process.env.NODE_ENV === "test";
 
@@ -65,44 +55,47 @@ export default class FeedUpdater {
   public async addFeed(feedData: Feed) {
     pino.debug(feedData, "feed data");
 
-    return new Promise((resolve) => {
-      this.rssParser
-        .parseURL(feedData.feedUrl)
-        .then(async (feedRes) => {
-          const feed: Feed = {
-            title: feedRes.title || "",
-            feedUrl: feedData.feedUrl,
-            url: feedRes.link || "",
-            feedCategoryId: feedData.feedCategoryId,
-          };
+    return new Promise(async (resolve, reject) => {
+      // console.log(feedData);
+      const feedResStr = fetchFeed(feedData.feedUrl);
+      // console.log(feedResStr);
+      const feedRes = JSON.parse(feedResStr);
+      // console.log(feedRes);
 
-          await dataModel.insertFeed(feed);
+      if (feedRes.error) {
+        pino.error(feedRes.error);
+        reject(feedRes.error);
+        return;
+      }
 
-          const feedFromDb = await dataModel.getFeedByUrl(feedData.feedUrl);
+      const feed: Feed = {
+        title: feedRes.title || "",
+        feedUrl: feedData.feedUrl,
+        url: feedRes.links.length ? feedRes.links[0] : "",
+        feedCategoryId: feedData.feedCategoryId,
+      };
 
-          await this.insertItems({
-            feed: feedFromDb,
-            items: feedRes.items as Item[],
-          });
+      await dataModel.insertFeed(feed);
 
-          await this.updateFeedFrequency(feedFromDb);
+      const feedFromDb = await dataModel.getFeedByUrl(feedData.feedUrl);
 
-          this.updateCache = {
-            nextUpdateTimes: {},
-            feedFrequencies: {},
-            feedProcessedItems: {},
-            feedProcessedItemsInitialized: false,
-          };
+      await this.insertItems({
+        feed: feedFromDb,
+        items: feedRes.items as Item[],
+      });
 
-          this.saveUpdateCache();
+      await this.updateFeedFrequency(feedFromDb);
 
-          resolve(feed);
-        })
-        .catch((e) => {
-          pino.error(e);
+      this.updateCache = {
+        nextUpdateTimes: {},
+        feedFrequencies: {},
+        feedProcessedItems: {},
+        feedProcessedItemsInitialized: false,
+      };
 
-          resolve(e);
-        });
+      this.saveUpdateCache();
+
+      resolve(feed);
     });
   }
 
@@ -170,39 +163,19 @@ export default class FeedUpdater {
 
   private async loadFeedData(feed: Feed): Promise<FeedData> {
     return new Promise(async (resolve) => {
-      const response = await axios
-        .get(feed.feedUrl, {
-          timeout: 2000,
-        })
-        .catch((reason) => {
-          pino.error(`Request error ${feed.feedUrl}:\n${reason}`);
+      const feedResStr = fetchFeed(feed.feedUrl);
+      const feedRes = JSON.parse(feedResStr);
 
-          resolve({ feed, items: [] });
-        });
+      if (feedRes.error) {
+        pino.error(`Fetching feed error ${feed.feedUrl}:\n${feedRes.error}`);
+        resolve({ feed, items: [] });
+        return;
+      }
 
-      let resString = response ? response.data : "";
-
-      this.rssParser
-        .parseString(resString)
-        .then((feedRes) => {
-          resolve({
-            feed,
-            items: feedRes.items as Item[],
-          });
-        })
-        .catch(async (reason) => {
-          pino.error(
-            reason,
-            `Parse error for resString:\n----\n${resString}\n---`
-          );
-
-          await dataModel.markFeedError(feed);
-
-          resolve({
-            feed,
-            items: [],
-          });
-        });
+      resolve({
+        feed,
+        items: feedRes.items as Item[],
+      });
     });
   }
 
@@ -278,53 +251,6 @@ export default class FeedUpdater {
       resolve(resultData);
     });
   }
-
-  // private updateNextUpdateTimes(feeds: Feed[]) {
-  //   const now = Date.now();
-
-  //   feeds.forEach((feed) => {
-  //     const feedKey = `${feed.id}`;
-  //     const ufr = feed.updateFrequency;
-
-  //     if (ufr && ufr > Scheduler.dayLength) {
-  //       this.updateCache.nextUpdateTimes[feedKey] =
-  //         now + Scheduler.quarterDayLength / 2;
-  //     } else if (
-  //       ufr &&
-  //       ufr > Scheduler.hafDayLength &&
-  //       ufr < Scheduler.dayLength
-  //     ) {
-  //       this.updateCache.nextUpdateTimes[feedKey] =
-  //         now + Scheduler.quarterDayLength / 2;
-  //     } else {
-  //       this.updateCache.nextUpdateTimes[feedKey] = now;
-  //     }
-  //   });
-
-  //   this.saveUpdateCache();
-  // }
-
-  // private filterByNextUpdateTime(feeds: Feed[]) {
-  //   const feedKeys = Object.keys(this.updateCache.nextUpdateTimes);
-
-  //   if (feedKeys.length === 0) {
-  //     pino.debug("no computed next times, returning");
-  //     return feeds;
-  //   }
-
-  //   const now = Date.now();
-
-  //   pino.debug(`unfiltered feeds length ${feeds.length}`);
-
-  //   const filteredFeeds = feeds.filter((feed) => {
-  //     const feedKey = `${feed.id}`;
-  //     return now > this.updateCache.nextUpdateTimes[feedKey];
-  //   });
-
-  //   pino.debug(`filtered feeds length ${filteredFeeds.length}`);
-
-  //   return filteredFeeds;
-  // }
 
   private capProcessedItemsPerFeed() {
     const processedItemsCap = 100;

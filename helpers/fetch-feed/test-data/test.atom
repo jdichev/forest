@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Excepteur sint occaecat cupidatat</title>
+  <link href="https://as.df.com"/>
+  <updated>2003-12-13T18:30:02Z</updated>
+  <author>
+    <name>A B C</name>
+  </author>
+  <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
+
+  <entry>
+    <title>Item 1</title>
+    <link href="https://as.df.com/1"/>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+    <updated>2003-12-13T18:30:02Z</updated>
+    <summary>Nam libero tempore, cum soluta nobi</summary>
+  </entry>
+  <entry>
+    <title>Item 2</title>
+    <link href="https://as.df.com/2"/>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6b</id>
+    <updated>2003-12-13T18:30:02Z</updated>
+    <summary>Et harum quidem rerum facilis est et expedita</summary>
+  </entry>
+
+</feed>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>feeds collection</title>
+    </head>
+    <body>
+        <outline text="All" title="All">
+            <outline text="php|architect" title="php|architect" xmlUrl="http://feeds.feedburner.com/phpa" htmlUrl="https://www.phparch.com/" />
+            <outline text="Chromium Blog" title="Chromium Blog" xmlUrl="http://blog.chromium.org/feeds/posts/default" htmlUrl="http://blog.chromium.org/" />
+            <outline text="ember.js: a framework for ambitious web developers" title="ember.js: a framework for ambitious web developers" xmlUrl="http://www.reddit.com/r/emberjs/.rss" htmlUrl="https://www.reddit.com/r/emberjs/" />
+            <outline text="Prateek's Blog" title="Prateek's Blog" xmlUrl="https://prateeksurana.me/blog/feed.xml" htmlUrl="https://prateeksurana.me/blog/" />
+            <outline text="bobdc.blog" title="bobdc.blog" xmlUrl="http://www.snee.com/bobdc.blog/bobdcblogfull.atom" htmlUrl="http://www.snee.com/bobdc.blog/" />
+            <outline text="Rob Ashton's blog" title="Rob Ashton's blog" xmlUrl="http://feed.codeofrob.com/robashton&amp;x=1" htmlUrl="http://codeofrob.com" />
+            <outline text="24 ways" title="24 ways" xmlUrl="http://feeds.feedburner.com/24ways" htmlUrl="https://24ways.org/" />
+            <outline text="Coding Horror" title="Coding Horror" xmlUrl="http://www.codinghorror.com/blog/index.xml" htmlUrl="https://blog.codinghorror.com/" />
+            <outline text="All Things Distributed" title="All Things Distributed" xmlUrl="http://www.allthingsdistributed.com/atom.xml" htmlUrl="https://www.allthingsdistributed.com/" />
+            <outline text="AddyOsmani.com | Articles for developers" title="AddyOsmani.com | Articles for developers" xmlUrl="http://feeds.feedburner.com/addyosmani" htmlUrl="http://addyosmani.com/blog" />
+            <outline text="②ality – JavaScript and more" title="②ality – JavaScript and more" xmlUrl="http://feeds.feedburner.com/2ality" htmlUrl="https://2ality.com/" />
+            <outline text="code-diesel" title="code-diesel" xmlUrl="http://www.codediesel.com/feed/" htmlUrl="http://www.codediesel.com" />
+            <outline text="Rust Blog" title="Rust Blog" xmlUrl="http://blog.rust-lang.org/feed.xml" htmlUrl="https://blog.rust-lang.org/" />
+            <outline text="Hidden Variables" title="Hidden Variables" xmlUrl="http://domenic.me/atom.xml" htmlUrl="https://blog.domenic.me/" />
+            <outline text="Android Developers Blog" title="Android Developers Blog" xmlUrl="http://feeds.feedburner.com/blogspot/hsDu" htmlUrl="http://android-developers.googleblog.com/" />
+            <outline text="Thoughts of a Wierdo" title="Thoughts of a Wierdo" xmlUrl="http://feeds.feedburner.com/JoshuaClanton" htmlUrl="http://toaw.blogspot.com/" />
+            <outline text="Joel on Software" title="Joel on Software" xmlUrl="http://www.joelonsoftware.com/rss.xml" htmlUrl="https://www.joelonsoftware.com" />
+            <outline text="RSS" title="RSS" xmlUrl="https://medium.com/feed/the-vue-point" htmlUrl="https://medium.com/the-vue-point?source=rss----4b3ffc258019---4" />
+            <outline text="phpied.com" title="phpied.com" xmlUrl="http://www.phpied.com/feed/" htmlUrl="https://www.phpied.com" />
+            <outline text="RubySource" title="RubySource" xmlUrl="http://feeds.feedburner.com/RubySource" htmlUrl="https://www.sitepoint.com" />
+            <outline text="Brian Cray's Blog" title="Brian Cray's Blog" xmlUrl="http://feeds.feedburner.com/briancray/blog" htmlUrl="http://briancray.com" />
+            <outline text="hood.ie" title="hood.ie" xmlUrl="http://blog.hood.ie/feed/" htmlUrl="http://hood.ie/blog" />
+            <outline text="You’ve Been Haacked" title="You’ve Been Haacked" xmlUrl="http://feeds.haacked.com/haacked/" htmlUrl="https://haacked.com/" />
+            <outline text="mrale.ph" title="mrale.ph" xmlUrl="http://mrale.ph/atom.xml" htmlUrl="http://mrale.ph" />
+            <outline text="CSS-Tricks" title="CSS-Tricks" xmlUrl="http://feeds.feedburner.com/CssTricks" htmlUrl="https://css-tricks.com" />
+            <outline text="Steven Wittens - Acko.net blogs" title="Steven Wittens - Acko.net blogs" xmlUrl="http://acko.net/blog/feed" htmlUrl="http://acko.net/" />
+            <outline text="AngularJS" title="AngularJS" xmlUrl="http://blog.angularjs.org/feeds/posts/default" htmlUrl="https://blog.angularjs.org/" />
+            <outline text="Lea Verou" title="Lea Verou" xmlUrl="http://feeds2.feedburner.com/leaverou" htmlUrl="https://lea.verou.me" />
+            <outline text="Mark's Dev Blog" title="Mark's Dev Blog" xmlUrl="https://blog.isquaredsoftware.com/index.xml" htmlUrl="https://blog.isquaredsoftware.com/index.xml" />
+            <outline text="PHP::Impact ( [str Blog] )" title="PHP::Impact ( [str Blog] )" xmlUrl="http://phpimpact.wordpress.com/feed/" htmlUrl="https://blog.fedecarg.com" />
+            <outline text="Katz Got Your Tongue" title="Katz Got Your Tongue" xmlUrl="http://yehudakatz.com/feed/" htmlUrl="https://yehudakatz.com/" />
+            <outline text="surma.dev" title="surma.dev" xmlUrl="https://surma.dev/index.xml" htmlUrl="https://surma.dev" />
+            <outline text="Max Stoibers (@mxstbr) Thoughts" title="Max Stoibers (@mxstbr) Thoughts" xmlUrl="https://mxstbr.com/rss" htmlUrl="https://mxstbr.com" />
+            <outline text="Chris Wallace // Designer&amp;Developer" title="Chris Wallace // Designer&amp;Developer" xmlUrl="http://feeds.feedburner.com/chris-wallace/Qynv" htmlUrl="https://chriswallace.net" />
+            <outline text="Railscasts" title="Railscasts" xmlUrl="http://feeds.feedburner.com/railscasts" htmlUrl="http://railscasts.com" />
+            <outline text="Built With Ember" title="Built With Ember" xmlUrl="http://builtwithember.io/feed.xml" htmlUrl="http://builtwithember.io/" />
+            <outline text="HTML5Rocks - Posts &amp; Tutorials" title="HTML5Rocks - Posts &amp; Tutorials" xmlUrl="http://www.html5rocks.com/tutorials/index.xml" htmlUrl="https://www.html5rocks.com" />
+            <outline text="remy sharp's b:log" title="remy sharp's b:log" xmlUrl="http://feeds.feedburner.com/remysharp" htmlUrl="https://remysharp.com" />
+            <outline text="Krasimir Tsonev - blog" title="Krasimir Tsonev - blog" xmlUrl="http://krasimirtsonev.com/blog/rss" htmlUrl="http://krasimirtsonev.com/blog" />
+            <outline text="Stories by Eric Elliott on Medium" title="Stories by Eric Elliott on Medium" xmlUrl="https://medium.com/feed/@_ericelliott" htmlUrl="https://medium.com/@_ericelliott?source=rss-c359511de780------2" />
+            <outline text="The Cloudflare Blog" title="The Cloudflare Blog" xmlUrl="http://blog.cloudflare.com/rss.xml" htmlUrl="https://blog.cloudflare.com/" />
+            <outline text="Node.js Blog" title="Node.js Blog" xmlUrl="http://blog.nodejs.org/feed/" htmlUrl="https://nodejs.org/en/" />
+            <outline text="All commands" title="All commands" xmlUrl="http://feeds2.feedburner.com/Command-line-fu" htmlUrl="http://www.commandlinefu.com/commands/browse/rss" />
+            <outline text="Ola Bini: Programming Language Synchronicity" title="Ola Bini: Programming Language Synchronicity" xmlUrl="http://feeds2.feedburner.com/olabini" htmlUrl="https://olabini.se/blog" />
+            <outline text="CatsWhoCode" title="CatsWhoCode" xmlUrl="http://feeds.feedburner.com/Catswhocode" htmlUrl="https://catswhocode.com" />
+            <outline text="feltron" title="feltron" xmlUrl="http://feltron.tumblr.com/rss" htmlUrl="https://feltron.tumblr.com/" />
+            <outline text="Vitamin" title="Vitamin" xmlUrl="http://feeds.feedburner.com/vitaminmasterfeed" htmlUrl="https://blog.teamtreehouse.com" />
+            <outline text="snook.ca - a collection of tips, tricks and bookmarks in web development" title="snook.ca - a collection of tips, tricks and bookmarks in web development" xmlUrl="http://www.snook.ca/jonathan/index.rdf" htmlUrl="https://snook.ca/" />
+            <outline text="UX for the masses" title="UX for the masses" xmlUrl="http://www.uxforthemasses.com/feed/" htmlUrl="https://www.uxforthemasses.com/" />
+            <outline text="WebAppers" title="WebAppers" xmlUrl="http://feeds.feedburner.com/Webappers" htmlUrl="https://www.webappers.com" />
+            <outline text="UX Magazine" title="UX Magazine" xmlUrl="http://feeds.feedburner.com/UXM" htmlUrl="http://uxmag.com/uxm.xml/favicon.ico/favicon.ico" />
+            <outline text="Data Mining: Text Mining, Visualization and Social Media" title="Data Mining: Text Mining, Visualization and Social Media" xmlUrl="http://feeds.feedburner.com/DataMining" htmlUrl="https://datamining.typepad.com/data_mining/" />
+            <outline text="Design Shack" title="Design Shack" xmlUrl="http://feeds.designshack.net/designshack" htmlUrl="https://designshack.net" />
+            <outline text="Hakim.se" title="Hakim.se" xmlUrl="http://hakim.se/rss.xml" htmlUrl="http://hakim.se/" />
+            <outline text="Paul Irish" title="Paul Irish" xmlUrl="http://paulirish.com/feed/" htmlUrl="https://paulirish.com/" />
+            <outline text="24 ways" title="24 ways" xmlUrl="http://feeds.feedburner.com/24ways" htmlUrl="https://24ways.org/" />
+            <outline text="Ruby Inside" title="Ruby Inside" xmlUrl="http://feedproxy.google.com/RubyInside" htmlUrl="http://www.rubyinside.com" />
+            <outline text="UX Magazine Jobs" title="UX Magazine Jobs" xmlUrl="http://uxmag.com/uxjobs/rss/feed.xml" htmlUrl="http://uxmag.com/uxjobs/rss/feed.xml" />
+            <outline text="Measuring Usability: Quantitative Usability and Statistics" title="Measuring Usability: Quantitative Usability and Statistics" xmlUrl="http://feeds.feedburner.com/MeasuringUsability" htmlUrl="https://measuringu.com" />
+            <outline text="Usability Geek | Usability &amp; User Experience (UX) Blog" title="Usability Geek | Usability &amp; User Experience (UX) Blog" xmlUrl="http://usabilitygeek.com/feed/" htmlUrl="https://usabilitygeek.com" />
+            <outline text="Nettuts+" title="Nettuts+" xmlUrl="http://feeds.feedburner.com/nettuts" htmlUrl="https://code.tutsplus.com" />
+            <outline text="Brad Frost Web » Brad Frost Web |  Web Development, Design, Music and Art" title="Brad Frost Web » Brad Frost Web |  Web Development, Design, Music and Art" xmlUrl="http://feeds.feedburner.com/brad-frosts-blog" htmlUrl="https://bradfrost.com" />
+            <outline text="HTML5 Doctor" title="HTML5 Doctor" xmlUrl="http://feeds2.feedburner.com/html5doctor" htmlUrl="http://html5doctor.com" />
+            <outline text="Envato" title="Envato" xmlUrl="https://envato.com/feed/" htmlUrl="https://envato.com" />
+            <outline text="ProgrammableWeb" title="ProgrammableWeb" xmlUrl="http://feeds.feedburner.com/programmableweb" htmlUrl="https://www.programmableweb.com/" />
+            <outline text="Creative Bloq" title="Creative Bloq" xmlUrl="http://feeds.feedburner.com/CreativeBloq" htmlUrl="http://airedale.futurecdn.net/feeds/en_feed_984608b4.rss-fse?nb_results=25&amp;site=creativebloq" />
+            <outline text="UsabilityPost" title="UsabilityPost" xmlUrl="http://feeds.feedburner.com/usabilitypost" htmlUrl="http://usabilitypost.com" />
+            <outline text="ideasonideas" title="ideasonideas" xmlUrl="http://www.ideasonideas.com/feed/" htmlUrl="http://www.ideasonideas.com" />
+            <outline text="Retail eCommerce" title="Retail eCommerce" xmlUrl="http://retailecommerce.blogspot.com/feeds/posts/default" htmlUrl="http://retailecommerce.blogspot.com/" />
+            <outline text="Optaros.com" title="Optaros.com" xmlUrl="http://feeds.feedburner.com/OptarosBlogsAll" htmlUrl="http://thendral.blogspot.com/" />
+            <outline text="Practical eCommerce" title="Practical eCommerce" xmlUrl="http://www.practicalecommerce.com/articles.rss" htmlUrl="https://www.practicalecommerce.com" />
+            <outline text="Retail TouchPoints" title="Retail TouchPoints" xmlUrl="http://www.retailtouchpoints.com/feed?format=feed" htmlUrl="https://www.retailtouchpoints.com/" />
+            <outline text="TechCrunch" title="TechCrunch" xmlUrl="http://feeds.feedburner.com/Techcrunch" htmlUrl="https://techcrunch.com/" />
+            <outline text="Hacker News" title="Hacker News" xmlUrl="http://news.ycombinator.com/rss" htmlUrl="https://news.ycombinator.com/" />
+            <outline text="InfoWorld" title="InfoWorld" xmlUrl="http://www.infoworld.com/index.rss" htmlUrl="https://www.infoworld.com" />
+            <outline text="The Next Web" title="The Next Web" xmlUrl="http://feeds2.feedburner.com/thenextweb" htmlUrl="https://thenextweb.com" />
+            <outline text="Mashable" title="Mashable" xmlUrl="http://feeds.mashable.com/Mashable" htmlUrl="https://mashable.com/feeds/rss/all" />
+            <outline text="Scott Hanselman's Blog" title="Scott Hanselman's Blog" xmlUrl="http://feeds.feedburner.com/ScottHanselman" htmlUrl="https://www.hanselman.com/blog/" />
+            <outline text="Stories by Jamie Kyle on Medium" title="Stories by Jamie Kyle on Medium" xmlUrl="https://medium.com/feed/@thejameskyle" htmlUrl="https://medium.com/@thejameskyle?source=rss-cc2eaf4f2cd2------2" />
+            <outline text="Stories by Kyle on Medium" title="Stories by Kyle on Medium" xmlUrl="https://medium.com/feed/@getify" htmlUrl="https://medium.com/@getify?source=rss-5dccb9bb4625------2" />
+            <outline text="Ember.js Blog" title="Ember.js Blog" xmlUrl="http://emberjs.com/blog/feed.xml" htmlUrl="https://blog.emberjs.com/rss.xml" />
+            <outline text="freeCodeCamp.org" title="freeCodeCamp.org" xmlUrl="https://medium.freecodecamp.com/feed" htmlUrl="https://www.freecodecamp.org/news/" />
+            <outline text="Pony Foo" title="Pony Foo" xmlUrl="http://blog.ponyfoo.com/rss/latest.xml" htmlUrl="https://ponyfoo.com" />
+            <outline text="Jack Tarantino" title="Jack Tarantino" xmlUrl="https://jack.ofspades.com/rss/" htmlUrl="https://jack.ofspades.com/" />
+            <outline text="Etsy Engineering | Code as Craft" title="Etsy Engineering | Code as Craft" xmlUrl="http://codeascraft.etsy.com/feed/" htmlUrl="http://www.etsy.com/codeascraft/rss" />
+            <outline text="High Performance Web Sites" title="High Performance Web Sites" xmlUrl="http://www.stevesouders.com/blog/feed/" htmlUrl="https://www.stevesouders.com/blog" />
+            <outline text="Monica Dinculescu" title="Monica Dinculescu" xmlUrl="http://meowni.ca/atom.xml" htmlUrl="https://meowni.ca/" />
+            <outline text="0xADADA" title="0xADADA" xmlUrl="https://0xadada.pub/feed.xml" htmlUrl="https://0xadada.pub/" />
+            <outline text="John Resig" title="John Resig" xmlUrl="http://feeds.feedburner.com/JohnResig" htmlUrl="https://johnresig.com" />
+            <outline text="Nx Devtools - Medium" title="Nx Devtools - Medium" xmlUrl="https://blog.nrwl.io/feed" htmlUrl="https://blog.nrwl.io?source=rss----1e21061103c7---4" />
+            <outline text="DEV Community 👩‍💻👨‍💻" title="DEV Community 👩‍💻👨‍💻" xmlUrl="http://thepracticaldev.com/feed" htmlUrl="https://dev.to" />
+            <outline text="Stories by Ben Lesh on Medium" title="Stories by Ben Lesh on Medium" xmlUrl="https://medium.com/feed/@benlesh" htmlUrl="https://medium.com/@benlesh?source=rss-da6839d28258------2" />
+            <outline text="Dean Hume's Blog" title="Dean Hume's Blog" xmlUrl="http://feeds.feedburner.com/DeanHumesBlog" htmlUrl="https://deanhume.com/" />
+            <outline text="Krebs on Security" title="Krebs on Security" xmlUrl="http://krebsonsecurity.com/feed/" htmlUrl="https://krebsonsecurity.com" />
+            <outline text="Stories by Dan Abramov on Medium" title="Stories by Dan Abramov on Medium" xmlUrl="https://medium.com/feed/@dan_abramov" htmlUrl="https://medium.com/@dan_abramov?source=rss-a3a8af6addc1------2" />
+            <outline text="Mozilla Hacks – the Web developer blog" title="Mozilla Hacks – the Web developer blog" xmlUrl="http://hacks.mozilla.org/feed/" htmlUrl="https://hacks.mozilla.org/" />
+            <outline text="8th Light Insights" title="8th Light Insights" xmlUrl="http://blog.8thlight.com/feed/atom.xml" htmlUrl="https://8thlight.com/insights" />
+            <outline text="André Staltz" title="André Staltz" xmlUrl="http://staltz.com/feed.xml" htmlUrl="https://staltz.com/" />
+            <outline text="RisingStack Engineering" title="RisingStack Engineering" xmlUrl="http://blog.risingstack.com/rss/" htmlUrl="https://blog.risingstack.com/" />
+            <outline text="Netflix TechBlog - Medium" title="Netflix TechBlog - Medium" xmlUrl="http://techblog.netflix.com/feeds/posts/default" htmlUrl="https://netflixtechblog.com?source=rss----2615bd06b42e---4" />
+            <outline text="the morning paper" title="the morning paper" xmlUrl="http://blog.acolyer.org/feed/" htmlUrl="https://blog.acolyer.org" />
+            <outline text="Stevey's Blog Rants" title="Stevey's Blog Rants" xmlUrl="http://steve-yegge.blogspot.com/feeds/posts/default" htmlUrl="http://steve-yegge.blogspot.com/" />
+            <outline text="Coding Horror" title="Coding Horror" xmlUrl="http://feeds.feedburner.com/codinghorror/" htmlUrl="https://blog.codinghorror.com/" />
+            <outline text="V8 JavaScript Engine" title="V8 JavaScript Engine" xmlUrl="http://v8project.blogspot.com/feeds/posts/default" htmlUrl="https://v8project.blogspot.com/" />
+            <outline text="Stories by Christoph Nakazawa on Medium" title="Stories by Christoph Nakazawa on Medium" xmlUrl="https://medium.com/feed/@cpojer" htmlUrl="https://medium.com/@cpojer?source=rss-9ea60eb6fc7c------2" />
+            <outline text="Brendan Eich" title="Brendan Eich" xmlUrl="http://brendaneich.com/feed/" htmlUrl="https://brendaneich.com" />
+            <outline text="hacker-daily - Medium" title="hacker-daily - Medium" xmlUrl="https://medium.com/feed/hacker-daily" htmlUrl="https://medium.com/hacker-daily?source=rss----490335224689---4" />
+            <outline text="Airbnb Engineering &amp; Data Science" title="Airbnb Engineering &amp; Data Science" xmlUrl="https://medium.com/feed/airbnb-engineering" htmlUrl="https://medium.com/airbnb-engineering?source=rss----53c7c27702d5---4" />
+            <outline text="javascriptkicks.com" title="javascriptkicks.com" xmlUrl="https://javascriptkicks.com/feeds/rss" htmlUrl="https://javascriptkicks.com/" />
+            <outline text="AlBlue&amp;rsquo;s Blog" title="AlBlue&amp;rsquo;s Blog" xmlUrl="http://alblue.bandlem.com/atom.xml" htmlUrl="https://alblue.bandlem.com/" />
+            <outline text="🦄 Sindre Sorhus’ blog" title="🦄 Sindre Sorhus’ blog" xmlUrl="https://blog.sindresorhus.com/feed" htmlUrl="https://blog.sindresorhus.com?source=rss----bd01b60f8f44---4" />
+            <outline text="VentureBeat" title="VentureBeat" xmlUrl="http://venturebeat.com/feed/" htmlUrl="https://venturebeat.com/" />
+            <outline text="The Outline" title="The Outline" xmlUrl="https://theoutline.com/feeds/recent.rss" htmlUrl="https://theoutline.com" />
+            <outline text="Ars Technica" title="Ars Technica" xmlUrl="http://feeds.arstechnica.com/arstechnica/index" htmlUrl="https://arstechnica.com" />
+            <outline text="Latest news" title="Latest news" xmlUrl="http://www.zdnet.com/news/rss.xml" htmlUrl="https://www.zdnet.com/" />
+            <outline text="Read/WriteWeb" title="Read/WriteWeb" xmlUrl="http://feeds.feedburner.com/readwriteweb" htmlUrl="https://readwrite.com" />
+            <outline text="Forbes - Entrepreneurs" title="Forbes - Entrepreneurs" xmlUrl="http://www.forbes.com/entrepreneurs/index.xml" htmlUrl="https://www.forbes.com/entrepreneurs/" />
+            <outline text="StartUp Beat" title="StartUp Beat" xmlUrl="http://feeds.feedburner.com/StartupBeat" htmlUrl="https://startupbeat.com/" />
+            <outline text="Tom Preston-Werner" title="Tom Preston-Werner" xmlUrl="http://feeds.feedburner.com/tom-preston-werner" htmlUrl="http://tom.preston-werner.com/" />
+            <outline text="Bokardo" title="Bokardo" xmlUrl="http://bokardo.com/feed/" htmlUrl="http://bokardo.com" />
+            <outline text="Inside Forty" title="Inside Forty" xmlUrl="http://feeds.feedburner.com/InsideForty" htmlUrl="https://crowdfavorite.com" />
+            <outline text="Nick Finck's Blog" title="Nick Finck's Blog" xmlUrl="http://feeds2.feedburner.com/NickFinck" htmlUrl="http://www.nickfinck.com/" />
+            <outline text="graphicPUSH - news" title="graphicPUSH - news" xmlUrl="http://www.graphicpush.com/feed.xml" htmlUrl="http://graphicpush.com/" />
+            <outline text="TypeOff." title="TypeOff." xmlUrl="http://www.typeoff.de/?feed=rss2" htmlUrl="https://www.typeoff.de/" />
+            <outline text="Co.Design" title="Co.Design" xmlUrl="http://www.fastcodesign.com/rss.xml" htmlUrl="https://www.fastcompany.com" />
+            <outline text="I love typography, the typography and fonts blog" title="I love typography, the typography and fonts blog" xmlUrl="http://feeds.feedburner.com/ILoveTypography" htmlUrl="https://ilovetypography.com/" />
+            <outline text="Usability Geek | Usability &amp; User Experience (UX) Blog" title="Usability Geek | Usability &amp; User Experience (UX) Blog" xmlUrl="http://usabilitygeek.com/feed/" htmlUrl="https://usabilitygeek.com" />
+            <outline text="UIE Brain Sparks" title="UIE Brain Sparks" xmlUrl="http://www.uie.com/brainsparks/feed/" htmlUrl="https://www.uie.com/brainsparks" />
+            <outline text="The UX Booth" title="The UX Booth" xmlUrl="http://feeds.feedburner.com/uxbooth" htmlUrl="http://www.uxbooth.com" />
+            <outline text="makinguse" title="makinguse" xmlUrl="http://www.makinguse.com/blog/feed/" htmlUrl="http://www.makinguse.com/blog" />
+            <outline text="tropical toxic" title="tropical toxic" xmlUrl="http://tropicaltoxic.blogspot.com/atom.xml" htmlUrl="http://tropicaltoxic.blogspot.com/" />
+            <outline text="jnd.org" title="jnd.org" xmlUrl="http://www.jnd.org/index.xml" htmlUrl="https://jnd.org/" />
+            <outline text="Typographica" title="Typographica" xmlUrl="http://feeds.feedburner.com/typographica" htmlUrl="https://typographica.org" />
+            <outline text="Usability" title="Usability" xmlUrl="http://www.reddit.com/r/usability/.rss" htmlUrl="https://www.reddit.com/r/usability/" />
+            <outline text="GUUUI - The interaction designers coffee break" title="GUUUI - The interaction designers coffee break" xmlUrl="http://www.guuui.com/rss.php" htmlUrl="http://www.guuui.com" />
+            <outline text="UX Movement" title="UX Movement" xmlUrl="http://feeds.feedburner.com/uxmovement" htmlUrl="https://uxmovement.com" />
+            <outline text="peterme.com" title="peterme.com" xmlUrl="http://feeds2.feedburner.com/Peterme" htmlUrl="https://www.peterme.com" />
+            <outline text="Signal vs. Noise" title="Signal vs. Noise" xmlUrl="http://feeds.feedburner.com/37signals/beMH" htmlUrl="https://m.signalvnoise.com/" />
+            <outline text="CreativeDepart" title="CreativeDepart" xmlUrl="http://feeds2.feedburner.com/creativedepart" htmlUrl="http://www.creativedepart.com/" />
+            <outline text="A List Apart" title="A List Apart" xmlUrl="http://www.alistapart.com/rss.xml" htmlUrl="https://alistapart.com" />
+            <outline text="RSS" title="RSS" xmlUrl="https://medium.com/feed/uie-brain-sparks" htmlUrl="https://medium.com/uie-brain-sparks?source=rss----ea41cf949d73---4" />
+            <outline text="Design By Grid" title="Design By Grid" xmlUrl="http://feeds.feedburner.com/DesignByGridLinks" htmlUrl="http://www.designbygrid.com" />
+            <outline text="The UX Bookmark" title="The UX Bookmark" xmlUrl="http://www.theuxbookmark.com/feed/" htmlUrl="https://theuxbookmark.conetrees.com/" />
+            <outline text="Design the open web" title="Design the open web" xmlUrl="http://blog.froont.com/rss/" htmlUrl="http://blog.froont.com/" />
+            <outline text="IKEA Hackers" title="IKEA Hackers" xmlUrl="http://feeds.feedburner.com/Ikeahacker" htmlUrl="https://ikeahackers.net/" />
+            <outline text="NN/g latest articles and announcements" title="NN/g latest articles and announcements" xmlUrl="https://www.nngroup.com/feed/rss/" htmlUrl="https://www.nngroup.com/feed/rss/" />
+            <outline text="InfoDesign: Understanding by Design" title="InfoDesign: Understanding by Design" xmlUrl="http://www.informationdesign.org/index.xml" htmlUrl="https://informationdesign.org" />
+            <outline text="The UX Booth" title="The UX Booth" xmlUrl="http://feedproxy.google.com/uxbooth" htmlUrl="http://www.uxbooth.com" />
+            <outline text="Fonts In Use" title="Fonts In Use" xmlUrl="http://feeds.feedburner.com/FontsInUse" htmlUrl="https://fontsinuse.com" />
+            <outline text="Spatial Analysis" title="Spatial Analysis" xmlUrl="http://spatialanalysis.co.uk/feed/" htmlUrl="https://jcheshire.com" />
+            <outline text="52 Weeks Of UX" title="52 Weeks Of UX" xmlUrl="http://feeds.feedburner.com/52WeeksOfUx" htmlUrl="https://52weeksofux.com/" />
+            <outline text="UXmatters" title="UXmatters" xmlUrl="http://uxmatters.com/index.xml" htmlUrl="https://www.uxmatters.com/" />
+            <outline text="Patternhead" title="Patternhead" xmlUrl="http://feeds2.feedburner.com/patternhead" htmlUrl="https://www.patternhead.com" />
+            <outline text="UX Magazine" title="UX Magazine" xmlUrl="http://feeds.feedburner.com/UXM/" htmlUrl="http://uxmag.com/uxm.xml/favicon.ico/favicon.ico" />
+            <outline text="Viget Inspire : The Design Lab" title="Viget Inspire : The Design Lab" xmlUrl="http://feeds.feedburner.com/VigetInspire" htmlUrl="https://www.viget.com/" />
+            <outline text="The Design Office" title="The Design Office" xmlUrl="http://thedesignoffice.org/feed/" htmlUrl="http://thedesignoffice.org" />
+            <outline text="UX Magazine" title="UX Magazine" xmlUrl="http://feeds.uxmag.com/uxm" htmlUrl="https://uxmag.com/uxm.xml" />
+            <outline text="Dezeen" title="Dezeen" xmlUrl="http://feeds.feedburner.com/dezeen" htmlUrl="https://www.dezeen.com" />
+            <outline text="Interesting Engineering" title="Interesting Engineering" xmlUrl="http://feeds.feedburner.com/interestingengineering/rCTa" htmlUrl="https://interestingengineering.com" />
+            <outline text="UX Booth" title="UX Booth" xmlUrl="http://feedpress.me/uxbooth" htmlUrl="http://uxbooth.com" />
+            <outline text="Thinking for a Living Blog" title="Thinking for a Living Blog" xmlUrl="http://feeds.feedburner.com/thinkingforaliving" htmlUrl="http://www.thinkingforaliving.org" />
+            <outline text="UsabilityPost" title="UsabilityPost" xmlUrl="http://feeds.feedburner.com/usabilitypost" htmlUrl="http://usabilitypost.com" />
+            <outline text="Smashing Magazine" title="Smashing Magazine" xmlUrl="http://rss1.smashingmagazine.com/feed/" htmlUrl="https://www.smashingmagazine.com/" />
+            <outline text="Forty Media" title="Forty Media" xmlUrl="http://feeds.feedburner.com/fortymedia/main" htmlUrl="https://crowdfavorite.com" />
+            <outline text="Functioning Form: Interface Design" title="Functioning Form: Interface Design" xmlUrl="http://www.lukew.com/ff/rss.asp" htmlUrl="http://www.lukew.com" />
+            <outline text="Jeffrey Zeldman Presents The Daily Report" title="Jeffrey Zeldman Presents The Daily Report" xmlUrl="http://www.zeldman.com/feed/zeldman.xml" htmlUrl="https://www.zeldman.com/" />
+            <outline text="AngularConnect" title="AngularConnect" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzrskTiT_ObAk3xBkVxMz5g" htmlUrl="https://www.youtube.com/channel/UCzrskTiT_ObAk3xBkVxMz5g" />
+            <outline text="Voxxed Athens" title="Voxxed Athens" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiRfCwgWwbZIembog2m69wA" htmlUrl="https://www.youtube.com/channel/UCiRfCwgWwbZIembog2m69wA" />
+            <outline text="AlgoRythmics" title="AlgoRythmics" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIqiLefbVHsOAXDAxQJH7Xw" htmlUrl="https://www.youtube.com/channel/UCIqiLefbVHsOAXDAxQJH7Xw" />
+            <outline text="code::dive conference" title="code::dive conference" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCU0Rt8VHO5-YNQXwIjkf-1g" htmlUrl="https://www.youtube.com/channel/UCU0Rt8VHO5-YNQXwIjkf-1g" />
+            <outline text="LeadDev" title="LeadDev" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmM3eCpmWKLJj2PDW_jdGkg" htmlUrl="https://www.youtube.com/channel/UCmM3eCpmWKLJj2PDW_jdGkg" />
+            <outline text="Dreamix" title="Dreamix" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHEIROJHTyvZG9V3g-XLb5g" htmlUrl="https://www.youtube.com/channel/UCHEIROJHTyvZG9V3g-XLb5g" />
+            <outline text="GaryVee" title="GaryVee" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCctXZhXmG-kf3tlIXgVZUlw" htmlUrl="https://www.youtube.com/channel/UCctXZhXmG-kf3tlIXgVZUlw" />
+            <outline text="LastWeekTonight" title="LastWeekTonight" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3XTzVzaHQEd30rQbuvCtTQ" htmlUrl="https://www.youtube.com/channel/UC3XTzVzaHQEd30rQbuvCtTQ" />
+            <outline text="ConfEngine" title="ConfEngine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClVfsHNDfmTe66tzYyNFwBQ" htmlUrl="https://www.youtube.com/channel/UClVfsHNDfmTe66tzYyNFwBQ" />
+            <outline text="Vsauce" title="Vsauce" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA" htmlUrl="https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA" />
+            <outline text="Tech Talks" title="Tech Talks" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdzHQqne5TFjepi319Rvg-Q" htmlUrl="https://www.youtube.com/channel/UCdzHQqne5TFjepi319Rvg-Q" />
+            <outline text="Full Stack Talks" title="Full Stack Talks" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpq2_V-9AYYUHSsjoJZPUTg" htmlUrl="https://www.youtube.com/channel/UCpq2_V-9AYYUHSsjoJZPUTg" />
+            <outline text="USI Events" title="USI Events" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIhgggPw5xfIpFf-Fxqpmxw" htmlUrl="https://www.youtube.com/channel/UCIhgggPw5xfIpFf-Fxqpmxw" />
+            <outline text="Elm Europe" title="Elm Europe" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCT5HLUjjXdqUSUnpblFNOwQ" htmlUrl="https://www.youtube.com/channel/UCT5HLUjjXdqUSUnpblFNOwQ" />
+            <outline text="Devoxx" title="Devoxx" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCBVCTuk6uJrN3iFV_3vurg" htmlUrl="https://www.youtube.com/channel/UCCBVCTuk6uJrN3iFV_3vurg" />
+            <outline text="Nordic.js" title="Nordic.js" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTZ3O2cZo1b4JSwvhgBnAbw" htmlUrl="https://www.youtube.com/channel/UCTZ3O2cZo1b4JSwvhgBnAbw" />
+            <outline text="HackerRank" title="HackerRank" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOf7UPMHBjAavgD0Qw5q5ww" htmlUrl="https://www.youtube.com/channel/UCOf7UPMHBjAavgD0Qw5q5ww" />
+            <outline text="LearnCode.academy" title="LearnCode.academy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVTlvUkGslCV_h-nSAId8Sw" htmlUrl="https://www.youtube.com/channel/UCVTlvUkGslCV_h-nSAId8Sw" />
+            <outline text="hackbuddy" title="hackbuddy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2JNTaq_crzfZOu9Aq96LsA" htmlUrl="https://www.youtube.com/channel/UC2JNTaq_crzfZOu9Aq96LsA" />
+            <outline text="Sam De Maeyer" title="Sam De Maeyer" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7TBO3ml2szbDiU-PSiePPA" htmlUrl="https://www.youtube.com/channel/UC7TBO3ml2szbDiU-PSiePPA" />
+            <outline text="Fun Fun Function" title="Fun Fun Function" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO1cgjhGzsSYb1rsB4bFe4Q" htmlUrl="https://www.youtube.com/channel/UCO1cgjhGzsSYb1rsB4bFe4Q" />
+            <outline text="Techramento" title="Techramento" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCL_RVrofPGkCKNP3cHUqfvw" htmlUrl="https://www.youtube.com/channel/UCL_RVrofPGkCKNP3cHUqfvw" />
+            <outline text="democonf" title="democonf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI11W4ZZ4k-w0zYWw7sZfIw" htmlUrl="https://www.youtube.com/channel/UCI11W4ZZ4k-w0zYWw7sZfIw" />
+            <outline text="You Gotta Love Frontend" title="You Gotta Love Frontend" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCU-fOxx_kT5OARG0KiksiCA" htmlUrl="https://www.youtube.com/channel/UCU-fOxx_kT5OARG0KiksiCA" />
+            <outline text="WarsawJS" title="WarsawJS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzYf3wdKSKnR5lvkRVUyCYg" htmlUrl="https://www.youtube.com/channel/UCzYf3wdKSKnR5lvkRVUyCYg" />
+            <outline text="Fullstack Development" title="Fullstack Development" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNpIE11a9nLW_s2GUWmksqw" htmlUrl="https://www.youtube.com/channel/UCNpIE11a9nLW_s2GUWmksqw" />
+            <outline text="JSConf" title="JSConf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzoVCacndDCfGDf41P-z0iA" htmlUrl="https://www.youtube.com/channel/UCzoVCacndDCfGDf41P-z0iA" />
+            <outline text="The IT Tour" title="The IT Tour" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCti0I5OyGAtFlkFIZ5Kzp9g" htmlUrl="https://www.youtube.com/channel/UCti0I5OyGAtFlkFIZ5Kzp9g" />
+            <outline text="Nick Codes" title="Nick Codes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC45XfdvI285Ll6I5RQ4NVkg" htmlUrl="https://www.youtube.com/channel/UC45XfdvI285Ll6I5RQ4NVkg" />
+            <outline text="Google TechTalks" title="Google TechTalks" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtXKDgv1AVoG88PLl8nGXmw" htmlUrl="https://www.youtube.com/channel/UCtXKDgv1AVoG88PLl8nGXmw" />
+            <outline text="ProgrammingInterview" title="ProgrammingInterview" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVFl5Mypadugb5yEJoE2Vbw" htmlUrl="https://www.youtube.com/channel/UCVFl5Mypadugb5yEJoE2Vbw" />
+            <outline text="DataWorks Summit" title="DataWorks Summit" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5o4P1O-WVE15EZWqayc5dw" htmlUrl="https://www.youtube.com/channel/UC5o4P1O-WVE15EZWqayc5dw" />
+            <outline text="All Things Open" title="All Things Open" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBhXFK70DbOU15N2BhDQVTg" htmlUrl="https://www.youtube.com/channel/UCBhXFK70DbOU15N2BhDQVTg" />
+            <outline text="Zen of Coding" title="Zen of Coding" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZkjWyyLvzWeoVWEpRemrDQ" htmlUrl="https://www.youtube.com/channel/UCZkjWyyLvzWeoVWEpRemrDQ" />
+            <outline text="Google Chrome Developers" title="Google Chrome Developers" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnUYZLuoy1rq1aVMwx4aTzw" htmlUrl="https://www.youtube.com/channel/UCnUYZLuoy1rq1aVMwx4aTzw" />
+            <outline text="QuickyBaby" title="QuickyBaby" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQWHq9e1hN268yjgYq-0hNw" htmlUrl="https://www.youtube.com/channel/UCQWHq9e1hN268yjgYq-0hNw" />
+            <outline text="ScotlandJS" title="ScotlandJS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpW0Vh7QKPA7n0oJfrizlsw" htmlUrl="https://www.youtube.com/channel/UCpW0Vh7QKPA7n0oJfrizlsw" />
+            <outline text="S!X - Music" title="S!X - Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNZYpcqym8gHcNg2GWcC6nQ" htmlUrl="https://www.youtube.com/channel/UCNZYpcqym8gHcNg2GWcC6nQ" />
+            <outline text="Front-Trends" title="Front-Trends" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpIBwBITpXelDgDwe-16zWA" htmlUrl="https://www.youtube.com/channel/UCpIBwBITpXelDgDwe-16zWA" />
+            <outline text="Ethereum" title="Ethereum" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6rYoXJ_3BbPyWx_GQDDRRQ" htmlUrl="https://www.youtube.com/channel/UC6rYoXJ_3BbPyWx_GQDDRRQ" />
+            <outline text="Tammy Everts" title="Tammy Everts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBuc99VAfTrwVpbnw5f3Drw" htmlUrl="https://www.youtube.com/channel/UCBuc99VAfTrwVpbnw5f3Drw" />
+            <outline text="saurabhschool" title="saurabhschool" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZSfwNcYIpqO8B9wnBg4HWA" htmlUrl="https://www.youtube.com/channel/UCZSfwNcYIpqO8B9wnBg4HWA" />
+            <outline text="LemmingRush" title="LemmingRush" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDg5ZA8P4RF77I-afTBJu5Q" htmlUrl="https://www.youtube.com/channel/UCDg5ZA8P4RF77I-afTBJu5Q" />
+            <outline text="Nodevember" title="Nodevember" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7z0nOE8ITfrGnXJgNzYaEQ" htmlUrl="https://www.youtube.com/channel/UC7z0nOE8ITfrGnXJgNzYaEQ" />
+            <outline text="Siraj Raval" title="Siraj Raval" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWN3xxRkmTPmbKwht9FuE5A" htmlUrl="https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A" />
+            <outline text="ReasonML News" title="ReasonML News" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZyPxL74Ka24uERYWUUQRzQ" htmlUrl="https://www.youtube.com/channel/UCZyPxL74Ka24uERYWUUQRzQ" />
+            <outline text="Technology - Topic" title="Technology - Topic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiDF_uaU1V00dAc8ddKvNxA" htmlUrl="http://www.youtube.com/channel/UCiDF_uaU1V00dAc8ddKvNxA" />
+            <outline text="ReactRally" title="ReactRally" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXBhQ05nu3L1abBUGeQ0ahw" htmlUrl="https://www.youtube.com/channel/UCXBhQ05nu3L1abBUGeQ0ahw" />
+            <outline text="React Conferences by GitNation" title="React Conferences by GitNation" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsFrt8oKNYXGspSlX9u6uXw" htmlUrl="https://www.youtube.com/channel/UCsFrt8oKNYXGspSlX9u6uXw" />
+            <outline text="ng-conf" title="ng-conf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCm9iiIfgmVODUJxINecHQkA" htmlUrl="https://www.youtube.com/channel/UCm9iiIfgmVODUJxINecHQkA" />
+            <outline text="BlinkOn" title="BlinkOn" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIfQb9u7ALnOE4ZmexRecDg" htmlUrl="https://www.youtube.com/channel/UCIfQb9u7ALnOE4ZmexRecDg" />
+            <outline text="Coding Tech" title="Coding Tech" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtxCXg-UvSnTKPOzLH4wJaQ" htmlUrl="https://www.youtube.com/channel/UCtxCXg-UvSnTKPOzLH4wJaQ" />
+            <outline text="Fullstack Academy" title="Fullstack Academy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjFO5t0MLyQaidKGpGoRewg" htmlUrl="https://www.youtube.com/channel/UCjFO5t0MLyQaidKGpGoRewg" />
+            <outline text="HolyJS" title="HolyJS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2Jwo4Q0s-ucjGseHP8XUSQ" htmlUrl="https://www.youtube.com/channel/UC2Jwo4Q0s-ucjGseHP8XUSQ" />
+            <outline text="webdirections" title="webdirections" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRx1y52pfeMwbuer9Vh2u-A" htmlUrl="https://www.youtube.com/channel/UCRx1y52pfeMwbuer9Vh2u-A" />
+            <outline text="Google Developers" title="Google Developers" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw" htmlUrl="https://www.youtube.com/channel/UC_x5XG1OV2P6uZZ5FSM9Ttw" />
+            <outline text="Talks at Google" title="Talks at Google" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbmNph6atAoGfqLoCL_duAg" htmlUrl="https://www.youtube.com/channel/UCbmNph6atAoGfqLoCL_duAg" />
+            <outline text="NebraskaJS" title="NebraskaJS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsMSRfQ22gGRLu5kRBMYpjg" htmlUrl="https://www.youtube.com/channel/UCsMSRfQ22gGRLu5kRBMYpjg" />
+            <outline text="mycodeschool" title="mycodeschool" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClEEsT7DkdVO_fkrBw0OTrA" htmlUrl="https://www.youtube.com/channel/UClEEsT7DkdVO_fkrBw0OTrA" />
+            <outline text="ReactNext" title="ReactNext" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3BT8hh3yTTYxbLQy_wbk2w" htmlUrl="https://www.youtube.com/channel/UC3BT8hh3yTTYxbLQy_wbk2w" />
+            <outline text="React Native School" title="React Native School" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEv1DI7Iftd2sWE8gcGG9rg" htmlUrl="https://www.youtube.com/channel/UCEv1DI7Iftd2sWE8gcGG9rg" />
+            <outline text="The Coding Train" title="The Coding Train" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvjgXvBlbQiydffZU7m1_aw" htmlUrl="https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw" />
+            <outline text="Tuts+ Code" title="Tuts+ Code" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCd-EhXGbXSozuzsAAdPIn3A" htmlUrl="https://www.youtube.com/channel/UCd-EhXGbXSozuzsAAdPIn3A" />
+            <outline text="This Dot Media" title="This Dot Media" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHkqtrnQO2HMyW50ixOtJGw" htmlUrl="https://www.youtube.com/channel/UCHkqtrnQO2HMyW50ixOtJGw" />
+            <outline text="freeCodeCamp.org" title="freeCodeCamp.org" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ" htmlUrl="https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ" />
+            <outline text="itsBluebery" title="itsBluebery" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpkuDwAhw0MThGaQ4smtevw" htmlUrl="https://www.youtube.com/channel/UCpkuDwAhw0MThGaQ4smtevw" />
+            <outline text="GitHub" title="GitHub" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7c3Kb6jYCRj4JOHHZTxKsQ" htmlUrl="https://www.youtube.com/channel/UC7c3Kb6jYCRj4JOHHZTxKsQ" />
+            <outline text="React Vienna" title="React Vienna" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwsavucaPo3tOGf7lF85WRA" htmlUrl="https://www.youtube.com/channel/UCwsavucaPo3tOGf7lF85WRA" />
+            <outline text="圧倒的不審者の極み!" title="圧倒的不審者の極み!" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCg3qsVzHeUt5_cPpcRtoaJQ" htmlUrl="https://www.youtube.com/channel/UCg3qsVzHeUt5_cPpcRtoaJQ" />
+            <outline text="Algolia" title="Algolia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTNkiq-SO8hay1PRx-it9Cw" htmlUrl="https://www.youtube.com/channel/UCTNkiq-SO8hay1PRx-it9Cw" />
+            <outline text="TheHappieCat" title="TheHappieCat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBsuOBu-dxj5bx1KMgmar5g" htmlUrl="https://www.youtube.com/channel/UCBsuOBu-dxj5bx1KMgmar5g" />
+            <outline text="BE AMAZED" title="BE AMAZED" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkQO3QsgTpNTsOw6ujimT5Q" htmlUrl="https://www.youtube.com/channel/UCkQO3QsgTpNTsOw6ujimT5Q" />
+            <outline text="Fab Beat" title="Fab Beat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqkU3rMiUIYFpa6WGPYU1Gw" />
+            <outline text="EmpireJS" title="EmpireJS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiirmhXCzhae5l0XDfqcRBw" htmlUrl="https://www.youtube.com/channel/UCiirmhXCzhae5l0XDfqcRBw" />
+            <outline text="JavaScript Conferences by GitNation" title="JavaScript Conferences by GitNation" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQM428Hwrvxla8DCgjGONSQ" htmlUrl="https://www.youtube.com/channel/UCQM428Hwrvxla8DCgjGONSQ" />
+            <outline text="WeAreDevelopers" title="WeAreDevelopers" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSD0dLRGQk_T-D3RvpM5aFQ" htmlUrl="https://www.youtube.com/channel/UCSD0dLRGQk_T-D3RvpM5aFQ" />
+            <outline text="Angular" title="Angular" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbn1OgGei-DV7aSRo_HaAiw" htmlUrl="https://www.youtube.com/channel/UCbn1OgGei-DV7aSRo_HaAiw" />
+            <outline text="SAP Sapphire" title="SAP Sapphire" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQuM7k9LJE99RrzPRW6qx3g" htmlUrl="https://www.youtube.com/channel/UCQuM7k9LJE99RrzPRW6qx3g" />
+            <outline text="Netlify" title="Netlify" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMzabFudT_ntxlueP9R-3Vg" htmlUrl="https://www.youtube.com/channel/UCMzabFudT_ntxlueP9R-3Vg" />
+            <outline text="MovieFlame" title="MovieFlame" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOajpsI8t3Eg-u-s2j_c-cQ" htmlUrl="https://www.youtube.com/channel/UCOajpsI8t3Eg-u-s2j_c-cQ" />
+            <outline text="Infinite Red" title="Infinite Red" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwpSzVt7QpLDbCnPXqR97-g" htmlUrl="https://www.youtube.com/channel/UCwpSzVt7QpLDbCnPXqR97-g" />
+            <outline text="Simone Giertz" title="Simone Giertz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3KEoMzNz8eYnwBC34RaKCQ" htmlUrl="https://www.youtube.com/channel/UC3KEoMzNz8eYnwBC34RaKCQ" />
+            <outline text="Dauntless Tanker" title="Dauntless Tanker" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOYfZasB4EKY9RY9DiWftLQ" htmlUrl="https://www.youtube.com/channel/UCOYfZasB4EKY9RY9DiWftLQ" />
+            <outline text="International JavaScript Conference" title="International JavaScript Conference" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYMuZm39Z5Qc7JZfiYoxemQ" htmlUrl="https://www.youtube.com/channel/UCYMuZm39Z5Qc7JZfiYoxemQ" />
+            <outline text="Netflix Engineering" title="Netflix Engineering" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGGRRqAjPm6sL3-WGBDnKJA" htmlUrl="https://www.youtube.com/channel/UCGGRRqAjPm6sL3-WGBDnKJA" />
+            <outline text="Devoxx Poland" title="Devoxx Poland" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAu3kLPVR1KScr5BReBJTvg" htmlUrl="https://www.youtube.com/channel/UCAu3kLPVR1KScr5BReBJTvg" />
+            <outline text="Vercel" title="Vercel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLq8gNoee7oXM7MvTdjyQvA" htmlUrl="https://www.youtube.com/channel/UCLq8gNoee7oXM7MvTdjyQvA" />
+            <outline text="fitcevents" title="fitcevents" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmaq7t-9UQW8GmN2cN1J8LQ" htmlUrl="https://www.youtube.com/channel/UCmaq7t-9UQW8GmN2cN1J8LQ" />
+            <outline text="PolyConf" title="PolyConf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj7q1yKjZXaRcFJ-Lr-YJhA" htmlUrl="https://www.youtube.com/channel/UCj7q1yKjZXaRcFJ-Lr-YJhA" />
+            <outline text="Paul Programming" title="Paul Programming" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcDGsN3JxMavDkM9INRLGFA" htmlUrl="https://www.youtube.com/channel/UCcDGsN3JxMavDkM9INRLGFA" />
+            <outline text="Matt Garland" title="Matt Garland" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXKj1IJVDEHHHDOt49FhOOA" htmlUrl="https://www.youtube.com/channel/UCXKj1IJVDEHHHDOt49FhOOA" />
+            <outline text="Meta Developers" title="Meta Developers" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP_lo1MFyx5IXDeD9s_6nUw" htmlUrl="https://www.youtube.com/channel/UCP_lo1MFyx5IXDeD9s_6nUw" />
+            <outline text="React London 2017" title="React London 2017" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV4LIEkC0S9KUAPDm2g4mNQ" htmlUrl="https://www.youtube.com/channel/UCV4LIEkC0S9KUAPDm2g4mNQ" />
+            <outline text="CS Dojo" title="CS Dojo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxX9wt5FWQUAAz4UrysqK9A" htmlUrl="https://www.youtube.com/channel/UCxX9wt5FWQUAAz4UrysqK9A" />
+            <outline text="WebTunings" title="WebTunings" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTG-wda3NqCBdRF8n2I-Ohg" htmlUrl="https://www.youtube.com/channel/UCTG-wda3NqCBdRF8n2I-Ohg" />
+            <outline text="Algorithms with Attitude" title="Algorithms with Attitude" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUGQA2H6AXFolADHf9mBb4Q" htmlUrl="https://www.youtube.com/channel/UCUGQA2H6AXFolADHf9mBb4Q" />
+            <outline text="GOTO Conferences" title="GOTO Conferences" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCs_tLP3AiwYKwdUHpltJPuA" htmlUrl="https://www.youtube.com/channel/UCs_tLP3AiwYKwdUHpltJPuA" />
+            <outline text="Codegram" title="Codegram" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwoOpKfkyCQHW562hXXQAGg" htmlUrl="https://www.youtube.com/channel/UCwoOpKfkyCQHW562hXXQAGg" />
+            <outline text="O'Reilly" title="O'Reilly" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3BGlwmI-Vk6PWyMt15dKGw" htmlUrl="https://www.youtube.com/channel/UC3BGlwmI-Vk6PWyMt15dKGw" />
+            <outline text="Lee Byron" title="Lee Byron" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqeabrLPpBv8BvBn09_G3Mg" htmlUrl="https://www.youtube.com/channel/UCqeabrLPpBv8BvBn09_G3Mg" />
+            <outline text="Ember Videos" title="Ember Videos" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMmzJ82sCmooDdtzVY8FxEA" htmlUrl="https://www.youtube.com/channel/UCMmzJ82sCmooDdtzVY8FxEA" />
+            <outline text="Taugrim" title="Taugrim" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUzj5q3v-6umt_NOCR709Ng" htmlUrl="https://www.youtube.com/channel/UCUzj5q3v-6umt_NOCR709Ng" />
+            <outline text="dotconferences" title="dotconferences" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSRhwaM00ay0fasnsw6EXKA" htmlUrl="https://www.youtube.com/channel/UCSRhwaM00ay0fasnsw6EXKA" />
+            <outline text="SpensTV" title="SpensTV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxsNmUSR7F-ZEFa2dO0MlqA" htmlUrl="https://www.youtube.com/channel/UCxsNmUSR7F-ZEFa2dO0MlqA" />
+            <outline text="Nodecasts" title="Nodecasts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwXMtRJvXLKGHZhPUHNV72Q" htmlUrl="https://www.youtube.com/channel/UCwXMtRJvXLKGHZhPUHNV72Q" />
+            <outline text="The Go Programming Language" title="The Go Programming Language" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO3LEtymiLrgvpb59cNsb8A" htmlUrl="https://www.youtube.com/channel/UCO3LEtymiLrgvpb59cNsb8A" />
+            <outline text="GameofThrones" title="GameofThrones" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQzdMyuz0Lf4zo4uGcEujFw" htmlUrl="https://www.youtube.com/channel/UCQzdMyuz0Lf4zo4uGcEujFw" />
+            <outline text="MadFridayTV" title="MadFridayTV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqh-R3ZA1pL6ogfJDyQdQdA" htmlUrl="https://www.youtube.com/channel/UCqh-R3ZA1pL6ogfJDyQdQdA" />
+            <outline text="Rally Coding" title="Rally Coding" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQCaS3atWyNHEy5PkDXdpNg" htmlUrl="https://www.youtube.com/channel/UCQCaS3atWyNHEy5PkDXdpNg" />
+            <outline text="Strange Loop Conference" title="Strange Loop Conference" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_QIfHvN9auy2CoOdSfMWDw" htmlUrl="https://www.youtube.com/channel/UC_QIfHvN9auy2CoOdSfMWDw" />
+            <outline text="Paul Irish" title="Paul Irish" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCf7pOCNs6qmbSsBz2xQBI4g" htmlUrl="https://www.youtube.com/channel/UCf7pOCNs6qmbSsBz2xQBI4g" />
+            <outline text="Twitter University" title="Twitter University" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeDh9omC_xMKrar2srQZiLg" htmlUrl="https://www.youtube.com/channel/UCeDh9omC_xMKrar2srQZiLg" />
+            <outline text="ReactiveConf" title="ReactiveConf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBHdUnixTWymmXBIw12Y8Qg" htmlUrl="https://www.youtube.com/channel/UCBHdUnixTWymmXBIw12Y8Qg" />
+            <outline text="KIRUPA" title="KIRUPA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZCQ3LXtU3IUzMBQBqN69KQ" htmlUrl="https://www.youtube.com/channel/UCZCQ3LXtU3IUzMBQBqN69KQ" />
+            <outline text="React Native Training" title="React Native Training" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8ivCOllOAo7MfPT9k3Hs-Q" htmlUrl="https://www.youtube.com/channel/UC8ivCOllOAo7MfPT9k3Hs-Q" />
+            <outline text="Alt Shift X" title="Alt Shift X" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCveZqqGewoyPiacooywP5Ig" htmlUrl="https://www.youtube.com/channel/UCveZqqGewoyPiacooywP5Ig" />
+            <outline text="React NYC" title="React NYC" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC87H0RRqawG6I7oWAf9i48g" htmlUrl="https://www.youtube.com/channel/UC87H0RRqawG6I7oWAf9i48g" />
+            <outline text="Ilya Grigorik" title="Ilya Grigorik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2YCnM2rCPlRkVT91fNvVkQ" htmlUrl="https://www.youtube.com/channel/UC2YCnM2rCPlRkVT91fNvVkQ" />
+            <outline text="InfoQ" title="InfoQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkQX1tChV7Z7l1LFF4L9j_g" htmlUrl="https://www.youtube.com/channel/UCkQX1tChV7Z7l1LFF4L9j_g" />
+            <outline text="Lin Clark" title="Lin Clark" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuGbgeE4TiTHS4jVPAgxcdQ" />
+            <outline text="Kent C. Dodds" title="Kent C. Dodds" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz-BYvuntVRt_VpfR6FKXJw" htmlUrl="https://www.youtube.com/channel/UCz-BYvuntVRt_VpfR6FKXJw" />
+            <outline text="IBM Developer" title="IBM Developer" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUm6InQvGI9-6vo1teGWINA" htmlUrl="https://www.youtube.com/channel/UCUm6InQvGI9-6vo1teGWINA" />
+            <outline text="Богомил Шопов - !*Bogomil*" title="Богомил Шопов - !*Bogomil*" xmlUrl="http://www.bogomil.info/feed/" htmlUrl="https://bogomil.info" />
+            <outline text="Иво Инджев" title="Иво Инджев" xmlUrl="http://ivo.bg/feed/atom/" htmlUrl="https://ivo.bg" />
+            <outline text="Some Fancy Blog" title="Some Fancy Blog" xmlUrl="https://somefancyblog.wordpress.com/feed/" htmlUrl="https://somefancyblog.wordpress.com" />
+            <outline text="yovko in a nutshell" title="yovko in a nutshell" xmlUrl="http://yovko.net/?feed=rss2" htmlUrl="https://yovko.net/" />
+            <outline text="IT Новини - kaldata.com" title="IT Новини - kaldata.com" xmlUrl="https://www.kaldata.com/it-новини/feed" htmlUrl="https://www.kaldata.com" />
+            <outline text="dnevnik.bg Новини" title="dnevnik.bg Новини" xmlUrl="https://www.dnevnik.bg/rss/" htmlUrl="https://www.dnevnik.bg/rss/" />
+            <outline text="kaldata.com" title="kaldata.com" xmlUrl="http://www.kaldata.com/rosebud/rss.php" htmlUrl="https://www.kaldata.com/" />
+            <outline text="Капитал Статии" title="Капитал Статии" xmlUrl="http://www.capital.bg/rss.php?all=1" htmlUrl="http://www2.capital.bg/rss.php?all=1" />
+            <outline text="One Page Love" title="One Page Love" xmlUrl="https://onepagelove.com/feed" htmlUrl="https://onepagelove.com" />
+            <outline text="siteInspire" title="siteInspire" xmlUrl="http://feeds2.feedburner.com/Siteinspire" htmlUrl="https://www.siteinspire.com/websites" />
+            <outline text="paidContent:UK" title="paidContent:UK" xmlUrl="http://feeds.paidcontent.co.uk/pcuk/" htmlUrl="https://gigaom.com" />
+            <outline text="MediaDesign" title="MediaDesign" xmlUrl="http://feeds2.feedburner.com/Mediadesign" htmlUrl="http://meddesign.blogspot.com/" />
+            <outline text="Nieman Lab" title="Nieman Lab" xmlUrl="http://feeds.feedburner.com/NiemanJournalismLab" htmlUrl="https://www.niemanlab.org" />
+            <outline text="BuzzMachine" title="BuzzMachine" xmlUrl="http://feeds.feedburner.com/BuzzMachine" htmlUrl="https://buzzmachine.com/" />
+            <outline text="NewTrend.bg" title="NewTrend.bg" xmlUrl="http://feeds.feedburner.com/Newtrendbg" htmlUrl="http://newtrend.bg" />
+            <outline text="Effective Graphs" title="Effective Graphs" xmlUrl="http://blogs.forbes.com/naomirobbins/feed/" htmlUrl="https://blogs.forbes.com/naomirobbins" />
+            <outline text="feltron" title="feltron" xmlUrl="http://feltron.tumblr.com/rss" htmlUrl="https://feltron.tumblr.com/" />
+            <outline text="Jim Vallandingham" title="Jim Vallandingham" xmlUrl="http://feeds.feedburner.com/jim-vallandingham" htmlUrl="http://vallandingham.me/" />
+            <outline text="Numbers Rule Your World" title="Numbers Rule Your World" xmlUrl="http://junkcharts.typepad.com/numbersruleyourworld/atom.xml" htmlUrl="https://junkcharts.typepad.com/numbersruleyourworld/" />
+            <outline text="Statistical Graphics and more" title="Statistical Graphics and more" xmlUrl="http://www.theusrus.de/blog/feed/" htmlUrl="https://www.theusrus.de/blog" />
+            <outline text="Civil Statistician" title="Civil Statistician" xmlUrl="http://civilstat.com/?feed=rss2" htmlUrl="https://civilstat.com" />
+            <outline text="The Daily Viz" title="The Daily Viz" xmlUrl="http://thedailyviz.com/feed/" htmlUrl="https://thedailyviz.com" />
+            <outline text="Matthew Ericson - ericson.net" title="Matthew Ericson - ericson.net" xmlUrl="http://www.ericson.net/content/feed/" htmlUrl="https://www.ericson.net/content" />
+            <outline text="Simply Statistics" title="Simply Statistics" xmlUrl="http://simplystatistics.tumblr.com/rss" htmlUrl="https://simplystatistics.tumblr.com/" />
+            <outline text="TULP inspiration" title="TULP inspiration" xmlUrl="http://tulpinspiration.tumblr.com/rss" htmlUrl="https://tulpinspiration.tumblr.com/" />
+            <outline text="Visual Business Intelligence" title="Visual Business Intelligence" xmlUrl="http://www.perceptualedge.com/blog/?feed=rss2" htmlUrl="http://www.perceptualedge.com/blog" />
+            <outline text="Visualising Data" title="Visualising Data" xmlUrl="http://feeds.feedburner.com/VisualisingData" htmlUrl="https://www.visualisingdata.com/" />
+            <outline text="makinguse" title="makinguse" xmlUrl="http://www.makinguse.com/blog/feed/" htmlUrl="http://www.makinguse.com/blog" />
+            <outline text="FlowingData" title="FlowingData" xmlUrl="http://feeds.feedburner.com/FlowingData" htmlUrl="https://flowingdata.com" />
+            <outline text="Information Is Beautiful" title="Information Is Beautiful" xmlUrl="http://feeds.feedburner.com/InformationIsBeautiful" htmlUrl="https://informationisbeautiful.net" />
+            <outline text="News: Datablog | guardian.co.uk" title="News: Datablog | guardian.co.uk" xmlUrl="http://www.guardian.co.uk/news/datablog/rss" htmlUrl="https://www.theguardian.com/news/datablog" />
+            <outline text="Vizual Statistix" title="Vizual Statistix" xmlUrl="http://vizual-statistix.tumblr.com/rss" htmlUrl="https://vizual-statistix.tumblr.com/" />
+            <outline text="Infographics news" title="Infographics news" xmlUrl="http://feeds.feedburner.com/blogspot/gZldN" htmlUrl="http://infographicsnews.blogspot.com/" />
+            <outline text="Data Pointed" title="Data Pointed" xmlUrl="http://www.datapointed.net/feed/" htmlUrl="http://www.datapointed.net" />
+            <outline text="Junk Charts" title="Junk Charts" xmlUrl="http://junkcharts.typepad.com/junk_charts/atom.xml" htmlUrl="https://junkcharts.typepad.com/junk_charts/" />
+            <outline text="Revolutions" title="Revolutions" xmlUrl="http://blog.revolutionanalytics.com/atom.xml" htmlUrl="https://blog.revolutionanalytics.com/" />
+        </outline>
+    </body>
+</opml>
