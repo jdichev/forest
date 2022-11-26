@@ -164,10 +164,18 @@ export default class FeedUpdater {
   private async loadFeedData(feed: Feed): Promise<FeedData> {
     return new Promise(async (resolve) => {
       const feedResStr = fetchFeed(feed.feedUrl);
-      const feedRes = JSON.parse(feedResStr);
+      let feedRes;
+
+      try {
+        feedRes = JSON.parse(feedResStr);
+      } catch {
+        pino.error(`Error parsing feed responsve for ${feed.feedUrl}:\n\n${feedResStr}`);
+        resolve({ feed, items: [] });
+        return;
+      }
 
       if (feedRes.error) {
-        pino.error(`Fetching feed error ${feed.feedUrl}:\n${feedRes.error}`);
+        pino.error(`Fetching feed error ${feed.feedUrl}:\n\n${feedRes.error}`);
         resolve({ feed, items: [] });
         return;
       }

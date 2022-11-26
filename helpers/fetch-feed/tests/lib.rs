@@ -134,14 +134,16 @@ mod tests {
         });
 
         let res = fetch_feed(expected_url.to_owned()).await;
+        // println!("{:?}", res);
 
         let json_res: Value = serde_json::from_str(&res).unwrap_or_default();
 
         // rss_feed_mock.assert();
 
         assert_eq!(
-            json_res[0]["title"],
-            "Revolut confirms cyberattack exposed personal data of tens of thousands of users"
+            "Revolut confirms cyberattack exposed personal data of tens of thousands of users",
+            json_res["items"][0]["title"]
         );
+        
     }
 }
