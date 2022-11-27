@@ -12,6 +12,8 @@ use libc::c_char;
 use std::ffi::CStr;
 use std::ffi::CString;
 
+use std::time::Duration;
+
 #[no_mangle]
 pub extern "C" fn fetch_feed_release(s: *mut c_char) {
     unsafe {
@@ -50,8 +52,12 @@ pub extern "C" fn fetch_feed_extern(s: *const c_char) -> *mut c_char {
 
 pub async fn fetch_feed(feed_url: String) -> String {
     let mut result_json_str: String = "".to_string();
+    let client = reqwest::Client::builder()
+        .timeout(Duration::from_secs(2))
+        .build()
+        .unwrap_or_default();
 
-    let response = reqwest::get(feed_url).await;
+    let response = client.get(feed_url).send().await;
 
     match response {
         Err(error) => {
