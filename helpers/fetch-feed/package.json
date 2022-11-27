@@ -3,23 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "fetch-feed.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jdichev/refactored-parakeet.git"
-  },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jdichev/refactored-parakeet/issues"
-  },
-  "homepage": "https://github.com/jdichev/refactored-parakeet#readme",
   "dependencies": {
     "ffi-napi": "^4.0.3",
     "valid-url": "^1.0.9"
