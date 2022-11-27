@@ -50,9 +50,9 @@ function createWindow() {
   }
 
   // Open urls in system browser
-  win.webContents.on("new-window", (event, url) => {
-    event.preventDefault();
+  win.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
+    return { action: "deny" };
   });
 
   const menuBuilder = new MenuBuilder(win);
