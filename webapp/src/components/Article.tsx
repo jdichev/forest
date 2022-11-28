@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 /* eslint-disable react/no-danger */
 import FormattedDate from "./FormattedDate";
 
@@ -7,6 +8,26 @@ export default function Article({
   selectedFeedCategory,
   selectedFeed,
 }: ArticleProps) {
+  const [videoId, setVideoId] = useState<String>();
+
+  useEffect(() => {
+    if (article && article.url) {
+      const parsedUrl = new URL(article.url);
+
+      if (parsedUrl.hostname.includes("youtube.com")) {
+        const foundVideoId = parsedUrl.searchParams.get("v");
+
+        if (foundVideoId) {
+          setVideoId(foundVideoId);
+        } else {
+          setVideoId(undefined);
+        }
+      } else {
+        setVideoId(undefined);
+      }
+    }
+  }, [article]);
+
   if (article) {
     return (
       <article>
@@ -45,14 +66,15 @@ export default function Article({
         </p>
 
         <div id="content">
-          {article.jsonContent ? (
+          {videoId ? (
             <>
               <iframe
+                title={article.title}
                 data-testid="yt-embed-frame"
                 id="player"
                 width="640"
                 height="390"
-                src={`http://www.youtube.com/embed/${article.jsonContent["yt-id"]}?enablejsapi=1`}
+                src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1`}
                 frameBorder="0"
               />
               <br />
