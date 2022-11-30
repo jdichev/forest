@@ -150,10 +150,10 @@ pub async fn fetch_feed(feed_url: String) -> String {
                                     let parsed = dateparser::parse(pub_date);
                                     
                                     let description;
-                                    if item.description().is_some() {
-                                        description = item.description().unwrap_or_default();
-                                    } else if item.content().is_some() {
+                                    if item.content().is_some() {
                                         description = item.content().unwrap_or_default();
+                                    } else if item.description().is_some() {
+                                        description = item.description().unwrap_or_default();
                                     } else {
                                         description = "NO_DESCR";
                                     }
