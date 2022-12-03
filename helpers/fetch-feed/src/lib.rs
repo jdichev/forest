@@ -98,10 +98,17 @@ pub async fn fetch_feed(feed_url: String) -> String {
                                     }
                 
                                     let description;
-                                    if entry.content().is_some() {
-                                        description = Some(entry.content().unwrap().value());
+                                    if entry.summary().is_some() {
+                                        description = Some(entry.summary().unwrap_or_default());
                                     } else {
-                                        description = Some(entry.summary());
+                                        description = Some("");
+                                    }
+
+                                    let content;
+                                    if entry.content().is_some() {
+                                        content = Some(entry.content().unwrap().value().unwrap_or_default());
+                                    } else {
+                                        content = Some("");
                                     }
                 
                                     let parsed = dateparser::parse(&pub_date.unwrap_or_default());
@@ -115,7 +122,8 @@ pub async fn fetch_feed(feed_url: String) -> String {
                 
                                     let feed_item = json!({
                                         "title": entry.title(),
-                                        "description": clean(description.unwrap_or_default().unwrap_or_default()),
+                                        "description": clean(description.unwrap_or_default()),
+                                        "content": clean(content.unwrap_or_default()),
                                         "published": parsed.unwrap_or_default().timestamp(),
                                         "publishedRaw": pub_date,
                                         "link": link
@@ -150,17 +158,23 @@ pub async fn fetch_feed(feed_url: String) -> String {
                                     let parsed = dateparser::parse(pub_date);
                                     
                                     let description;
-                                    if item.content().is_some() {
-                                        description = item.content().unwrap_or_default();
-                                    } else if item.description().is_some() {
-                                        description = item.description().unwrap_or_default();
+                                    if item.description().is_some() {
+                                        description = item.description()
                                     } else {
-                                        description = "NO_DESCR";
+                                        description = Some("");
+                                    }
+
+                                    let content;
+                                    if item.content().is_some() {
+                                        content = item.content();
+                                    } else {
+                                        content = Some("");
                                     }
                 
                                     let feed_item = json!({
                                         "title": item.title().unwrap_or_default(),
-                                        "description": clean(description),
+                                        "description": clean(description.unwrap_or_default()),
+                                        "content": clean(content.unwrap_or_default()),
                                         "published": parsed.unwrap_or_default().timestamp(),
                                         "published_raw": item.pub_date().unwrap_or_default(),
                                         "link": item.link().unwrap_or_default()
