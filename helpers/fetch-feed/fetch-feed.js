@@ -1,26 +1,16 @@
-const ffi = require("ffi-napi");
-const validUrl = require("valid-url");
+const { Worker } = require("worker_threads");
 const path = require("path");
 
-const lib = ffi.Library(
-  path.join(__dirname, "target", "release", "libfetch_feed"),
-  {
-    fetch_feed_extern: ["char *", ["string"]],
-    fetch_feed_release: ["void", ["char *"]],
-  }
-);
-
 function fetchFeed(feedUrl) {
-  if (!validUrl.isUri(feedUrl)) {
-    return JSON.stringify({ error: "Invalid URL" });
-  }
+  return new Promise((resolve) => {
+    const worker = new Worker(path.join(__dirname, "fetch-feed-worker.js"));
 
-  const feedJSONPtr = lib.fetch_feed_extern(feedUrl);
-  try {
-    return feedJSONPtr.readCString();
-  } finally {
-    lib.fetch_feed_release(feedJSONPtr);
-  }
+    worker.on("message", (msg) => {
+      resolve(msg);
+    });
+
+    worker.postMessage(feedUrl);
+  });
 }
 
 module.exports = {

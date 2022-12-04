@@ -163,7 +163,7 @@ export default class FeedUpdater {
 
   private async loadFeedData(feed: Feed): Promise<FeedData> {
     return new Promise(async (resolve) => {
-      const feedResStr = fetchFeed(feed.feedUrl);
+      const feedResStr = await fetchFeed(feed.feedUrl);
       let feedRes;
 
       try {
