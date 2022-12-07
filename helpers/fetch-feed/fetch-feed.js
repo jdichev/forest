@@ -1,11 +1,18 @@
-const { Worker } = require("worker_threads");
-const path = require("path");
+const os = require("os")
+const WorkerPool = require("./worker-pool");
+
+const cpus = os.cpus();
+const numWorkers = cpus.length > 1 ? Math.min(Math.min(cpus.length / 2), 4) : 1;
+
+const workerPool = new WorkerPool(numWorkers);
 
 function fetchFeed(feedUrl) {
-  return new Promise((resolve) => {
-    const worker = new Worker(path.join(__dirname, "fetch-feed-worker.js"));
+  return new Promise(async (resolve) => {
+    const worker = await workerPool.pullWorker();
 
-    worker.on("message", (msg) => {
+    worker.once("message", (msg) => {
+      workerPool.pushWorker(worker);
+
       resolve(msg);
     });
 
