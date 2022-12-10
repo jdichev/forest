@@ -41,8 +41,6 @@ export default function FeedAdd() {
       submitInitial?.setAttribute("disabled", "disabled");
 
       const feeds = await ds.checkFeed(data.feedUrlInitial);
-      console.log(feeds);
-
       if (submitInitial) {
         submitInitial.innerText = "Go";
       }
@@ -59,7 +57,6 @@ export default function FeedAdd() {
         const feedUrlsToCheck = feeds.map((feed) => {
           return feed.feedUrl;
         });
-        console.log(feedUrlsToCheck);
         const checkedFeedsRes = await ds.checkFeedUrls(feedUrlsToCheck);
         setCheckedFeeds(checkedFeedsRes);
       }
@@ -94,8 +91,6 @@ export default function FeedAdd() {
 
   const onSubmitFileImport = useCallback(
     (data: FieldValues) => {
-      console.log(data);
-
       const fileName = data.importFile[0].path;
 
       ds.importOpmlFile(fileName);

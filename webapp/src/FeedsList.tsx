@@ -107,7 +107,6 @@ export default function Feeds({ topMenu }: FeedsProps) {
   // const inputSearchRef = register();
 
   const onFeedSearch = useCallback((data: FieldValues) => {
-    console.log(data);
     setFeeds((prev) => {
       return prev.map((feed) => {
         if (
@@ -147,7 +146,6 @@ export default function Feeds({ topMenu }: FeedsProps) {
         title: data.feedCategoryName,
         text: data.feedCategoryName,
       };
-      console.log(feedCategoryInput);
 
       const result = await ds.updateFeedCategory(feedCategoryInput);
 

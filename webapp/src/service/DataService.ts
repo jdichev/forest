@@ -105,7 +105,7 @@ export default class DataService {
       `http://localhost:3031/items?${queryString}`,
       {}
     ).catch((reason) => {
-      console.log(reason.code, reason.message, reason.name);
+      console.error(reason.code, reason.message, reason.name);
     });
 
     if (response) {
