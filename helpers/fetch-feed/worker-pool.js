@@ -2,19 +2,28 @@ const { Worker } = require("worker_threads");
 const path = require("path");
 
 const EventEmitter = require("events");
+const { inherits } = require("util");
 
 class WorkerPool extends EventEmitter {
   #freeWorkers = [];
   #busyWorkers = [];
   #queue = [];
+  #initiated = false;
+  #numOfWorkers;
 
   constructor(numOfWorkers = 2) {
     super();
+    this.#numOfWorkers = numOfWorkers;
+  }
 
-    let repeat = numOfWorkers;
-    while (repeat-- > 0) {
-      const worker = new Worker(path.join(__dirname, "fetch-feed-worker.js"));
-      this.#freeWorkers.push(worker);
+  init() {
+    if (!this.#initiated) {
+      let repeat = this.#numOfWorkers;
+      while (repeat-- > 0) {
+        const worker = new Worker(path.join(__dirname, "fetch-feed-worker.js"));
+        this.#freeWorkers.push(worker);
+      }
+      this.#initiated = true;
     }
   }
 
@@ -44,6 +53,8 @@ class WorkerPool extends EventEmitter {
   }
 
   pullWorker() {
+    this.init();
+
     return new Promise((resolve) => {
       const engageAndDequeue = () => {
         const engagedWorker = this.engageWorker();
