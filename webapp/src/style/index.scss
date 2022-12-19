@@ -374,6 +374,7 @@ a:hover {
 #list-panel,
 #content-panel {
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 #content-panel iframe {
