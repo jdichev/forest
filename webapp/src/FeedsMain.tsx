@@ -123,7 +123,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         visitSite();
       }
 
-      if (e.code === "KeyW" || e.code === "KeyK") {
+      if (["KeyW", "KeyK", "ArrowUp"].includes(e.code)) {
         if (activeNav === "categories") {
           selectPrevFeedOrCategory();
         } else if (activeNav === "items") {
@@ -131,7 +131,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyS" || e.code === "KeyJ") {
+      if (["KeyS", "KeyJ", "ArrowDown"].includes(e.code)) {
         if (activeNav === "categories") {
           selectNextFeedOrCategory();
         } else if (activeNav === "items") {
@@ -139,7 +139,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyA" || e.code === "KeyH") {
+      if (["KeyA", "KeyH", "ArrowLeft"].includes(e.code)) {
         if (activeNav === "items") {
           setActiveNav("categories");
 
@@ -178,7 +178,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         }
       }
 
-      if (e.code === "KeyD" || e.code === "KeyL") {
+      if (["KeyD", "KeyL", "ArrowRight"].includes(e.code)) {
         if (items.length === 0) {
           return;
         }
@@ -331,7 +331,10 @@ export default function FeedsMain({ topMenu }: HomeProps) {
    * Select feed category, filtering items
    */
   const selectFeedCategory = useCallback(
-    async (feedCategory: FeedCategory | undefined, e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined) => {
+    async (
+      feedCategory: FeedCategory | undefined,
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
+    ) => {
       setSelectedFeed(undefined);
       setSize(50);
       setSelectedFeedCategory(feedCategory);
@@ -550,9 +553,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
       const bottomScrollOffset = 5;
 
       if (
-        Math.ceil(
-          e.currentTarget.scrollTop + e.currentTarget.offsetHeight
-        ) >=
+        Math.ceil(e.currentTarget.scrollTop + e.currentTarget.offsetHeight) >=
         e.currentTarget.scrollHeight - bottomScrollOffset
       ) {
         loadMore();
