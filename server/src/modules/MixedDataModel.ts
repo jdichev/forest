@@ -118,6 +118,20 @@ export default class DataService {
           }
         }
       );
+
+      const twoWeeksAgo = new Date();
+      twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+      const twoWeeksAgoTime = twoWeeksAgo.getTime();
+
+      const query = `DELETE FROM items WHERE published < ${twoWeeksAgoTime}`;
+
+        this.database.run(query, (error) => {
+          if (error) {
+            pino.error(error);
+          }
+        });
+
+        pino.info("Removed all items older than 2 weeks");
     });
   }
 
