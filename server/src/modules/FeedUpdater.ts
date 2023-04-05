@@ -56,7 +56,7 @@ export default class FeedUpdater {
     pino.debug(feedData, "feed data");
 
     return new Promise(async (resolve, reject) => {
-      const feedResStr = fetchFeed(feedData.feedUrl);
+      const feedResStr = await fetchFeed(feedData.feedUrl);
       const feedRes = JSON.parse(feedResStr);
 
       if (feedRes.error) {
