@@ -16,7 +16,7 @@ export default class Updater {
     feedUpdater.updateItems();
 
     this.task = cron.schedule(
-      `1 * * * *`,
+      `*/30 * * * *`,
       () => {
         feedUpdater.updateItems();
       },
