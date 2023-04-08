@@ -12,21 +12,14 @@ const run = async (command, cwd) => {
 };
 
 const install = async () => {
-  run("npm link", "./helpers/fetch-feed");
-  run("npm link", "./config");
-  run("npm link", "./webapp");
-  run("npm link", "./server");
-
   run("npm install", "./config");
-
-  run("npm link forestconfig", "./webapp");
+  
+  run("npm install", "./helpers/fetch-feed");
+  
   run("npm install", "./webapp");
-
-  run("npm link fetch-feed", "./server");
-  run("npm link forestconfig", "./server");
+  
   run("npm install", "./server");
 
-  run("npm link forestconfig forestserver forestwebapp", "./desktop");
   run("npm install", "./desktop");
 };
 

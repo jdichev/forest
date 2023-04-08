@@ -43,8 +43,8 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "forestconfig": "~1.0.0",
-    "fetch-feed": "~1.0.0",
+    "forestconfig": "file:../config",
+    "fetch-feed": "file:../helpers/fetch-feed",
     "@types/emoji-strip": "^1.0.0",
     "axios": "^1.1.3",
     "body-parser": "^1.20.1",

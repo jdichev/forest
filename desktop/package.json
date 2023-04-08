@@ -14,9 +14,9 @@
     "contentBase": "./dist"
   },
   "dependencies": {
-    "forestconfig": "~1.0.0",
-    "forestserver": "~1.0.0",
-    "forestwebapp": "~1.0.0",
+    "forestconfig": "file:../config",
+    "forestserver": "file:../server",
+    "forestwebapp": "file:../webapp",
     "lodash.union": "^4.6.0",
     "pino": "^8.7.0",
     "pino-pretty": "^9.1.1"
