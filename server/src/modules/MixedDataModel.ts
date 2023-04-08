@@ -171,7 +171,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(row);
+        resolve(row as Feed);
       });
     });
   }
@@ -192,7 +192,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(row);
+        resolve(row as Feed);
       });
     });
   }
@@ -248,7 +248,7 @@ export default class DataService {
           pino.error(err);
         }
 
-        resolve(rows || []);
+        resolve(rows as Feed[] || []);
       });
     });
   }
@@ -437,6 +437,7 @@ export default class DataService {
         }
 
         const res = rows.map((record) => {
+          // @ts-ignore
           return record.feedUrl;
         });
 
@@ -469,7 +470,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows || []);
+        resolve(rows as FeedReadStat[] || []);
       });
     });
   }
@@ -530,7 +531,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows || []);
+        resolve(rows as FeedCategoryReadStat[] || []);
       });
     });
   }
@@ -550,7 +551,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(row || undefined);
+        resolve(row as FeedCategory || undefined);
       });
     });
   }
@@ -567,7 +568,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows || []);
+        resolve(rows as FeedCategory[] || []);
       });
     });
   }
@@ -689,14 +690,15 @@ export default class DataService {
     `;
 
     return new Promise((resolve) => {
-      this.database.all(query, feedCategory.id, (error, rows) => {
+      this.database.all(query, feedCategory.id, (error, rows: Feed[]) => {
         if (error) {
           pino.error(error);
         }
 
-        let feedIds = [];
+        let feedIds: number[] = [];
 
         if (rows.length) {
+          // @ts-ignore
           feedIds = rows.map((feed) => {
             return feed.id;
           });
@@ -946,7 +948,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows || []);
+        resolve(rows as Item[] || []);
       });
     });
   }
@@ -1090,7 +1092,7 @@ export default class DataService {
   }
 
   public async getFeedsLastFirstItems(): Promise<
-    { id: number; url: string }[]
+    Item[]
   > {
     const query = `
       SELECT
@@ -1109,7 +1111,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows || []);
+        resolve(rows as Item[] || []);
       });
     });
   }
