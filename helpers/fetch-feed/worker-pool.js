@@ -2,7 +2,6 @@ const { Worker } = require("worker_threads");
 const path = require("path");
 
 const EventEmitter = require("events");
-const { inherits } = require("util");
 
 class WorkerPool extends EventEmitter {
   #freeWorkers = [];
