@@ -31,14 +31,14 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Run build
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run build
+      # - name: Run build
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   run: npm run build
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: Forest
-          path: desktop/release
-          retention-days: 1
+      # - name: Upload Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Forest
+      #     path: desktop/release
+      #     retention-days: 1
