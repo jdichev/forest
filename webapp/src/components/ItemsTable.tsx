@@ -7,7 +7,7 @@ export default function ItemsTable({
   selectItem,
 }: ItemsTableProps) {
   return (
-    <table className="table">
+    items.length ? <table className="table">
       <tbody>
         {items.map((item: Item) => {
           return (
@@ -40,6 +40,6 @@ export default function ItemsTable({
           );
         })}
       </tbody>
-    </table>
+    </table> : <pre data-testid="items-message">No items yet in this category</pre>
   );
 }

@@ -30,3 +30,21 @@ test("renders formatted date", async () => {
 
   expect(handleSelectItem).toHaveBeenCalledTimes(1);
 });
+
+test("renders message when no items for table", async () => {
+  const handleSelectItem = jest.fn();
+
+  const items: Item[] = [];
+
+  render(
+    <ItemsTable
+      selectedItem={undefined}
+      selectItem={handleSelectItem}
+      items={items}
+    />
+  );
+
+  const renderedItemsMessage = screen.getByTestId("items-message");
+
+  expect(renderedItemsMessage).toBeTruthy;
+});
