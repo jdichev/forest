@@ -1,26 +1,12 @@
-const ffi = require("ffi-napi");
 const validUrl = require("valid-url");
-const path = require("path");
-
-const lib = ffi.Library(
-  path.join(__dirname, "target", "release", "libfetch_feed"),
-  {
-    fetch_feed_extern: ["char *", ["string"]],
-    fetch_feed_release: ["void", ["char *"]],
-  }
-);
+const { fetchFeedSync: nativeFetchFeedSync } = require("./index");
 
 function fetchFeed(feedUrl) {
   if (!validUrl.isUri(feedUrl)) {
     return JSON.stringify({ error: "Invalid URL" });
   }
 
-  const feedJSONPtr = lib.fetch_feed_extern(feedUrl);
-  try {
-    return feedJSONPtr.readCString();
-  } finally {
-    lib.fetch_feed_release(feedJSONPtr);
-  }
+  return nativeFetchFeedSync(feedUrl);
 }
 
 module.exports = {

@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cargo build --release"
+    "postinstall": "npm run build",
+    "build": "napi build --release"
   },
   "license": "ISC",
   "dependencies": {
-    "ffi-napi": "^4.0.3",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
+    "@napi-rs/cli": "^3.5.0",
     "finalhandler": "^1.2.0",
     "serve-static": "^1.15.0"
   }

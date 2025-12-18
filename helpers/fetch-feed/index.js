@@ -1,7 +1,7 @@
-const { fetchFeed } = require("./fetch-feed");
-const { fetchFeedSync } = require("./fetch-feed-sync");
+const { fetchFeedAsync, fetchFeedSync } = require("./index.node");
 
 module.exports = {
-  fetchFeed,
+  fetchFeed: fetchFeedAsync,
   fetchFeedSync,
+  fetchFeedAsync,
 };

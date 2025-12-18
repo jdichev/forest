@@ -1,57 +1,38 @@
-use tokio::runtime::Builder;
+use napi::bindgen_prelude::*;
+use napi_derive::napi;
 
 use serde_json::json;
 use serde_json::Value;
 
 use syndication::Feed;
 
-use libc::c_char;
-
-use std::ffi::CStr;
-use std::ffi::CString;
-
 use std::time::Duration;
 
 mod helpers;
 use helpers::{parse_date, process_markup};
 
-#[no_mangle]
-pub extern "C" fn fetch_feed_release(s: *mut c_char) {
-  unsafe {
-    if s.is_null() {
-      return;
-    }
-    CString::from_raw(s)
-  };
+#[napi]
+pub async fn fetch_feed_async(feed_url: String) -> Result<String> {
+  fetch_feed(feed_url).await
+    .map_err(|e| Error::from_reason(e))
 }
 
-#[no_mangle]
-pub extern "C" fn fetch_feed_extern(s: *const c_char) -> *mut c_char {
-  let c_str = unsafe {
-    assert!(!s.is_null());
-
-    CStr::from_ptr(s)
-  };
-
-  let r_str = c_str.to_str().unwrap();
-
-  let runtime = Builder::new_multi_thread()
+#[napi]
+pub fn fetch_feed_sync(feed_url: String) -> Result<String> {
+  let runtime = tokio::runtime::Builder::new_multi_thread()
     .worker_threads(4)
     .thread_name("fetch-feed")
     .thread_stack_size(3 * 1024 * 1024)
     .enable_io()
     .enable_time()
     .build()
-    .unwrap();
+    .map_err(|e| Error::from_reason(format!("Failed to create runtime: {}", e)))?;
 
-  let res = runtime.block_on(fetch_feed(r_str.to_owned()));
-
-  let c_str_song = CString::new(res).unwrap();
-
-  return c_str_song.into_raw();
+  runtime.block_on(fetch_feed(feed_url))
+    .map_err(|e| Error::from_reason(e))
 }
 
-pub async fn fetch_feed(feed_url: String) -> String {
+async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
   let mut result_json_str: String = "".to_string();
   let client = reqwest::Client::builder()
     .timeout(Duration::from_secs(2))
@@ -63,7 +44,7 @@ pub async fn fetch_feed(feed_url: String) -> String {
   match response {
     Err(error) => {
       println!("Failed to get response\n{:?}", error);
-      result_json_str.push_str("{\"error\": \"Failed to get response\"}");
+      return Err("Failed to get response".to_string());
     }
 
     Ok(response_result) => {
@@ -72,16 +53,14 @@ pub async fn fetch_feed(feed_url: String) -> String {
       match content {
         Err(error) => {
           println!("Failed to get response text payload\n{:?}", error);
-          result_json_str.push_str("{\"error\": \"Failed to get response text\"}");
+          return Err("Failed to get response text".to_string());
         }
 
         Ok(content_result) => {
           match content_result.parse::<Feed>() {
             Err(error) => {
               println!("{{\"error\": \"Error: failed to parse feed {:?}\"}}", error);
-              // println!("Content\n{:?}", content_result);
-
-              result_json_str.push_str("{{\"error\": \"Error: failed to parse feed\"}}")
+              return Err("Error: failed to parse feed".to_string());
             }
 
             Ok(feed) => match feed {
@@ -199,5 +178,5 @@ pub async fn fetch_feed(feed_url: String) -> String {
     }
   };
 
-  return result_json_str;
+  return Ok(result_json_str);
 }
