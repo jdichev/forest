@@ -18,7 +18,7 @@ const { window } = new JSDOM("<!DOCTYPE html>");
 // @ts-ignore
 const domPurify = DOMPurify(window);
 
-const seed = `
+const createTables = `
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "feed_categories" (
 	"id"	INTEGER NOT NULL UNIQUE,
@@ -51,10 +51,11 @@ CREATE TABLE IF NOT EXISTS "items" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 COMMIT;
+`;
 
-INSERT INTO feed_categories (id, title, text)
+const seedData = `
+INSERT OR IGNORE INTO feed_categories (id, title, text)
 VALUES (0, "Uncategorized", "Uncategorized");
-
 `;
 
 // main data service
@@ -99,25 +100,25 @@ export default class DataService {
         pino.debug("pragma seetings executed");
       });
 
-      // Check if DB initialized
-      this.database.get(
-        "SELECT FROM feed_categories WHERE id = 0",
-        (innerErr) => {
-          if (!innerErr) {
-            this.database.exec(seed, (seedErr) => {
-              if (seedErr) {
-                pino.error(seedErr, "Error executing seed");
-              }
-
-              pino.debug(
-                `Database initialized in mode ${
-                  tempInstance ? "temp" : "not-temp"
-                }`
-              );
-            });
-          }
+      // Create tables (safe due to IF NOT EXISTS)
+      this.database.exec(createTables, (createErr) => {
+        if (createErr) {
+          pino.error(createErr, "Error creating tables");
         }
-      );
+
+        // Seed default data (safe due to INSERT OR IGNORE)
+        this.database.exec(seedData, (seedErr) => {
+          if (seedErr) {
+            pino.error(seedErr, "Error seeding data");
+          }
+
+          pino.debug(
+            `Database initialized in mode ${
+              tempInstance ? "temp" : "not-temp"
+            }`
+          );
+        });
+      });
 
       const twoWeeksAgo = new Date();
       twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
