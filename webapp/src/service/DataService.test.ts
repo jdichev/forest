@@ -20,7 +20,7 @@ test("Test getFeedCategories", async () => {
   const feedCategories = await dataService.getFeedCategories();
 
   expect(feedCategories).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getFeedCategoriesReadStats", async () => {
@@ -28,7 +28,7 @@ test("Test getFeedCategoriesReadStats", async () => {
   const feedCategoriesReadStats = await dataService.getFeedCategoryReadStats();
 
   expect(feedCategoriesReadStats).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getFeedReadStats", async () => {
@@ -36,7 +36,7 @@ test("Test getFeedReadStats", async () => {
   const feedReadStats = await dataService.getFeedReadStats();
 
   expect(feedReadStats).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getItems", async () => {
@@ -45,7 +45,7 @@ test("Test getItems", async () => {
   const items = await dataService.getItems();
 
   expect(items).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getItem", async () => {
@@ -54,7 +54,7 @@ test("Test getItem", async () => {
   const item = await dataService.getItem(1);
 
   expect(item).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test markItemsRead", async () => {
@@ -63,7 +63,7 @@ test("Test markItemsRead", async () => {
   const res = await dataService.markItemsRead({});
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test markItemRead", async () => {
@@ -72,7 +72,7 @@ test("Test markItemRead", async () => {
   const res = await dataService.markItemRead({ id: 1 } as Item);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getFeeds", async () => {
@@ -81,7 +81,7 @@ test("Test getFeeds", async () => {
   const feeds = await dataService.getFeeds();
 
   expect(feeds).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test getFeedById", async () => {
@@ -90,7 +90,7 @@ test("Test getFeedById", async () => {
   const feed = await dataService.getFeedById(1);
 
   expect(feed).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test removeFeed", async () => {
@@ -99,7 +99,7 @@ test("Test removeFeed", async () => {
   const res = await dataService.removeFeed(1);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test updateFeed", async () => {
@@ -108,7 +108,7 @@ test("Test updateFeed", async () => {
   const res = await dataService.updateFeed({} as Feed);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test checkFeedUrls", async () => {
@@ -117,7 +117,7 @@ test("Test checkFeedUrls", async () => {
   const res = await dataService.checkFeedUrls(["test"]);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test addFeed", async () => {
@@ -126,7 +126,7 @@ test("Test addFeed", async () => {
   const res = await dataService.addFeed({} as Feed);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test addFeedCategory", async () => {
@@ -135,7 +135,7 @@ test("Test addFeedCategory", async () => {
   const res = await dataService.addFeedCategory({} as FeedCategory);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test removeFeedCategory", async () => {
@@ -144,7 +144,7 @@ test("Test removeFeedCategory", async () => {
   const res = await dataService.removeFeedCategory(1);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test updateFeedCategory", async () => {
@@ -153,7 +153,7 @@ test("Test updateFeedCategory", async () => {
   const res = await dataService.updateFeedCategory({} as FeedCategory);
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 test("Test importOpmlFile", async () => {
@@ -162,5 +162,5 @@ test("Test importOpmlFile", async () => {
   const res = await dataService.importOpmlFile("test");
 
   expect(res).toBeTruthy();
-  expect(fetchMock).toBeCalledTimes(1);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
