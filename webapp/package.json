@@ -24,9 +24,9 @@
   "author": "Jordan Dichev",
   "license": "ISC",
   "dependencies": {
-    "forestconfig": "file:../config",
     "bootstrap-icons": "^1.8.1",
-    "pretty-ms": "^7.0.1",
+    "forestconfig": "file:../config",
+    "ms": "^2.1.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.30.0",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@testing-library/react": "^13.2.0",
     "@types/jest": "^27.5.0",
+    "@types/ms": "^2.1.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/react-router-dom": "^5.3.3",

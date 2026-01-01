@@ -280,7 +280,7 @@ export default class server {
       tempMode: false,
       port: projectConfig.dataServerPort,
     }
-  ) {
+  ): Promise<Application> {
     return new Promise((resolve) => {
       pino.debug(config, "config");
 

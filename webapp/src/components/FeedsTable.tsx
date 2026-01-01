@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import prettyMs from "pretty-ms";
+import ms from "ms";
 
 export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
   return (
@@ -49,7 +49,7 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
               </td>
               <td>
                 <small className="text-nowrap">
-                  {feed.updateFrequency && prettyMs(feed.updateFrequency)}
+                  {feed.updateFrequency && ms(feed.updateFrequency)}
                 </small>
               </td>
               <td>

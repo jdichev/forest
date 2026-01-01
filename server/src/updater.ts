@@ -1,4 +1,4 @@
-import cron from "node-cron";
+import cron, { ScheduledTask } from "node-cron";
 import pinoLib from "pino";
 import FeedUpdater from "./modules/FeedUpdater";
 
@@ -7,7 +7,7 @@ const pino = pinoLib({
 });
 
 export default class Updater {
-  private static task: cron.ScheduledTask;
+  private static task: ScheduledTask;
 
   public static start() {
     const feedUpdater = new FeedUpdater();
@@ -19,9 +19,6 @@ export default class Updater {
       `*/30 * * * *`,
       () => {
         feedUpdater.updateItems();
-      },
-      {
-        scheduled: false,
       }
     );
 

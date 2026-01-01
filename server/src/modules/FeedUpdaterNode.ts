@@ -2,7 +2,7 @@ import axiosLib from "axios";
 import chunk from "lodash/chunk";
 import RssParser from "rss-parser";
 import pinoLib from "pino";
-import prettyMs from "pretty-ms";
+import ms from "ms";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -262,14 +262,14 @@ export default class FeedUpdater {
         );
 
         const chunkEnd = Date.now();
-        pino.trace("Time to process chunk %s", prettyMs(chunkEnd - chunkStart));
+        pino.trace("Time to process chunk %s", ms(chunkEnd - chunkStart));
 
         const chunkInsertStart = Date.now();
         await this.insertBulkItems(resultOfFeeds);
         const chunkInsertEnd = Date.now();
         pino.trace(
           "Time to insert data from chunk %s",
-          prettyMs(chunkInsertEnd - chunkInsertStart)
+          ms(chunkInsertEnd - chunkInsertStart)
         );
 
         resultData = resultData.concat(resultOfFeeds);
@@ -359,6 +359,6 @@ export default class FeedUpdater {
 
     const updateEnd = Date.now();
 
-    pino.trace("Crawl time %s", prettyMs(updateEnd - updateStart));
+    pino.trace("Crawl time %s", ms(updateEnd - updateStart));
   }
 }

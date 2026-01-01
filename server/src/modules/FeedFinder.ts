@@ -1,5 +1,4 @@
 import RssParser from "rss-parser";
-import isAbsoluteUrl from "is-absolute-url";
 import isValidDomain from "is-valid-domain";
 import axios from "axios";
 import { JSDOM } from "jsdom";
@@ -76,7 +75,16 @@ export default class FeedFinder {
   public async checkFeed(url: string, depth = 0): Promise<Feed[]> {
     let resUrl: URL;
 
-    if (!isAbsoluteUrl(url)) {
+    // Check if URL is absolute by attempting to parse it
+    let isAbsoluteUrl = false;
+    try {
+      new URL(url);
+      isAbsoluteUrl = true;
+    } catch {
+      isAbsoluteUrl = false;
+    }
+
+    if (!isAbsoluteUrl) {
       if (!isValidDomain(url)) {
         return Promise.resolve([]);
       }
@@ -87,7 +95,7 @@ export default class FeedFinder {
     }
 
     const isFeedResponse = await FeedFinder.isFeedResponse(resUrl.href);
-    pino.debug("isFeedResponse %o", isFeedResponse);
+    pino.debug({ isFeedResponse }, "Feed response check complete");
 
     if (isFeedResponse) {
       const feedData = await this.loadFeedData(resUrl.href);

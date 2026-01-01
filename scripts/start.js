@@ -11,9 +11,10 @@ const start = () => {
   run("npm", ["start"], "./webapp");
   run("npm", ["start"], "./server");
 
-  setTimeout(() => {
-    run("npm", ["start"], "./desktop");
-  }, 10e3);
+  // Uncomment the following lines to start the desktop app after a delay
+  // setTimeout(() => {
+  //   run("npm", ["start"], "./desktop");
+  // }, 10e3);
 };
 
 start();

@@ -74,7 +74,7 @@ export default class DataService {
 
     const dbPath = path.join(storageDir, dbFileName);
 
-    pino.debug(dbPath, "db path");
+    pino.debug({ dbPath }, "Database path");
 
     if (!fs.existsSync(storageDir)) {
       fs.mkdirSync(storageDir);
@@ -82,7 +82,7 @@ export default class DataService {
 
     this.database = new Database(dbPath, (err) => {
       if (err) {
-        pino.error("Database opening error: ", err);
+        pino.error({ err }, "Database opening error");
       }
 
       const pragmaSettings = `

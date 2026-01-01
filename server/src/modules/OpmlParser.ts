@@ -4,7 +4,7 @@ const opmlParser = {
   load(opmlString: string) {
     const xlmContent = parser.parse(opmlString);
 
-    const startNode = xlmContent[1].children[1].children;
+    const startNode = (xlmContent[1] as any).children[1].children;
 
     // @ts-ignore
     const categories = startNode.map((node) => {
