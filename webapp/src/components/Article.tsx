@@ -31,7 +31,7 @@ export default function Article({
   if (article) {
     return (
       <article>
-        <h2 id="title" dangerouslySetInnerHTML={{ __html: article.title }} />
+        <h1 id="title" dangerouslySetInnerHTML={{ __html: article.title }} />
 
         <p>
           {article.feedTitle ? article.feedTitle : "NO_TITLE"},{" "}

@@ -1,6 +1,3 @@
-@import "bootstrap-icons/font/bootstrap-icons.css";
-@import "./bootstrap";
-
 @media (prefers-color-scheme: light) {
   :root {
     --frame-border-color: #dedede;
@@ -42,8 +39,8 @@
     --items-list-bg: #292929;
     --items-list-selected-bg: #60696e;
     --items-list-selected-active-bg: #094771;
-    --main-bg: #1e1e1e;
-    --main-color: #ddd;
+    --main-bg: #1a1715;
+    --main-color: #cccccc;
     --main-color-visited: #dbd4c5;
     --border-color: #474747;
     --link-color: #dbd4c5;
@@ -71,12 +68,20 @@
   --total-main-size: 100;
   --side-menu-bg: #2d2d2d;
   --side-menu-fg: #cccccc;
+  --body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body#app-body {
+  font-family: var(--body-font-family);
   font-size: 0.85rem;
   background: var(--main-bg);
   color: var(--main-color);
+  line-height: 1.5;
 }
 
 h1,
@@ -135,6 +140,7 @@ a:hover {
 #top-nav-content .btn {
   color: var(--main-color);
   border: none;
+  background-color: transparent;
 }
 
 #top-nav-brand a:hover,
@@ -200,7 +206,7 @@ a:hover {
 }
 
 #unread-only {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 #side-menu {
@@ -248,7 +254,10 @@ a:hover {
 }
 
 #sidebar-menu ul {
-  margin-bottom: 0px;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #sidebar-menu li {
@@ -260,6 +269,7 @@ a:hover {
   width: 100%;
   text-align: left;
   font-size: 0.83rem;
+  background: transparent;
 }
 
 #sidebar-menu li button {
@@ -272,6 +282,8 @@ a:hover {
   flex-direction: row;
   flex-wrap: nowrap;
   flex-grow: 1;
+
+  outline: none;
 }
 
 #sidebar-menu li button > * {
@@ -450,6 +462,7 @@ a:hover {
 #list-panel .table a {
   display: block;
   padding: 4px 10px;
+  text-decoration: none;
 }
 
 #list-panel .table a:focus {
