@@ -12,17 +12,22 @@ export default function Article({
 
   useEffect(() => {
     if (article && article.url) {
-      const parsedUrl = new URL(article.url);
+      try {
+        const parsedUrl = new URL(article.url);
 
-      if (parsedUrl.hostname.includes("youtube.com")) {
-        const foundVideoId = parsedUrl.searchParams.get("v");
+        if (parsedUrl.hostname.includes("youtube.com")) {
+          const foundVideoId = parsedUrl.searchParams.get("v");
 
-        if (foundVideoId) {
-          setVideoId(foundVideoId);
+          if (foundVideoId) {
+            setVideoId(foundVideoId);
+          } else {
+            setVideoId(undefined);
+          }
         } else {
           setVideoId(undefined);
         }
-      } else {
+      } catch (error) {
+        console.error("Error parsing URL:", error);
         setVideoId(undefined);
       }
     }
