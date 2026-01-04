@@ -10,7 +10,7 @@
     --items-list-bg: #f9f9f9;
     --items-list-selected-bg: #ececec;
     --items-list-selected-active-bg: #e5eff8;
-    --main-bg: #f8f8f8;
+    --main-bg: #faf6ee;
     --main-color: #282828;
     --main-color-visited: #01438f;
     --border-color: #dee2e6;
@@ -78,10 +78,10 @@ html, body {
 
 body#app-body {
   font-family: var(--body-font-family);
-  font-size: 0.85rem;
   background: var(--main-bg);
   color: var(--main-color);
   line-height: 1.5;
+  font-size: .9rem;
 }
 
 h1,
@@ -92,7 +92,6 @@ h5,
 h6 {
   font-weight: 650;
   line-height: 1;
-  letter-spacing: -1px;
 }
 
 .table {
@@ -101,10 +100,6 @@ h6 {
 
 .btn:focus {
   box-shadow: none;
-}
-
-body#app_body .btn {
-  font-size: 0.85rem;
 }
 
 a,
@@ -132,7 +127,6 @@ a:hover {
 #top-nav-content {
   -webkit-app-region: drag;
   background: var(--header-bg);
-  // border-bottom: 1px solid var(--header-bg);
 }
 
 #top-nav-brand a,
@@ -141,6 +135,7 @@ a:hover {
   color: var(--main-color);
   border: none;
   background-color: transparent;
+  text-decoration: none;
 }
 
 #top-nav-brand a:hover,
@@ -181,13 +176,11 @@ a:hover {
 }
 
 #top-nav-brand a {
-  font-size: 0.6rem;
   margin: 0 10px;
   padding: 0;
 }
 
 #top-nav-brand a::before {
-  // content: "森";
   content: "FOREST";
   letter-spacing: 0.2rem;
 }
@@ -205,10 +198,6 @@ a:hover {
   width: 80px;
 }
 
-#unread-only {
-  font-size: 0.8rem;
-}
-
 #side-menu {
   background: var(--side-menu-bg);
 }
@@ -220,7 +209,6 @@ a:hover {
   height: var(--side-menu-width);
   line-height: var(--side-menu-width);
   text-align: center;
-  font-size: 1.4rem;
   margin: 0.5rem 0;
   opacity: 0.6;
 }
@@ -268,7 +256,6 @@ a:hover {
   color: var(--sidebar-fg);
   width: 100%;
   text-align: left;
-  font-size: 0.83rem;
   background: transparent;
 }
 
@@ -309,7 +296,6 @@ a:hover {
 }
 
 #sidebar-menu li button span.menu-marker {
-  font-size: 0.6rem;
   padding-left: 4px;
 }
 
@@ -323,17 +309,12 @@ a:hover {
   text-overflow: ellipsis;
 }
 
-#sidebar-menu li:first-child button i {
-  font-size: 0.6rem;
-}
-
 #sidebar-menu li:not(:first-child) button i:hover {
   color: var(--button-color-highlight);
 }
 
 #sidebar-menu .category-feed button {
   padding-left: 30px;
-  font-size: 0.78rem;
 }
 
 #sidebar-menu {
@@ -366,7 +347,6 @@ a:hover {
 
 #sidebar-menu input {
   padding: 0 10px;
-  font-size: 0.8rem;
   line-height: 25px;
   vertical-align: middle;
 }
@@ -398,12 +378,10 @@ a:hover {
 #table-panel {
   grid-column-end: span 2;
   overflow-y: auto;
-  font-size: 0.85rem;
 }
 
 #table-panel td > i {
   color: var(--weak-color);
-  font-size: 0.65rem;
 }
 
 #table-panel table.table tr td {
@@ -469,10 +447,6 @@ a:hover {
   outline: none;
 }
 
-#list-panel .item-list-title {
-  font-size: 0.9rem;
-}
-
 #list-panel .item-list-details::before {
   content: "○ ";
   color: var(--weak-color);
@@ -519,15 +493,8 @@ a:hover {
 }
 
 #content {
-  font-size: 0.95rem;
   color: var(--content-body-color);
   padding-right: 5%;
-}
-
-#content {
-  h1 {
-    font-size: 1.8rem;
-  }
 }
 
 #content img,
