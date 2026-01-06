@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <>
       <main id="welcome-content">
-        <h1>Forest</h1>
+        <h1>kizuki</h1>
         <h2>A tool to enjoy feeds</h2>
         <p>&nbsp;</p>
         <ul>
