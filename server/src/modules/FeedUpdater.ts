@@ -9,16 +9,35 @@ import Scheduler from "./Scheduler";
 //@ts-ignore
 import { fetchFeed } from "fetch-feed";
 
+/**
+ * Logger instance configured to trace level for detailed logging.
+ */
 const pino = pinoLib({
   level: "trace",
 });
+
+/**
+ * Singleton instance of the MixedDataModel for data operations.
+ */
 const dataModel = MixedDataModel.getInstance();
 
+/**
+ * Class responsible for updating and managing feed data.
+ */
 export default class FeedUpdater {
+  /**
+   * Number of feeds to process in each chunk.
+   */
   private chunkSize = 3;
 
+  /**
+   * Path to the file where the update cache is stored.
+   */
   private updateCacheFilePath;
 
+  /**
+   * Cache object to store feed update metadata and processed items.
+   */
   private updateCache: {
     feeds?: Feed[] | undefined;
     updateLaunch?: number;
@@ -33,6 +52,9 @@ export default class FeedUpdater {
     feedProcessedItemsInitialized: false,
   };
 
+  /**
+   * Initializes the FeedUpdater and sets up the cache file path.
+   */
   constructor() {
     // when testing
     const tempInstance = process.env.NODE_ENV === "test";
@@ -52,21 +74,31 @@ export default class FeedUpdater {
     }
   }
 
+  /**
+   * Adds a new feed to the system and processes its items.
+   * @param {Feed} feedData - The feed data to add.
+   * @returns {Promise<Feed>} A promise that resolves with the added feed.
+   */
   public async addFeed(feedData: Feed) {
     pino.debug(feedData, "feed data");
 
     return new Promise(async (resolve, reject) => {
-      const feedResStr = await fetchFeed(feedData.feedUrl);
-      const feedRes = JSON.parse(feedResStr);
+      let feedResStr;
+      let feedRes;
 
-      if (feedRes.error) {
-        pino.error(feedRes.error);
-        reject(feedRes.error);
+      try {
+        feedResStr = await fetchFeed(feedData.feedUrl);
+        feedRes = JSON.parse(feedResStr);
+      } 
+      catch (error) {
+        pino.error(error);
+        reject(error);
+
         return;
       }
 
       const feed: Feed = {
-        title: feedRes.title || "",
+        title: feedRes.title || "NO_TITLE",
         feedUrl: feedData.feedUrl,
         url: feedRes.links.length ? feedRes.links[0] : "",
         feedCategoryId: feedData.feedCategoryId,
@@ -96,6 +128,11 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Inserts items from a feed into the database.
+   * @param {FeedData} feedData - The feed data containing items to insert.
+   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
+   */
   private async insertItems(feedData: FeedData) {
     return new Promise(async (resolve) => {
       const feedKey = `${feedData.feed.id}`;
@@ -145,6 +182,11 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Inserts bulk items from multiple feeds into the database.
+   * @param {FeedData[]} bulkData - Array of feed data to insert.
+   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
+   */
   private async insertBulkItems(bulkData: FeedData[]) {
     return new Promise(async (resolve) => {
       for (const individualData of bulkData) {
@@ -158,21 +200,21 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Loads feed data from a given feed URL.
+   * @param {Feed} feed - The feed to load data for.
+   * @returns {Promise<FeedData>} A promise that resolves with the feed data.
+   */
   private async loadFeedData(feed: Feed): Promise<FeedData> {
     return new Promise(async (resolve) => {
-      const feedResStr = await fetchFeed(feed.feedUrl);
+      let feedResStr;
       let feedRes;
 
       try {
+        feedResStr = await fetchFeed(feed.feedUrl);
         feedRes = JSON.parse(feedResStr);
-      } catch {
-        pino.error(`Error parsing feed responsve for ${feed.feedUrl}:\n\n${feedResStr}`);
-        resolve({ feed, items: [] });
-        return;
-      }
-
-      if (feedRes.error) {
-        pino.error(`Fetching feed error ${feed.feedUrl}:\n\n${feedRes.error}`);
+      } catch (error) {
+        pino.error(`Error fetching feed ${feed.feedUrl}: ${error}`);
         resolve({ feed, items: [] });
         return;
       }
@@ -184,6 +226,10 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Updates the frequency data for a feed based on its items.
+   * @param {FeedData} feedData - The feed data to update frequency for.
+   */
   public async updateFeedFrequencyData(feedData: FeedData) {
     const publishedTimes = feedData.items.map((item) =>
       MixedDataModel.getItemPublishedTime(item)
@@ -198,6 +244,10 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Updates the frequency of a specific feed.
+   * @param {Feed} feed - The feed to update frequency for.
+   */
   public async updateFeedFrequency(feed: Feed) {
     const items = await dataModel.getItems({
       size: 20,
@@ -211,6 +261,10 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Updates the frequency for all feeds.
+   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
+   */
   public async updateFeedFrequencies() {
     return new Promise(async (resolve) => {
       const feeds = await dataModel.getFeeds();
@@ -223,6 +277,11 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Processes feed data in bulk by chunking the feeds.
+   * @param {Feed[]} feeds - Array of feeds to process.
+   * @returns {Promise<FeedData[]>} A promise that resolves with the processed feed data.
+   */
   private async processBulkFeedData(feeds: Feed[]): Promise<FeedData[]> {
     const chunks = chunk(feeds, this.chunkSize);
     pino.debug(`Chunks num ${chunks.length}, ${this.chunkSize} feeds each`);
@@ -257,6 +316,9 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Caps the number of processed items stored per feed to a maximum limit.
+   */
   private capProcessedItemsPerFeed() {
     const processedItemsCap = 100;
 
@@ -273,6 +335,9 @@ export default class FeedUpdater {
     });
   }
 
+  /**
+   * Saves the current state of the update cache to a file.
+   */
   private saveUpdateCache() {
     this.capProcessedItemsPerFeed();
 
@@ -281,6 +346,9 @@ export default class FeedUpdater {
     fs.writeFileSync(this.updateCacheFilePath, updateCacheJson);
   }
 
+  /**
+   * Updates items for all feeds.
+   */
   public async updateItems() {
     const feeds = await dataModel.getFeeds();
 

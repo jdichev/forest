@@ -241,9 +241,12 @@ app.put("/feeds", jsonParser, async (req: Request, res: Response) => {
 });
 
 app.post("/feeds", jsonParser, async (req: Request, res: Response) => {
-  const result = await updater.addFeed(req.body);
-
-  res.json(result);
+  try {
+    const result = await updater.addFeed(req.body);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || String(error) });
+  }
 });
 
 app.get("/checkfeed", async (req: Request, res: Response) => {
