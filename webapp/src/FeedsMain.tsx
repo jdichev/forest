@@ -237,7 +237,7 @@ export default function FeedsMain({ topMenu }: HomeProps) {
 
       document.getElementById(`item-${item.id}`)?.focus();
 
-      articleRef.current?.scrollTo(0, 0);
+      // articleRef.current?.scrollTo(0, 0);
 
       if (item.read === 0) {
         setItems((prevItems) => {
