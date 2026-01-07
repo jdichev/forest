@@ -82,50 +82,45 @@ export default class FeedUpdater {
   public async addFeed(feedData: Feed) {
     pino.debug(feedData, "feed data");
 
-    return new Promise(async (resolve, reject) => {
-      let feedResStr;
-      let feedRes;
+    let feedResStr;
+    let feedRes;
 
-      try {
-        feedResStr = await fetchFeed(feedData.feedUrl);
-        feedRes = JSON.parse(feedResStr);
-      } 
-      catch (error) {
-        pino.error(error);
-        reject(error);
+    try {
+      feedResStr = await fetchFeed(feedData.feedUrl);
+      feedRes = JSON.parse(feedResStr);
+    } catch (error) {
+      pino.error(error);
+      throw error;
+    }
 
-        return;
-      }
+    const feed: Feed = {
+      title: feedRes.title || "NO_TITLE",
+      feedUrl: feedData.feedUrl,
+      url: feedRes.links.length ? feedRes.links[0] : "",
+      feedCategoryId: feedData.feedCategoryId,
+    };
 
-      const feed: Feed = {
-        title: feedRes.title || "NO_TITLE",
-        feedUrl: feedData.feedUrl,
-        url: feedRes.links.length ? feedRes.links[0] : "",
-        feedCategoryId: feedData.feedCategoryId,
-      };
+    await dataModel.insertFeed(feed);
 
-      await dataModel.insertFeed(feed);
+    const feedFromDb = await dataModel.getFeedByUrl(feedData.feedUrl);
 
-      const feedFromDb = await dataModel.getFeedByUrl(feedData.feedUrl);
-
-      await this.insertItems({
-        feed: feedFromDb,
-        items: feedRes.items as Item[],
-      });
-
-      await this.updateFeedFrequency(feedFromDb);
-
-      this.updateCache = {
-        nextUpdateTimes: {},
-        feedFrequencies: {},
-        feedProcessedItems: {},
-        feedProcessedItemsInitialized: false,
-      };
-
-      this.saveUpdateCache();
-
-      resolve(feed);
+    await this.insertItems({
+      feed: feedFromDb,
+      items: feedRes.items as Item[],
     });
+
+    await this.updateFeedFrequency(feedFromDb);
+
+    this.updateCache = {
+      nextUpdateTimes: {},
+      feedFrequencies: {},
+      feedProcessedItems: {},
+      feedProcessedItemsInitialized: false,
+    };
+
+    this.saveUpdateCache();
+
+    return feed;
   }
 
   /**
@@ -134,52 +129,48 @@ export default class FeedUpdater {
    * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   private async insertItems(feedData: FeedData) {
-    return new Promise(async (resolve) => {
-      const feedKey = `${feedData.feed.id}`;
-      const itemsLen = feedData.items.length;
+    const feedKey = `${feedData.feed.id}`;
+    const itemsLen = feedData.items.length;
 
-      if (!this.updateCache.feedProcessedItems.hasOwnProperty(feedKey)) {
-        this.updateCache.feedProcessedItems[feedKey] = [];
+    if (!this.updateCache.feedProcessedItems.hasOwnProperty(feedKey)) {
+      this.updateCache.feedProcessedItems[feedKey] = [];
+    }
+
+    let iterations = 0;
+
+    for (const individualItem of feedData.items) {
+      if (
+        this.updateCache.feedProcessedItems[feedKey].includes(
+          individualItem.link
+        )
+      ) {
+        continue;
       }
 
-      let iterations = 0;
+      await dataModel.insertItem(individualItem, feedData.feed.id);
 
-      for (const individualItem of feedData.items) {
+      iterations += 1;
+    }
+
+    pino.debug("%d added of total %d", iterations, itemsLen);
+    pino.trace("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
+
+    if (iterations === 0 && itemsLen > 0) {
+      pino.debug({ feedUrl: feedData.feed.feedUrl }, "No iterations added");
+    }
+
+    if (itemsLen > 0) {
+      feedData.items.forEach((item) => {
         if (
-          this.updateCache.feedProcessedItems[feedKey].includes(
-            individualItem.link
-          )
+          this.updateCache.feedProcessedItems[feedKey] &&
+          !this.updateCache.feedProcessedItems[feedKey].includes(item.link)
         ) {
-          continue;
+          this.updateCache.feedProcessedItems[feedKey].push(item.link);
         }
+      });
 
-        await dataModel.insertItem(individualItem, feedData.feed.id);
-
-        iterations += 1;
-      }
-
-      pino.debug("%d added of total %d", iterations, itemsLen);
-      pino.trace("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
-
-      if (iterations === 0 && itemsLen > 0) {
-        pino.debug({ feedUrl: feedData.feed.feedUrl }, "No iterations added");
-      }
-
-      if (itemsLen > 0) {
-        feedData.items.forEach((item) => {
-          if (
-            this.updateCache.feedProcessedItems[feedKey] &&
-            !this.updateCache.feedProcessedItems[feedKey].includes(item.link)
-          ) {
-            this.updateCache.feedProcessedItems[feedKey].push(item.link);
-          }
-        });
-
-        this.saveUpdateCache();
-      }
-
-      resolve(true);
-    });
+      this.saveUpdateCache();
+    }
   }
 
   /**
@@ -188,16 +179,12 @@ export default class FeedUpdater {
    * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   private async insertBulkItems(bulkData: FeedData[]) {
-    return new Promise(async (resolve) => {
-      for (const individualData of bulkData) {
-        await this.updateFeedFrequencyData(individualData);
-        await this.insertItems(individualData);
-      }
+    for (const individualData of bulkData) {
+      await this.updateFeedFrequencyData(individualData);
+      await this.insertItems(individualData);
+    }
 
-      this.saveUpdateCache();
-
-      resolve(true);
-    });
+    this.saveUpdateCache();
   }
 
   /**
@@ -206,24 +193,21 @@ export default class FeedUpdater {
    * @returns {Promise<FeedData>} A promise that resolves with the feed data.
    */
   private async loadFeedData(feed: Feed): Promise<FeedData> {
-    return new Promise(async (resolve) => {
-      let feedResStr;
-      let feedRes;
+    let feedResStr;
+    let feedRes;
 
-      try {
-        feedResStr = await fetchFeed(feed.feedUrl);
-        feedRes = JSON.parse(feedResStr);
-      } catch (error) {
-        pino.error(`Error fetching feed ${feed.feedUrl}: ${error}`);
-        resolve({ feed, items: [] });
-        return;
-      }
+    try {
+      feedResStr = await fetchFeed(feed.feedUrl);
+      feedRes = JSON.parse(feedResStr);
+    } catch (error) {
+      pino.error(`Error fetching feed ${feed.feedUrl}: ${error}`);
+      return { feed, items: [] };
+    }
 
-      resolve({
-        feed,
-        items: feedRes.items as Item[],
-      });
-    });
+    return {
+      feed,
+      items: feedRes.items as Item[],
+    };
   }
 
   /**
@@ -266,15 +250,11 @@ export default class FeedUpdater {
    * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   public async updateFeedFrequencies() {
-    return new Promise(async (resolve) => {
-      const feeds = await dataModel.getFeeds();
+    const feeds = await dataModel.getFeeds();
 
-      for (const feed of feeds) {
-        await this.updateFeedFrequency(feed);
-      }
-
-      resolve(true);
-    });
+    for (const feed of feeds) {
+      await this.updateFeedFrequency(feed);
+    }
   }
 
   /**
@@ -286,34 +266,32 @@ export default class FeedUpdater {
     const chunks = chunk(feeds, this.chunkSize);
     pino.debug(`Chunks num ${chunks.length}, ${this.chunkSize} feeds each`);
 
-    return new Promise(async (resolve) => {
-      let resultData: FeedData[] = [];
+    let resultData: FeedData[] = [];
 
-      for (const feedsChunk of chunks) {
-        const chunkStart = Date.now();
+    for (const feedsChunk of chunks) {
+      const chunkStart = Date.now();
 
-        const resultOfFeeds = await Promise.all(
-          feedsChunk.map((feed) => {
-            return this.loadFeedData(feed);
-          })
-        );
+      const resultOfFeeds = await Promise.all(
+        feedsChunk.map((feed) => {
+          return this.loadFeedData(feed);
+        })
+      );
 
-        const chunkEnd = Date.now();
-        pino.trace("Time to process chunk %s", ms(chunkEnd - chunkStart));
+      const chunkEnd = Date.now();
+      pino.trace("Time to process chunk %s", ms(chunkEnd - chunkStart));
 
-        const chunkInsertStart = Date.now();
-        await this.insertBulkItems(resultOfFeeds);
-        const chunkInsertEnd = Date.now();
-        pino.trace(
-          "Time to insert data from chunk %s",
-          ms(chunkInsertEnd - chunkInsertStart)
-        );
+      const chunkInsertStart = Date.now();
+      await this.insertBulkItems(resultOfFeeds);
+      const chunkInsertEnd = Date.now();
+      pino.trace(
+        "Time to insert data from chunk %s",
+        ms(chunkInsertEnd - chunkInsertStart)
+      );
 
-        resultData = resultData.concat(resultOfFeeds);
-      }
+      resultData = resultData.concat(resultOfFeeds);
+    }
 
-      resolve(resultData);
-    });
+    return resultData;
   }
 
   /**
