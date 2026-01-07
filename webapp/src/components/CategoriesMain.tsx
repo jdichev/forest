@@ -45,7 +45,7 @@ export default function CategoriesMain({
                   type="button"
                   className="btn btn-sm btn-link text-decoration-none text-truncate"
                   onClick={(e) => selectFeedCategory(feedCategory, e)}
-                  onDoubleClick={(e) => selectFeedCategory(feedCategory, e)}
+                  // onDoubleClick={(e) => selectFeedCategory(feedCategory, e)}
                   title={`${feedCategory.title} ${getUnreadCountForFeedCategory(
                     feedCategory.id
                   )}`}

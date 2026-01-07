@@ -38,9 +38,9 @@
     --sidebar-fg: #cccccc;
     --items-list-bg: #292929;
     --items-list-selected-bg: #60696e;
-    --items-list-selected-active-bg: #094771;
-    --main-bg: #1a1715;
-    --main-color: #cccccc;
+    --items-list-selected-active-bg: #063453;
+    --main-bg: #262625;
+    --main-color: #C2C2C1;
     --main-color-visited: #dbd4c5;
     --border-color: #474747;
     --link-color: #dbd4c5;
@@ -127,6 +127,7 @@ a:hover {
 #top-nav-content {
   -webkit-app-region: drag;
   background: var(--header-bg);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 #top-nav-brand a,
@@ -276,6 +277,16 @@ a:hover {
 #sidebar-menu li button > * {
   display: flex;
   flex-direction: column;
+}
+
+#sidebar-menu li.category-feed button {
+  font-size: 0.85em;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+#sidebar-menu li.category-feed button > span {
+  line-height: 1.4;
 }
 
 #sidebar-menu li button > *,
