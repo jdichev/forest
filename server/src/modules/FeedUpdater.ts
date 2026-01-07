@@ -14,6 +14,7 @@ import { fetchFeed } from "fetch-feed";
  */
 const pino = pinoLib({
   level: "trace",
+  name: "FeedUpdater",
 });
 
 /**

@@ -11,6 +11,7 @@ import FeedFinder from "./FeedFinder";
 
 const pino = pinoLib({
   level: "trace",
+  name: "MixedDataModel",
 });
 
 const { window } = new JSDOM("<!DOCTYPE html>");
