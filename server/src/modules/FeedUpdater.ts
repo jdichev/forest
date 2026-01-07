@@ -93,14 +93,35 @@ export default class FeedUpdater {
       throw error;
     }
 
+    // Validate feed data structure
+    if (!feedRes || typeof feedRes !== 'object') {
+      const error = new Error('Invalid feed data: response is not an object');
+      pino.error({ feedUrl: feedData.feedUrl }, error.message);
+      throw error;
+    }
+
+    if (!Array.isArray(feedRes.items)) {
+      const error = new Error('Invalid feed data: items is not an array');
+      pino.error({ feedUrl: feedData.feedUrl }, error.message);
+      throw error;
+    }
+
     const feed: Feed = {
       title: feedRes.title || "NO_TITLE",
       feedUrl: feedData.feedUrl,
-      url: feedRes.links.length ? feedRes.links[0] : "",
+      url: Array.isArray(feedRes.links) && feedRes.links.length ? feedRes.links[0] : "",
       feedCategoryId: feedData.feedCategoryId,
     };
 
-    await dataModel.insertFeed(feed);
+    try {
+      await dataModel.insertFeed(feed);
+    } catch (error: any) {
+      pino.error(
+        { error, feedUrl: feedData.feedUrl },
+        "Failed to insert feed into database"
+      );
+      throw error;
+    }
 
     const feedFromDb = await dataModel.getFeedByUrl(feedData.feedUrl);
 
@@ -111,14 +132,22 @@ export default class FeedUpdater {
 
     await this.updateFeedFrequency(feedFromDb);
 
-    this.updateCache = {
-      nextUpdateTimes: {},
-      feedFrequencies: {},
-      feedProcessedItems: {},
-      feedProcessedItemsInitialized: false,
-    };
+    // Initialize next update time for the new feed
+    const feedKey = `${feedFromDb.id}`;
+    const frequency = this.updateCache.feedFrequencies[feedKey];
+    if (frequency) {
+      this.updateCache.nextUpdateTimes[feedKey] = Date.now() + frequency;
+      pino.debug(
+        { feedId: feedFromDb.id, frequency, nextUpdate: this.updateCache.nextUpdateTimes[feedKey] },
+        "Initialized next update time for new feed"
+      );
+    } else {
+      pino.warn({ feedId: feedFromDb.id }, "Could not initialize next update time - frequency not set");
+    }
 
     this.saveUpdateCache();
+
+    pino.info({ feedId: feedFromDb.id, title: feedFromDb.title }, "Feed added successfully");
 
     return feed;
   }
@@ -126,7 +155,6 @@ export default class FeedUpdater {
   /**
    * Inserts items from a feed into the database.
    * @param {FeedData} feedData - The feed data containing items to insert.
-   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   private async insertItems(feedData: FeedData) {
     const feedKey = `${feedData.feed.id}`;
@@ -147,9 +175,32 @@ export default class FeedUpdater {
         continue;
       }
 
-      await dataModel.insertItem(individualItem, feedData.feed.id);
-
-      iterations += 1;
+      try {
+        await dataModel.insertItem(individualItem, feedData.feed.id);
+        
+        // Mark as processed immediately after successful insertion
+        this.updateCache.feedProcessedItems[feedKey].push(individualItem.link);
+        iterations += 1;
+      } catch (error: any) {
+        // Handle duplicate constraint errors gracefully
+        if (error.code === 'SQLITE_CONSTRAINT' && error.message?.includes('UNIQUE constraint')) {
+          pino.debug(
+            { feedId: feedData.feed.id, itemLink: individualItem.link },
+            "Item already exists in database, skipping"
+          );
+          // Still mark as processed to avoid retrying
+          if (!this.updateCache.feedProcessedItems[feedKey].includes(individualItem.link)) {
+            this.updateCache.feedProcessedItems[feedKey].push(individualItem.link);
+          }
+        } else {
+          // Re-throw non-constraint errors
+          pino.error(
+            { error, feedId: feedData.feed.id, itemLink: individualItem.link },
+            "Failed to insert item"
+          );
+          throw error;
+        }
+      }
     }
 
     pino.debug("%d added of total %d", iterations, itemsLen);
@@ -160,15 +211,6 @@ export default class FeedUpdater {
     }
 
     if (itemsLen > 0) {
-      feedData.items.forEach((item) => {
-        if (
-          this.updateCache.feedProcessedItems[feedKey] &&
-          !this.updateCache.feedProcessedItems[feedKey].includes(item.link)
-        ) {
-          this.updateCache.feedProcessedItems[feedKey].push(item.link);
-        }
-      });
-
       this.saveUpdateCache();
     }
   }
@@ -176,7 +218,6 @@ export default class FeedUpdater {
   /**
    * Inserts bulk items from multiple feeds into the database.
    * @param {FeedData[]} bulkData - Array of feed data to insert.
-   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   private async insertBulkItems(bulkData: FeedData[]) {
     for (const individualData of bulkData) {
@@ -201,6 +242,17 @@ export default class FeedUpdater {
       feedRes = JSON.parse(feedResStr);
     } catch (error) {
       pino.error(`Error fetching feed ${feed.feedUrl}: ${error}`);
+      return { feed, items: [] };
+    }
+
+    // Validate feed data structure
+    if (!feedRes || typeof feedRes !== 'object') {
+      pino.warn({ feedUrl: feed.feedUrl }, 'Invalid feed data: response is not an object');
+      return { feed, items: [] };
+    }
+
+    if (!Array.isArray(feedRes.items)) {
+      pino.warn({ feedUrl: feed.feedUrl }, 'Invalid feed data: items is not an array');
       return { feed, items: [] };
     }
 
@@ -233,12 +285,21 @@ export default class FeedUpdater {
    * @param {Feed} feed - The feed to update frequency for.
    */
   public async updateFeedFrequency(feed: Feed) {
+    pino.trace({ feedId: feed.id }, "Updating feed frequency");
+    
     const items = await dataModel.getItems({
       size: 20,
       selectedFeed: feed,
     });
 
     const avg = Scheduler.computeItemsFrequency(items);
+
+    this.updateCache.feedFrequencies[`${feed.id}`] = avg;
+
+    pino.debug(
+      { feedId: feed.id, frequency: avg, itemsCount: items.length },
+      "Feed frequency updated in cache"
+    );
 
     await dataModel.updateFeedTimings(feed, {
       updateFrequency: avg,
@@ -247,7 +308,6 @@ export default class FeedUpdater {
 
   /**
    * Updates the frequency for all feeds.
-   * @returns {Promise<boolean>} A promise that resolves when the operation is complete.
    */
   public async updateFeedFrequencies() {
     const feeds = await dataModel.getFeeds();
