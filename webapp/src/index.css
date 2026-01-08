@@ -272,6 +272,8 @@ a:hover {
 #sidebar-menu li button>* {
   display: flex;
   flex-direction: column;
+  line-height: 25px;
+  white-space: nowrap;
 }
 
 #sidebar-menu li.category-feed button {
@@ -280,7 +282,6 @@ a:hover {
   margin-bottom: 0.25rem;
 }
 
-#sidebar-menu li button>*,
 #sidebar-menu li button i::before {
   display: inline-block;
   line-height: 25px;
