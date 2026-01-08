@@ -222,12 +222,12 @@ a:hover {
   grid-column-start: 2;
   grid-column-end: 4;
   padding: 10% 15%;
+}
 
-  h1,
-  h2 {
-    font-weight: 400;
-    opacity: 0.8;
-  }
+#welcome-content h1,
+#welcome-content h2 {
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 #sidebar-menu {
