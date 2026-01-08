@@ -136,7 +136,7 @@ export default function FeedAdd() {
 
               <Link
                 to="/feeds/list"
-                className="btn btn-sm btn-outline-secondary"
+                className="btn btn-sm btn-outline-secondary ms-3"
               >
                 Back
               </Link>
