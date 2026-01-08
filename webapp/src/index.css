@@ -71,6 +71,16 @@
   --body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 html,
 body {
   margin: 0;
@@ -95,8 +105,9 @@ h6 {
   line-height: 1;
 }
 
-.btn:focus {
-  box-shadow: none;
+.btn:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
 }
 
 a,
@@ -132,6 +143,7 @@ a:hover {
   border: none;
   background-color: transparent;
   text-decoration: none;
+  -webkit-app-region: no-drag;
 }
 
 #top-nav-brand a:hover,
@@ -141,7 +153,8 @@ a:hover {
 }
 
 #top-nav-brand a:focus-visible {
-  outline: none;
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
 }
 
 #top-nav-brand a,
@@ -154,10 +167,7 @@ a:hover {
   margin: 0 6px 0 0;
   border-radius: 0;
   cursor: pointer;
-  line-height: var(--header-height);
-  padding: 0 16px;
   vertical-align: middle;
-  display: inline-block;
 }
 
 #top-nav-content button:active {
@@ -187,7 +197,6 @@ a:hover {
 
 #main-filter {
   display: inline-block;
-  width: 50px;
   position: absolute;
   left: 40px;
   top: 4px;
@@ -398,9 +407,6 @@ a:hover {
   width: calc(100% - 58px);
 }
 
-.table {
-  color: var(--main-color);
-}
 
 table.feeds-table {
   margin: 0 16px;
@@ -512,23 +518,24 @@ table.feeds-table {
   display: inline-block;
 }
 
-#content img::after,
-#content iframe::after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
+/* Video player sizing calculation:
+ * Width: Calculate the right column's share of viewport (87vw total grid),
+ *        then subtract padding (82px) and side menu width.
+ *        Formula: (87vw / 100) * 62 - 82px - 50px
+ * Height: Apply 16:9 aspect ratio to the calculated width.
+ *         Formula: width / 16 * 9
+ */
 #player {
   width: calc((((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) - 82px - var(--side-menu-width));
   height: calc(((((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) - 82px - var(--side-menu-width)) / 16 * 9);
 }
 
 #content-options {
-  list-style-type: "♥  ";
+  list-style: none;
+}
+
+#content-options li::marker {
+  content: "♥  ";
 }
 
 .btn {
@@ -607,6 +614,8 @@ form.p-4 {
 }
 
 .form-control:focus {
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--link-color) 35%, transparent);
   outline: none;
 }
 
