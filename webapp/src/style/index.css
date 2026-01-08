@@ -127,7 +127,7 @@ a:hover {
 #top-nav-content {
   -webkit-app-region: drag;
   background: var(--header-bg);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.16);
 }
 
 #top-nav-brand a,
@@ -285,15 +285,12 @@ a:hover {
   margin-bottom: 0.25rem;
 }
 
-#sidebar-menu li.category-feed button > span {
-  line-height: 1.4;
-}
-
 #sidebar-menu li button > *,
 #sidebar-menu li button i::before {
   display: inline-block;
   line-height: 25px;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 #sidebar-menu li button i::before {
