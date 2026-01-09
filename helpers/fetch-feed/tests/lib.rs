@@ -133,7 +133,7 @@ mod tests {
                 .body(test_rss);
         });
 
-        let res = fetch_feed(expected_url.to_owned()).await;
+        let res = fetch_feed(expected_url.to_owned()).await.expect("fetch_feed should succeed");
         // println!("{:?}", res);
 
         let json_res: Value = serde_json::from_str(&res).unwrap_or_default();

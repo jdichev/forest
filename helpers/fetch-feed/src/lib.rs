@@ -1,4 +1,6 @@
+#[cfg(feature = "napi-export")]
 use napi::bindgen_prelude::*;
+#[cfg(feature = "napi-export")]
 use napi_derive::napi;
 
 use serde_json::json;
@@ -11,12 +13,14 @@ use std::time::Duration;
 mod helpers;
 use helpers::{parse_date, process_markup};
 
+#[cfg(feature = "napi-export")]
 #[napi]
 pub async fn fetch_feed_async(feed_url: String) -> Result<String> {
   fetch_feed(feed_url).await
     .map_err(|e| Error::from_reason(e))
 }
 
+#[cfg(feature = "napi-export")]
 #[napi]
 pub fn fetch_feed_sync(feed_url: String) -> Result<String> {
   let runtime = tokio::runtime::Builder::new_multi_thread()
@@ -32,8 +36,8 @@ pub fn fetch_feed_sync(feed_url: String) -> Result<String> {
     .map_err(|e| Error::from_reason(e))
 }
 
-async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
-  let mut result_json_str: String = "".to_string();
+pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
+  let mut result_json_str = String::new();
   let client = reqwest::Client::builder()
     .timeout(Duration::from_secs(2))
     .build()
@@ -92,7 +96,7 @@ async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
                   }
 
                   let link;
-                  if entry.links().len() > 0 {
+                  if !entry.links().is_empty() {
                     link = entry.links()[0].href();
                   } else {
                     link = "";
@@ -150,7 +154,7 @@ async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
                       "description": process_markup(description.unwrap_or_default()),
                       "content": process_markup(content.unwrap_or_default()),
                       "published": parse_date(item.pub_date().unwrap_or_default()),
-                      "published_raw": item.pub_date().unwrap_or_default(),
+                      "publishedRaw": item.pub_date().unwrap_or_default(),
                       "link": item.link().unwrap_or_default()
                   });
 
@@ -178,5 +182,5 @@ async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
     }
   };
 
-  return Ok(result_json_str);
+  Ok(result_json_str)
 }
