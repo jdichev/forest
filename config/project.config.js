@@ -15,14 +15,12 @@ const hostAddress = Object.keys(networkInterfaces)
     prevInterface.concat(currentInterface)
   )[0].address;
 
-const getPorts = () => {
-
-}
+const getPorts = () => {};
 
 module.exports = {
   hostAddress: hostAddress,
   devServerPort: 8080,
-  dataServerPort: 3030,
+  dataServerPort: 3031,
   getPorts,
   env: {
     DEVELOPMENT: "development",
