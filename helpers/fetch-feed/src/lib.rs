@@ -149,12 +149,26 @@ pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String>
                     content = Some("");
                   }
 
+                  let pub_date = item
+                    .pub_date()
+                    .filter(|d| !d.is_empty())
+                    .or_else(|| {
+                      item.dublin_core_ext()
+                        .and_then(|dc| dc.dates.first().map(|d| d.as_str()))
+                    })
+                    .or_else(|| rss_feed.pub_date().filter(|d| !d.is_empty()))
+                    .or_else(|| {
+                      rss_feed.dublin_core_ext()
+                        .and_then(|dc| dc.dates.first().map(|d| d.as_str()))
+                    })
+                    .unwrap_or("NO_DATE");
+
                   let feed_item = json!({
                       "title": item.title().unwrap_or_default(),
                       "description": process_markup(description.unwrap_or_default()),
                       "content": process_markup(content.unwrap_or_default()),
-                      "published": parse_date(item.pub_date().unwrap_or_default()),
-                      "publishedRaw": item.pub_date().unwrap_or_default(),
+                      "published": parse_date(pub_date),
+                      "publishedRaw": pub_date,
                       "link": item.link().unwrap_or_default()
                   });
 
