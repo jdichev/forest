@@ -1,0 +1,14 @@
+# Ignore node_modules in the root and all sub-directories
+node_modules
+
+# Ignore build outputs
+dist
+build
+out
+
+# Ignore test coverage reports
+coverage
+
+# Ignore system files
+.DS_Store
+.env
