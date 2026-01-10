@@ -10,7 +10,7 @@ import opmlParser from "./OpmlParser";
 import FeedFinder from "./FeedFinder";
 
 const pino = pinoLib({
-  level: "trace",
+  level: "info",
   name: "MixedDataModel",
 });
 
@@ -989,7 +989,7 @@ export default class DataService {
   }
 
   public static getItemPublishedTime(item: Item) {
-    const possibleDateProperties = ["pubDate", "date", "isoDate"];
+    const possibleDateProperties = ["publishedRaw"];
     const dateProperty: string =
       possibleDateProperties.find((datePropertyName) => {
         return item.hasOwnProperty(datePropertyName);
