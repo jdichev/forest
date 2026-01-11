@@ -37,7 +37,7 @@ export default function FeedsTable({ feeds, removeFeed }: FeedsTableProps) {
                     }}
                     className="text-decoration-none"
                   >
-                    {feed.title ? feed.title : 'NO_TITLE'}
+                    {feed.title ? feed.title : "NO_TITLE"}
                   </Link>
                 </small>
               </td>

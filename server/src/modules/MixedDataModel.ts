@@ -1038,7 +1038,7 @@ export default class DataService {
     const exists = await this.itemExists(item);
 
     if (exists) {
-      pino.debug(
+      pino.trace(
         { itemUrl: item.link, feedId },
         "Item already exists, skipping insertion"
       );

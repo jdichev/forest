@@ -10,10 +10,10 @@ const run = (program: string) => {
 export default class Main {
   private static serverStarter: ChildProcess;
   private static updaterStarter: ChildProcess;
-  
+
   static start() {
     this.serverStarter = run(path.join(__dirname, "scripts", "server-starter"));
-    
+
     this.updaterStarter = run(
       path.join(__dirname, "scripts", "updater-starter")
     );

@@ -158,6 +158,10 @@ export default class FeedUpdater {
 
     const avg = Scheduler.computeFrequency(publishedTimes);
 
+    if (avg === 0) {
+      pino.debug({ title: feedData.feed.title }, "Zero AVG time");
+    }
+
     this.feedsProcCache.lastUpdateTimes[`${feedData.feed.id}`] = Date.now();
     this.feedsProcCache.feedFrequencies[`${feedData.feed.id}`] = avg;
   }

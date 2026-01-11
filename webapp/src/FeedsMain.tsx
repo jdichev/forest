@@ -348,7 +348,10 @@ export default function FeedsMain({ topMenu }: HomeProps) {
         .getElementById(`category-${feedCategory ? feedCategory.id : "all"}`)
         ?.focus();
 
-      if (e && (e.target as HTMLElement).classList.contains("categoryChevron")) {
+      if (
+        e &&
+        (e.target as HTMLElement).classList.contains("categoryChevron")
+      ) {
         setFeedCategories((prev) => {
           return prev.map((feedCategoryInner) => {
             if (feedCategoryInner.id === feedCategory?.id) {

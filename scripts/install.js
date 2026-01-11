@@ -13,11 +13,11 @@ const run = async (command, cwd) => {
 
 const install = async () => {
   run("npm install", "./config");
-  
+
   run("npm install", "./helpers/fetch-feed");
-  
+
   run("npm install", "./webapp");
-  
+
   run("npm install", "./server");
 
   run("npm install", "./desktop");

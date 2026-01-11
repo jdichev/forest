@@ -1,4 +1,4 @@
-const os = require("os")
+const os = require("os");
 const WorkerPool = require("./worker-pool");
 
 const cpus = os.cpus();

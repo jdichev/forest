@@ -1,5 +1,3 @@
 {
-  "rust-analyzer.linkedProjects": [
-    "helpers/fetch-feed/Cargo.toml"
-  ]
+  "rust-analyzer.linkedProjects": ["helpers/fetch-feed/Cargo.toml"]
 }

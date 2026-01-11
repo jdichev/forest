@@ -39,9 +39,9 @@ export default function FeedEdit() {
 
       setFormFeedData(feed);
 
-      setValue("feedUrl", feed?.feedUrl)
-      setValue("title", feed?.title)
-      setValue("feedCategoryId", feed?.feedCategoryId)
+      setValue("feedUrl", feed?.feedUrl);
+      setValue("title", feed?.title);
+      setValue("feedCategoryId", feed?.feedCategoryId);
     };
 
     loadFormFeedData();

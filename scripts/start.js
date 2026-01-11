@@ -21,13 +21,18 @@ const run = (command, args, cwd) => {
     });
 
     process.on("error", (error) => {
-      console.error(`Failed to spawn process for ${command} ${args.join(" ")}:`, error);
+      console.error(
+        `Failed to spawn process for ${command} ${args.join(" ")}:`,
+        error
+      );
       reject(error);
     });
 
     process.on("close", (code) => {
       if (code !== 0) {
-        console.error(`Process for ${command} ${args.join(" ")} exited with code ${code}`);
+        console.error(
+          `Process for ${command} ${args.join(" ")} exited with code ${code}`
+        );
         reject(new Error(`Process exited with code ${code}`));
       } else {
         resolve();

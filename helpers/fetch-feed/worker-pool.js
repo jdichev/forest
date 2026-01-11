@@ -66,8 +66,8 @@ class WorkerPool extends EventEmitter {
         this.#queue.push(engageAndDequeue);
 
         setTimeout(() => {
-          this.deQueue()
-        })
+          this.deQueue();
+        });
       }
     });
   }

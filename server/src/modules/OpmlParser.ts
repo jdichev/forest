@@ -13,9 +13,9 @@ const opmlParser = {
         text: node.attributes.text,
       };
     });
-    
+
     const feeds: Feed[] = [];
-    
+
     // @ts-ignore
     startNode.forEach((node) => {
       // @ts-ignore
