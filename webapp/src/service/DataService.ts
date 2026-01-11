@@ -344,15 +344,19 @@ export default class DataService {
     return Promise.resolve(result);
   }
 
-  public async importOpmlFile(fileName: string) {
-    const fileNameJson = JSON.stringify({ fileName });
+  public async importOpmlFile(options: {
+    filePath?: string;
+    fileContent?: string;
+    fileName?: string;
+  }) {
+    const body = JSON.stringify(options);
 
     const response = await fetch("http://localhost:3031/opml-import", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: fileNameJson,
+      body,
     });
 
     const result = await response.json();

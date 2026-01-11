@@ -29,40 +29,37 @@ export default function FeedAdd() {
     loadFeedCategories();
   }, []);
 
-  const onSubmitFirstStep = useCallback(
-    async (data: FieldValues) => {
-      const inputFieldInitial = document.getElementById("feedUrlInitial");
-      inputFieldInitial?.setAttribute("disabled", "disabled");
+  const onSubmitFirstStep = useCallback(async (data: FieldValues) => {
+    const inputFieldInitial = document.getElementById("feedUrlInitial");
+    inputFieldInitial?.setAttribute("disabled", "disabled");
 
-      const submitInitial = document.getElementById("feedSubmitInitial");
-      if (submitInitial) {
-        submitInitial.innerText = "Loading...";
-      }
-      submitInitial?.setAttribute("disabled", "disabled");
+    const submitInitial = document.getElementById("feedSubmitInitial");
+    if (submitInitial) {
+      submitInitial.innerText = "Loading...";
+    }
+    submitInitial?.setAttribute("disabled", "disabled");
 
-      const feeds = await ds.checkFeed(data.feedUrlInitial);
-      if (submitInitial) {
-        submitInitial.innerText = "Go";
-      }
-      submitInitial?.removeAttribute("disabled");
-      inputFieldInitial?.removeAttribute("disabled");
+    const feeds = await ds.checkFeed(data.feedUrlInitial);
+    if (submitInitial) {
+      submitInitial.innerText = "Go";
+    }
+    submitInitial?.removeAttribute("disabled");
+    inputFieldInitial?.removeAttribute("disabled");
 
-      if (feeds.length === 0) {
-        setInitialFormError(true);
-        setFormFeedData([]);
-        setCheckedFeeds([]);
-      } else {
-        setInitialFormError(false);
-        setFormFeedData(feeds);
-        const feedUrlsToCheck = feeds.map((feed) => {
-          return feed.feedUrl;
-        });
-        const checkedFeedsRes = await ds.checkFeedUrls(feedUrlsToCheck);
-        setCheckedFeeds(checkedFeedsRes);
-      }
-    },
-    []
-  );
+    if (feeds.length === 0) {
+      setInitialFormError(true);
+      setFormFeedData([]);
+      setCheckedFeeds([]);
+    } else {
+      setInitialFormError(false);
+      setFormFeedData(feeds);
+      const feedUrlsToCheck = feeds.map((feed) => {
+        return feed.feedUrl;
+      });
+      const checkedFeedsRes = await ds.checkFeedUrls(feedUrlsToCheck);
+      setCheckedFeeds(checkedFeedsRes);
+    }
+  }, []);
 
   const onSubmitSecondStep = useCallback(
     async (index: number) => {
@@ -89,14 +86,24 @@ export default function FeedAdd() {
     [getValues, navigate, checkedFeeds, formFeedData]
   );
 
-  const onSubmitFileImport = useCallback(
-    (data: FieldValues) => {
-      const fileName = data.importFile[0].path;
+  const onSubmitFileImport = useCallback((data: FieldValues) => {
+    console.log("Importing file:", data);
+    const file = data.importFile[0];
 
-      ds.importOpmlFile(fileName);
-    },
-    []
-  );
+    // Check if we're in Electron environment (has .path property)
+    if (file.path) {
+      // Electron: use file path directly
+      ds.importOpmlFile({ filePath: file.path });
+    } else {
+      // Browser: read file content
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        ds.importOpmlFile({ fileContent: content, fileName: file.name });
+      };
+      reader.readAsText(file);
+    }
+  }, []);
 
   return (
     <>

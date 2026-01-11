@@ -40,9 +40,12 @@ export default class Updater {
     );
 
     // Start the scheduled task after a 2-minute delay
-    setTimeout(() => {
-      this.task.start();
-    }, 1000 * 60 * 2); // 2 minutes in milliseconds
+    setTimeout(
+      () => {
+        this.task.start();
+      },
+      1000 * 60 * 2
+    ); // 2 minutes in milliseconds
   }
 
   /**

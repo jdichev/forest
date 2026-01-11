@@ -5,11 +5,11 @@
     --header-bg: #e2e1de;
     --sidebar-bg: #f3f3f3;
     --sidebar-selected-bg: #ececec;
-    --sidebar-selected-active-bg: #dfe8f1;
+    --sidebar-selected-active-bg: #ffe4c8;
     --sidebar-fg: #555;
     --items-list-bg: #f9f9f9;
     --items-list-selected-bg: #ececec;
-    --items-list-selected-active-bg: #e5eff8;
+    --items-list-selected-active-bg: #ffe4c8;
     --main-bg: #faf6ee;
     --main-color: #282828;
     --main-color-visited: #01438f;
@@ -40,7 +40,7 @@
     --items-list-selected-bg: #60696e;
     --items-list-selected-active-bg: #063453;
     --main-bg: #262625;
-    --main-color: #C2C2C1;
+    --main-color: #c2c2c1;
     --main-color-visited: #dbd4c5;
     --border-color: #474747;
     --link-color: #dbd4c5;
@@ -68,7 +68,10 @@
   --total-main-size: 100;
   --side-menu-bg: #2d2d2d;
   --side-menu-fg: #cccccc;
-  --body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --body-font-family:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html {
@@ -93,7 +96,7 @@ body#app-body {
   background: var(--main-bg);
   color: var(--main-color);
   line-height: 1.5;
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
 
 h1,
@@ -102,7 +105,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 650;
   line-height: 1;
 }
 
@@ -122,7 +124,9 @@ a:hover {
 
 #wrapper {
   display: grid;
-  grid-template-columns: var(--side-menu-width) var(--sidebar-width) var(--main-column-size);
+  grid-template-columns: var(--side-menu-width) var(--sidebar-width) var(
+      --main-column-size
+    );
   grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
 }
 
@@ -234,12 +238,6 @@ a:hover {
   padding: 10% 15%;
 }
 
-#welcome-content h1,
-#welcome-content h2 {
-  font-weight: 400;
-  opacity: 0.8;
-}
-
 #sidebar-menu {
   padding-top: 20px;
   padding-left: 4px;
@@ -279,7 +277,7 @@ a:hover {
   outline: none;
 }
 
-#sidebar-menu li button>* {
+#sidebar-menu li button > * {
   display: flex;
   flex-direction: column;
   line-height: 25px;
@@ -339,7 +337,6 @@ a:hover {
   border: none;
 }
 
-
 #sidebar-menu[data-activenav="true"] li.feed-selected button,
 #sidebar-menu[data-activenav="true"] li.feed-selected button:hover,
 #sidebar-menu[data-activenav="true"] li.feedcategory-selected button,
@@ -391,7 +388,7 @@ a:hover {
   overflow-y: auto;
 }
 
-#table-panel td>i {
+#table-panel td > i {
   color: var(--weak-color);
 }
 
@@ -407,7 +404,6 @@ a:hover {
   margin: 8px 16px;
   width: calc(100% - 58px);
 }
-
 
 table.feeds-table {
   margin: 0 16px;
@@ -444,7 +440,7 @@ table.feeds-table {
   cursor: pointer;
 }
 
-#list-panel .table> :not(caption)>*>* {
+#list-panel .table > :not(caption) > * > * {
   border-bottom-width: 0px;
   padding: 0;
 }
@@ -527,8 +523,20 @@ table.feeds-table {
  *         Formula: width / 16 * 9
  */
 #player {
-  width: calc((((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) - 82px - var(--side-menu-width));
-  height: calc(((((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) - 82px - var(--side-menu-width)) / 16 * 9);
+  width: calc(
+    (((87vw) / var(--total-main-size)) * var(--right-column-unitless-size)) -
+      82px - var(--side-menu-width)
+  );
+  height: calc(
+    (
+        (
+            ((87vw) / var(--total-main-size)) *
+              var(--right-column-unitless-size)
+          ) -
+          82px - var(--side-menu-width)
+      ) /
+      16 * 9
+  );
 }
 
 #content-options {
@@ -578,12 +586,12 @@ table.feeds-table {
   border-collapse: collapse;
 }
 
-.table-striped>tbody>tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(odd) {
   background-color: var(--table-row-odd);
 }
 
-.table-sm>tbody>tr>td,
-.table-sm>tbody>tr>th {
+.table-sm > tbody > tr > td,
+.table-sm > tbody > tr > th {
   padding: 0.3rem;
 }
 
@@ -611,7 +619,9 @@ form.p-4 {
   background-clip: padding-box;
   border: 1px solid var(--border-color);
   border-radius: 0;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }
 
 .form-control[type="file"] {
@@ -650,5 +660,7 @@ form.p-4 {
   background-clip: padding-box;
   border: 1px solid var(--border-color);
   border-radius: 0;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }

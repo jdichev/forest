@@ -10,7 +10,7 @@ import opmlParser from "./OpmlParser";
 import FeedFinder from "./FeedFinder";
 
 const pino = pinoLib({
-  level: "info",
+  level: "debug",
   name: "MixedDataModel",
 });
 
@@ -114,26 +114,24 @@ export default class DataService {
           }
 
           pino.debug(
-            `Database initialized in mode ${
-              tempInstance ? "temp" : "not-temp"
-            }`
+            `Database initialized in mode ${tempInstance ? "temp" : "not-temp"}`
           );
         });
       });
 
-      const twoWeeksAgo = new Date();
-      twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-      const twoWeeksAgoTime = twoWeeksAgo.getTime();
+      // const twoWeeksAgo = new Date();
+      // twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+      // const twoWeeksAgoTime = twoWeeksAgo.getTime();
 
-      const query = `DELETE FROM items WHERE published < ${twoWeeksAgoTime}`;
+      // const query = `DELETE FROM items WHERE published < ${twoWeeksAgoTime}`;
 
-        this.database.run(query, (error) => {
-          if (error) {
-            pino.error(error);
-          }
-        });
+      // this.database.run(query, (error) => {
+      //   if (error) {
+      //     pino.error(error);
+      //   }
+      // });
 
-        pino.info("Removed all items older than 2 weeks");
+      // pino.info("Removed all items older than 2 weeks");
     });
   }
 
@@ -250,7 +248,7 @@ export default class DataService {
           pino.error(err);
         }
 
-        resolve(rows as Feed[] || []);
+        resolve((rows as Feed[]) || []);
       });
     });
   }
@@ -316,36 +314,36 @@ export default class DataService {
     });
   }
 
-  public async updateFeedTimings(
-    feed: Feed,
-    timingFields: {
-      updateFrequency: number;
-    }
-  ) {
-    const query = `
-      UPDATE feeds
-      SET
-        updateFrequency = ?
-      WHERE
-        id = ?
-    `;
+  // public async updateFeedTimings(
+  //   feed: Feed,
+  //   timingFields: {
+  //     updateFrequency: number;
+  //   }
+  // ) {
+  //   const query = `
+  //     UPDATE feeds
+  //     SET
+  //       updateFrequency = ?
+  //     WHERE
+  //       id = ?
+  //   `;
 
-    return new Promise<boolean>((resolve) => {
-      this.database.run(
-        query,
-        [timingFields.updateFrequency, feed.id],
-        (error) => {
-          if (error) {
-            pino.error(error);
-            resolve(false);
-          }
+  //   return new Promise<boolean>((resolve) => {
+  //     this.database.run(
+  //       query,
+  //       [timingFields.updateFrequency, feed.id],
+  //       (error) => {
+  //         if (error) {
+  //           pino.error(error);
+  //           resolve(false);
+  //         }
 
-          pino.debug("feed timing updated %o %o", feed, timingFields);
-          resolve(true);
-        }
-      );
-    });
-  }
+  //         pino.debug("feed timing updated %o %o", feed, timingFields);
+  //         resolve(true);
+  //       }
+  //     );
+  //   });
+  // }
 
   public async updateFeed(feed: Feed): Promise<boolean> {
     const query = `
@@ -472,7 +470,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows as FeedReadStat[] || []);
+        resolve((rows as FeedReadStat[]) || []);
       });
     });
   }
@@ -533,7 +531,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows as FeedCategoryReadStat[] || []);
+        resolve((rows as FeedCategoryReadStat[]) || []);
       });
     });
   }
@@ -553,7 +551,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(row as FeedCategory || undefined);
+        resolve((row as FeedCategory) || undefined);
       });
     });
   }
@@ -570,7 +568,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows as FeedCategory[] || []);
+        resolve((rows as FeedCategory[]) || []);
       });
     });
   }
@@ -653,8 +651,22 @@ export default class DataService {
     });
   }
 
-  public async importOpml(path: string) {
-    const opmlContent = fs.readFileSync(path, "utf-8");
+  public async importOpml(options: {
+    filePath?: string;
+    fileContent?: string;
+  }) {
+    let opmlContent: string;
+
+    if (options.filePath) {
+      // Electron path: read from file system
+      opmlContent = fs.readFileSync(options.filePath, "utf-8");
+    } else if (options.fileContent) {
+      // Browser: use content directly
+      opmlContent = options.fileContent;
+    } else {
+      throw new Error("Either filePath or fileContent must be provided");
+    }
+
     const opmlData = opmlParser.load(opmlContent);
     const feedFinder = new FeedFinder();
 
@@ -890,6 +902,8 @@ export default class DataService {
       LIMIT ?
     `;
 
+    pino.trace({ params }, "Parameters for getItems");
+
     let whereQuery1 = `
       WHERE
       items.feed_id IN (__CATEGORY_IDS_PLACEHOLDER__)
@@ -944,13 +958,15 @@ export default class DataService {
       query = query.replace("__WHERE_PLACEHOLDER2__", "");
     }
 
+    pino.trace({ query }, "Final items query");
+
     return new Promise((resolve) => {
       this.database.all(query, [params.size], (error, rows) => {
         if (error) {
           pino.error(error);
         }
 
-        resolve(rows as Item[] || []);
+        resolve((rows as Item[]) || []);
       });
     });
   }
@@ -995,14 +1011,26 @@ export default class DataService {
         return item.hasOwnProperty(datePropertyName);
       }) || "";
 
-    const publishedTime = possibleDateProperties.includes(dateProperty)
-      ? Date.parse(item[dateProperty])
-      : Date.now();
+    const publishedTime =
+      possibleDateProperties.includes(dateProperty) && item[dateProperty] !== ""
+        ? Date.parse(item[dateProperty])
+        : Date.now();
 
     return publishedTime;
   }
 
   public async insertItem(item: Item, feedId: number | undefined) {
+    // Check if item already exists by URL
+    const exists = await this.itemExists(item);
+
+    if (exists) {
+      pino.debug(
+        { itemUrl: item.link, feedId },
+        "Item already exists, skipping insertion"
+      );
+      return Promise.resolve();
+    }
+
     const query = `
       INSERT INTO items (url, title, content, feed_id, published, comments, created, json_content)
       VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )
@@ -1093,9 +1121,7 @@ export default class DataService {
     });
   }
 
-  public async getFeedsLastFirstItems(): Promise<
-    Item[]
-  > {
+  public async getFeedsLastFirstItems(): Promise<Item[]> {
     const query = `
       SELECT
         feeds.id,
@@ -1113,7 +1139,7 @@ export default class DataService {
           pino.error(error);
         }
 
-        resolve(rows as Item[] || []);
+        resolve((rows as Item[]) || []);
       });
     });
   }

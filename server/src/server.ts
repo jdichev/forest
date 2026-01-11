@@ -265,9 +265,9 @@ app.post("/checkfeedurls", jsonParser, async (req: Request, res: Response) => {
 });
 
 app.post("/opml-import", jsonParser, async (req: Request, res: Response) => {
-  pino.debug(req.body.fileName, "REQUEST BODY");
+  pino.debug(req.body, "REQUEST BODY");
 
-  const result = dataModel.importOpml(req.body.fileName);
+  const result = await dataModel.importOpml(req.body);
 
   res.json(result);
 });
