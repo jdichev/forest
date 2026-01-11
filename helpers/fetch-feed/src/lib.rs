@@ -133,6 +133,7 @@ pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String>
 
               Feed::RSS(rss_feed) => {
                 let mut feed_items: Vec<Value> = Vec::new();
+                let mut dc_creators: Vec<String> = Vec::new();
 
                 for item in rss_feed.items().iter() {
                   let description;
@@ -163,6 +164,13 @@ pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String>
                     })
                     .unwrap_or("NO_DATE");
 
+                  // Extract dc:creator
+                  if let Some(dc_ext) = item.dublin_core_ext() {
+                    if let Some(creator) = dc_ext.creators.first() {
+                      dc_creators.push(creator.to_string());
+                    }
+                  }
+
                   let feed_item = json!({
                       "title": item.title().unwrap_or_default(),
                       "description": process_markup(description.unwrap_or_default()),
@@ -181,13 +189,17 @@ pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String>
                 let feed_title = if !rss_feed.title().is_empty() {
                     rss_feed.title().to_string()
                 } else if let Some(dc_ext) = rss_feed.dublin_core_ext() {
-                    dc_ext.titles
-                        .first()
-                        .map(|t| t.as_str())
-                        .unwrap_or("")
-                        .to_string()
+                    if let Some(title) = dc_ext.titles.first() {
+                        title.to_string()
+                    } else if !dc_creators.is_empty() && dc_creators.iter().all(|c| c == &dc_creators[0]) {
+                        dc_creators[0].clone()
+                    } else {
+                        "NO_TITLE".to_string()
+                    }
+                } else if !dc_creators.is_empty() && dc_creators.iter().all(|c| c == &dc_creators[0]) {
+                    dc_creators[0].clone()
                 } else {
-                    "EMPTY_TAG".to_string()
+                    "NO_TITLE".to_string()
                 };
 
                 let feed = json!({

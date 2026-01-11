@@ -18,7 +18,7 @@ const csFeedResStr = fetchFeedSync("http://localhost:3000/cs-feed.xml");
 const csFeedRes = JSON.parse(csFeedResStr);
 
 console.assert(
-  csFeedRes.title && csFeedRes.title.length > 0,
+  csFeedRes.title && csFeedRes.title !== "NO_TITLE",
   "CS feed has non-empty title"
 );
 
