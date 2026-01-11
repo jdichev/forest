@@ -178,9 +178,21 @@ pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String>
                 let mut feed_links: Vec<&str> = Vec::new();
                 feed_links.push(&rss_feed.link());
 
+                let feed_title = if !rss_feed.title().is_empty() {
+                    rss_feed.title().to_string()
+                } else if let Some(dc_ext) = rss_feed.dublin_core_ext() {
+                    dc_ext.titles
+                        .first()
+                        .map(|t| t.as_str())
+                        .unwrap_or("")
+                        .to_string()
+                } else {
+                    "EMPTY_TAG".to_string()
+                };
+
                 let feed = json!({
                     "type": "rss",
-                    "title": rss_feed.title(),
+                    "title": feed_title,
                     "links": feed_links,
                     "items": &feed_items
                 });
