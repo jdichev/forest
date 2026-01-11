@@ -69,7 +69,7 @@ export default function Feeds({ topMenu }: FeedsProps) {
       feedCategory: FeedCategory | null,
       e: React.MouseEvent<HTMLButtonElement>
     ) => {
-      if (e.currentTarget.classList.contains("deleteIcon")) {
+      if (e && (e.target as HTMLElement).classList.contains("deleteIcon")) {
         const feedCategoryId = parseInt(
           e.currentTarget.getAttribute("data-category-id") || "",
           10
