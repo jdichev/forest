@@ -71,9 +71,11 @@ export default function Feeds({ topMenu }: FeedsProps) {
     ) => {
       if (e && (e.target as HTMLElement).classList.contains("deleteIcon")) {
         const feedCategoryId = parseInt(
-          e.currentTarget.getAttribute("data-category-id") || "",
+          (e.target as HTMLElement).getAttribute("data-category-id") || "",
           10
         );
+
+        console.log("Deleting feed category ID:", feedCategoryId);
 
         const confirmResult = confirm(
           "About to delete a category. Please confirm."

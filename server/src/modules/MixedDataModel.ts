@@ -391,9 +391,11 @@ export default class DataService {
 
     let categoryId: number;
 
-    if (feed.feedCategoryId !== undefined) {
+    if (feed.feedCategoryId !== undefined && feed.feedCategoryId > 0) {
+      // Use provided feedCategoryId directly (set during OPML import)
       categoryId = feed.feedCategoryId;
     } else {
+      // Fallback: lookup category by title
       const feedCategories = await this.getFeedCategories();
 
       const relatedCategory = feedCategories.find((feedCategory) => {
@@ -670,18 +672,32 @@ export default class DataService {
     const opmlData = opmlParser.load(opmlContent);
     const feedFinder = new FeedFinder();
 
+    // Insert all categories in parallel
     await Promise.all(
       opmlData.categories.map(async (feedCategory: FeedCategory) => {
         await this.insertFeedCategory(feedCategory);
       })
     );
 
+    // Create a mapping of category titles to IDs
+    const allCategories = await this.getFeedCategories();
+    const categoryTitleToIdMap = new Map<string, number>();
+    allCategories.forEach((category) => {
+      categoryTitleToIdMap.set(category.title, category.id);
+    });
+
     for (const feed of opmlData.feeds) {
       pino.debug(feed);
       // @ts-ignore
       const feedRes = await feedFinder.checkFeed(feed.feedUrl);
       if (feedRes.length) {
-        await this.insertFeed(feedRes[0]);
+        const feedToInsert = feedRes[0];
+        // Use the category ID mapping to set the feedCategoryId directly
+        if (feed.categoryTitle) {
+          feedToInsert.feedCategoryId =
+            categoryTitleToIdMap.get(feed.categoryTitle) || 0;
+        }
+        await this.insertFeed(feedToInsert);
       }
       // else {
       //   // @ts-ignore
@@ -692,8 +708,6 @@ export default class DataService {
       // }
     }
 
-    pino.info("Imported %d feeds", opmlData.feeds.length);
-    pino.info("Imported %d feeds", opmlData.feeds.length);
     pino.info("Imported %d feeds", opmlData.feeds.length);
   }
 
