@@ -1,79 +1,28 @@
 import chunk from "lodash/chunk";
 import pinoLib from "pino";
 import ms from "ms";
-import fs from "fs";
-import os from "os";
-import path from "path";
 import MixedDataModel from "./MixedDataModel";
 import Scheduler from "./Scheduler";
 //@ts-ignore
 import { fetchFeed } from "fetch-feed";
 
-/**
- * Logger instance configured to trace level for detailed logging.
- */
 const pino = pinoLib({
   level: "trace",
   name: "FeedUpdater",
 });
 
-/**
- * Singleton instance of the MixedDataModel for data operations.
- */
 const dataModel = MixedDataModel.getInstance();
 
-/**
- * Class responsible for updating and managing feed data.
- */
 export default class FeedUpdater {
-  /**
-   * Number of feeds to process in each chunk.
-   */
-  private chunkSize = 3;
+  private chunkSize = 4;
 
-  /**
-   * Path to the file where the update cache is stored.
-   */
-  private updateCacheFilePath;
-
-  /**
-   * Cache object to store feed update metadata and processed items.
-   */
-  private updateCache: {
-    feeds?: Feed[] | undefined;
-    updateLaunch?: number;
-    nextUpdateTimes: { [key: string]: number };
+  private feedsProcCache: {
+    lastUpdateTimes: { [key: string]: number };
     feedFrequencies: { [key: string]: number };
-    feedProcessedItems: { [key: string]: string[] };
-    feedProcessedItemsInitialized: boolean;
   } = {
-    nextUpdateTimes: {},
+    lastUpdateTimes: {},
     feedFrequencies: {},
-    feedProcessedItems: {},
-    feedProcessedItemsInitialized: false,
   };
-
-  /**
-   * Initializes the FeedUpdater and sets up the cache file path.
-   */
-  constructor() {
-    // when testing
-    const tempInstance = process.env.NODE_ENV === "test";
-
-    const storageDir = tempInstance
-      ? path.join(os.tmpdir(), ".forest-temp")
-      : path.join(os.homedir(), ".forest");
-
-    const updateCacheFileName = "update-cache.json";
-
-    this.updateCacheFilePath = path.join(storageDir, updateCacheFileName);
-
-    if (fs.existsSync(this.updateCacheFilePath)) {
-      this.updateCache = JSON.parse(
-        fs.readFileSync(this.updateCacheFilePath, "utf-8")
-      );
-    }
-  }
 
   /**
    * Adds a new feed to the system and processes its items.
@@ -94,15 +43,14 @@ export default class FeedUpdater {
       throw error;
     }
 
-    // Validate feed data structure
-    if (!feedRes || typeof feedRes !== 'object') {
-      const error = new Error('Invalid feed data: response is not an object');
+    if (!feedRes || typeof feedRes !== "object") {
+      const error = new Error("Invalid feed data: response is not an object");
       pino.error({ feedUrl: feedData.feedUrl }, error.message);
       throw error;
     }
 
     if (!Array.isArray(feedRes.items)) {
-      const error = new Error('Invalid feed data: items is not an array');
+      const error = new Error("Invalid feed data: items is not an array");
       pino.error({ feedUrl: feedData.feedUrl }, error.message);
       throw error;
     }
@@ -110,7 +58,10 @@ export default class FeedUpdater {
     const feed: Feed = {
       title: feedRes.title || "NO_TITLE",
       feedUrl: feedData.feedUrl,
-      url: Array.isArray(feedRes.links) && feedRes.links.length ? feedRes.links[0] : "",
+      url:
+        Array.isArray(feedRes.links) && feedRes.links.length
+          ? feedRes.links[0]
+          : "",
       feedCategoryId: feedData.feedCategoryId,
     };
 
@@ -131,24 +82,10 @@ export default class FeedUpdater {
       items: feedRes.items as Item[],
     });
 
-    await this.updateFeedFrequency(feedFromDb);
-
-    // Initialize next update time for the new feed
-    const feedKey = `${feedFromDb.id}`;
-    const frequency = this.updateCache.feedFrequencies[feedKey];
-    if (frequency) {
-      this.updateCache.nextUpdateTimes[feedKey] = Date.now() + frequency;
-      pino.debug(
-        { feedId: feedFromDb.id, frequency, nextUpdate: this.updateCache.nextUpdateTimes[feedKey] },
-        "Initialized next update time for new feed"
-      );
-    } else {
-      pino.warn({ feedId: feedFromDb.id }, "Could not initialize next update time - frequency not set");
-    }
-
-    this.saveUpdateCache();
-
-    pino.info({ feedId: feedFromDb.id, title: feedFromDb.title }, "Feed added successfully");
+    pino.info(
+      { feedId: feedFromDb.id, title: feedFromDb.title },
+      "Feed added successfully"
+    );
 
     return feed;
   }
@@ -158,75 +95,11 @@ export default class FeedUpdater {
    * @param {FeedData} feedData - The feed data containing items to insert.
    */
   private async insertItems(feedData: FeedData) {
-    const feedKey = `${feedData.feed.id}`;
-    const itemsLen = feedData.items.length;
-
-    if (!this.updateCache.feedProcessedItems.hasOwnProperty(feedKey)) {
-      this.updateCache.feedProcessedItems[feedKey] = [];
-    }
-
-    let iterations = 0;
-
     for (const individualItem of feedData.items) {
-      if (
-        this.updateCache.feedProcessedItems[feedKey].includes(
-          individualItem.link
-        )
-      ) {
-        continue;
-      }
-
-      try {
-        await dataModel.insertItem(individualItem, feedData.feed.id);
-        
-        // Mark as processed immediately after successful insertion
-        this.updateCache.feedProcessedItems[feedKey].push(individualItem.link);
-        iterations += 1;
-      } catch (error: any) {
-        // Handle duplicate constraint errors gracefully
-        if (error.code === 'SQLITE_CONSTRAINT' && error.message?.includes('UNIQUE constraint')) {
-          pino.debug(
-            { feedId: feedData.feed.id, itemLink: individualItem.link },
-            "Item already exists in database, skipping"
-          );
-          // Still mark as processed to avoid retrying
-          if (!this.updateCache.feedProcessedItems[feedKey].includes(individualItem.link)) {
-            this.updateCache.feedProcessedItems[feedKey].push(individualItem.link);
-          }
-        } else {
-          // Re-throw non-constraint errors
-          pino.error(
-            { error, feedId: feedData.feed.id, itemLink: individualItem.link },
-            "Failed to insert item"
-          );
-          throw error;
-        }
-      }
+      await dataModel.insertItem(individualItem, feedData.feed.id);
     }
 
-    pino.debug("%d added of total %d", iterations, itemsLen);
-    pino.trace("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
-
-    if (iterations === 0 && itemsLen > 0) {
-      pino.debug({ feedUrl: feedData.feed.feedUrl }, "No iterations added");
-    }
-
-    if (itemsLen > 0) {
-      this.saveUpdateCache();
-    }
-  }
-
-  /**
-   * Inserts bulk items from multiple feeds into the database.
-   * @param {FeedData[]} bulkData - Array of feed data to insert.
-   */
-  private async insertBulkItems(bulkData: FeedData[]) {
-    for (const individualData of bulkData) {
-      await this.updateFeedFrequencyData(individualData);
-      await this.insertItems(individualData);
-    }
-
-    this.saveUpdateCache();
+    pino.debug("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
   }
 
   /**
@@ -247,13 +120,19 @@ export default class FeedUpdater {
     }
 
     // Validate feed data structure
-    if (!feedRes || typeof feedRes !== 'object') {
-      pino.warn({ feedUrl: feed.feedUrl }, 'Invalid feed data: response is not an object');
+    if (!feedRes || typeof feedRes !== "object") {
+      pino.warn(
+        { feedUrl: feed.feedUrl },
+        "Invalid feed data: response is not an object"
+      );
       return { feed, items: [] };
     }
 
     if (!Array.isArray(feedRes.items)) {
-      pino.warn({ feedUrl: feed.feedUrl }, 'Invalid feed data: items is not an array');
+      pino.warn(
+        { feedUrl: feed.feedUrl },
+        "Invalid feed data: items is not an array"
+      );
       return { feed, items: [] };
     }
 
@@ -268,69 +147,33 @@ export default class FeedUpdater {
    * @param {FeedData} feedData - The feed data to update frequency for.
    */
   public async updateFeedFrequencyData(feedData: FeedData) {
-    const publishedTimes = feedData.items.map((item) =>
-      MixedDataModel.getItemPublishedTime(item)
-    );
+    // feedData.items = feedData.items.map((item) => {
+    //   item.description = "__HIDDEN__";
+    //   item.content = "__HIDDEN__";
+    //   return item;
+    // });
+    // pino.trace({ feedData }, "Updating feed frequency data");
+
+    const publishedTimes = feedData.items.map((item) => item.published * 1000);
 
     const avg = Scheduler.computeFrequency(publishedTimes);
 
-    this.updateCache.feedFrequencies[`${feedData.feed.id}`] = avg;
-
-    await dataModel.updateFeedTimings(feedData.feed, {
-      updateFrequency: avg,
-    });
-  }
-
-  /**
-   * Updates the frequency of a specific feed.
-   * @param {Feed} feed - The feed to update frequency for.
-   */
-  public async updateFeedFrequency(feed: Feed) {
-    pino.trace({ feedId: feed.id }, "Updating feed frequency");
-    
-    const items = await dataModel.getItems({
-      size: 20,
-      selectedFeed: feed,
-    });
-
-    const avg = Scheduler.computeItemsFrequency(items);
-
-    this.updateCache.feedFrequencies[`${feed.id}`] = avg;
-
-    pino.debug(
-      { feedId: feed.id, frequency: avg, itemsCount: items.length },
-      "Feed frequency updated in cache"
-    );
-
-    await dataModel.updateFeedTimings(feed, {
-      updateFrequency: avg,
-    });
-  }
-
-  /**
-   * Updates the frequency for all feeds.
-   */
-  public async updateFeedFrequencies() {
-    const feeds = await dataModel.getFeeds();
-
-    for (const feed of feeds) {
-      await this.updateFeedFrequency(feed);
-    }
+    this.feedsProcCache.lastUpdateTimes[`${feedData.feed.id}`] = Date.now();
+    this.feedsProcCache.feedFrequencies[`${feedData.feed.id}`] = avg;
   }
 
   /**
    * Processes feed data in bulk by chunking the feeds.
    * @param {Feed[]} feeds - Array of feeds to process.
-   * @returns {Promise<FeedData[]>} A promise that resolves with the processed feed data.
+   * @returns {Promise<void>} Completes after processing and inserting all feed data.
    */
-  private async processBulkFeedData(feeds: Feed[]): Promise<FeedData[]> {
+  private async processBulkFeedData(feeds: Feed[]): Promise<void> {
     const chunks = chunk(feeds, this.chunkSize);
+
     pino.debug(`Chunks num ${chunks.length}, ${this.chunkSize} feeds each`);
 
-    let resultData: FeedData[] = [];
-
     for (const feedsChunk of chunks) {
-      const chunkStart = Date.now();
+      const chunkProcTimeStart = Date.now();
 
       const resultOfFeeds = await Promise.all(
         feedsChunk.map((feed) => {
@@ -338,51 +181,27 @@ export default class FeedUpdater {
         })
       );
 
-      const chunkEnd = Date.now();
-      pino.trace("Time to process chunk %s", ms(chunkEnd - chunkStart));
+      const chunkProcTimeEnd = Date.now();
+
+      pino.trace(
+        "Time to process chunk %s",
+        ms(chunkProcTimeEnd - chunkProcTimeStart)
+      );
 
       const chunkInsertStart = Date.now();
-      await this.insertBulkItems(resultOfFeeds);
+
+      for (const individualData of resultOfFeeds) {
+        await this.insertItems(individualData);
+        await this.updateFeedFrequencyData(individualData);
+      }
+
       const chunkInsertEnd = Date.now();
+
       pino.trace(
         "Time to insert data from chunk %s",
         ms(chunkInsertEnd - chunkInsertStart)
       );
-
-      resultData = resultData.concat(resultOfFeeds);
     }
-
-    return resultData;
-  }
-
-  /**
-   * Caps the number of processed items stored per feed to a maximum limit.
-   */
-  private capProcessedItemsPerFeed() {
-    const processedItemsCap = 100;
-
-    const processedItems = this.updateCache.feedProcessedItems;
-
-    Object.keys(processedItems).forEach((feedKey) => {
-      const processedItemsLength = processedItems[feedKey].length;
-
-      if (processedItemsLength > processedItemsCap) {
-        this.updateCache.feedProcessedItems[feedKey] = processedItems[
-          feedKey
-        ].slice(processedItemsLength - processedItemsCap);
-      }
-    });
-  }
-
-  /**
-   * Saves the current state of the update cache to a file.
-   */
-  private saveUpdateCache() {
-    this.capProcessedItemsPerFeed();
-
-    const updateCacheJson = JSON.stringify(this.updateCache);
-
-    fs.writeFileSync(this.updateCacheFilePath, updateCacheJson);
   }
 
   /**
