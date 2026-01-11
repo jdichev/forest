@@ -55,6 +55,7 @@ app.get("/items", async (req: Request, res: Response) => {
     size,
     selectedFeed,
     selectedFeedCategory,
+    order: "published",
   });
   res.json(items);
 });
