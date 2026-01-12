@@ -39,13 +39,13 @@
     --items-list-bg: #292929;
     --items-list-selected-bg: #60696e;
     --items-list-selected-active-bg: #063453;
-    --main-bg: #262625;
+    --main-bg: #272727;
     --main-color: #c2c2c1;
     --main-color-visited: #dbd4c5;
     --border-color: #474747;
     --link-color: #dbd4c5;
     --link-hover-color: #ffffff;
-    --link-highlight-color: #fad591;
+    --link-highlight-color: #f0c87f;
     --btn-bg-color: #252526;
     --btn-fg-color: #f8f9fa;
     --table-row-odd: #383a3b;
@@ -192,7 +192,7 @@ a:hover {
 }
 
 #top-nav-brand a::before {
-  content: "kizuki";
+  content: "気づき";
   letter-spacing: 0.2rem;
 }
 
