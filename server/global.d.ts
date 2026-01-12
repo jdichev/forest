@@ -24,7 +24,7 @@ interface FeedData {
 }
 
 interface FeedCategory {
-  id: number;
+  id?: number;
   title: string;
   text?: string;
   expanded?: boolean;

@@ -384,7 +384,7 @@ export default class DataService {
     const feedExists = await this.feedExists(feed);
 
     if (feedExists) {
-      pino.debug("Feed already exists, returning.");
+      pino.debug("Feed already exists");
 
       return Promise.resolve();
     }
@@ -402,7 +402,7 @@ export default class DataService {
         return feedCategory.title === feed.categoryTitle;
       });
 
-      categoryId = relatedCategory ? relatedCategory.id : 0;
+      categoryId = relatedCategory?.id ?? 0;
     }
 
     pino.debug("Category id: %s", categoryId);
@@ -672,10 +672,46 @@ export default class DataService {
     const opmlData = opmlParser.load(opmlContent);
     const feedFinder = new FeedFinder();
 
+    /**
+     *
+     * categories: [
+     *   {
+     *     "text": "YouTube Subscriptions"
+     *   }
+     * ]
+     *
+     */
+    pino.debug({ categories: opmlData.categories }, "OPML categories");
+
     // Insert all categories in parallel
     await Promise.all(
-      opmlData.categories.map(async (feedCategory: FeedCategory) => {
-        await this.insertFeedCategory(feedCategory);
+      opmlData.categories.map(async (feedCategory: { text?: string }) => {
+        if (!feedCategory.text) {
+          return;
+        }
+
+        pino.debug(
+          { feedCategory },
+          "Inserting feed category from OPML import"
+        );
+
+        await this.insertFeedCategory({
+          title: feedCategory.text || "",
+          text: "",
+        });
+
+        const insertedCategory = await this.getFeedCategories().then(
+          (categories) => {
+            return categories.find(
+              (category) => category.title === feedCategory.text
+            );
+          }
+        );
+
+        pino.debug(
+          { insertedCategory },
+          "Inserted feed category from OPML import"
+        );
       })
     );
 
@@ -683,9 +719,20 @@ export default class DataService {
     const allCategories = await this.getFeedCategories();
     const categoryTitleToIdMap = new Map<string, number>();
     allCategories.forEach((category) => {
-      categoryTitleToIdMap.set(category.title, category.id);
+      categoryTitleToIdMap.set(category.title, category.id ?? 0);
     });
 
+    /**
+     * feeds: [
+     *   {
+     *     "title": "Steven Saulls, Guitarist",
+     *     "url": "https://www.youtube.com/@stevensaullsguitarist",
+     *     "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_XwwsulOEUAzZRrxXtwgRg",
+     *     "feedType": "rss"
+     *   }
+     * ]
+     */
+    pino.debug({ feeds: opmlData.feeds }, "OPML Feeds");
     for (const feed of opmlData.feeds) {
       pino.debug(feed);
       // @ts-ignore
