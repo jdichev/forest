@@ -159,7 +159,7 @@ test("Test updateFeedCategory", async () => {
 test("Test importOpmlFile", async () => {
   //  todo: needs to check parameter setting logic
   fetchMock.mockResponseOnce(JSON.stringify([]));
-  const res = await dataService.importOpmlFile("test");
+  const res = await dataService.importOpmlFile({ filePath: "./test.opml" });
 
   expect(res).toBeTruthy();
   expect(fetchMock).toHaveBeenCalledTimes(1);

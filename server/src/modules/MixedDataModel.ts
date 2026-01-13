@@ -672,47 +672,27 @@ export default class DataService {
     const opmlData = opmlParser.load(opmlContent);
     const feedFinder = new FeedFinder();
 
-    /**
-     *
-     * categories: [
-     *   {
-     *     "text": "YouTube Subscriptions"
-     *   }
-     * ]
-     *
-     */
     pino.debug({ categories: opmlData.categories }, "OPML categories");
 
     // Insert all categories in parallel
     await Promise.all(
-      opmlData.categories.map(async (feedCategory: { text?: string }) => {
-        if (!feedCategory.text) {
-          return;
-        }
-
-        pino.debug(
-          { feedCategory },
-          "Inserting feed category from OPML import"
-        );
-
-        await this.insertFeedCategory({
-          title: feedCategory.text || "",
-          text: "",
-        });
-
-        const insertedCategory = await this.getFeedCategories().then(
-          (categories) => {
-            return categories.find(
-              (category) => category.title === feedCategory.text
-            );
+      opmlData.categories.map(
+        async (feedCategory: { text?: string; title?: string }) => {
+          if (!feedCategory.title && !feedCategory.text) {
+            return;
           }
-        );
 
-        pino.debug(
-          { insertedCategory },
-          "Inserted feed category from OPML import"
-        );
-      })
+          pino.debug(
+            { feedCategory },
+            "Inserting feed category from OPML import"
+          );
+
+          await this.insertFeedCategory({
+            title: feedCategory.title ?? "NO_TITLE",
+            text: feedCategory.text ?? "NO_TEXT",
+          });
+        }
+      )
     );
 
     // Create a mapping of category titles to IDs
@@ -722,16 +702,6 @@ export default class DataService {
       categoryTitleToIdMap.set(category.title, category.id ?? 0);
     });
 
-    /**
-     * feeds: [
-     *   {
-     *     "title": "Steven Saulls, Guitarist",
-     *     "url": "https://www.youtube.com/@stevensaullsguitarist",
-     *     "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_XwwsulOEUAzZRrxXtwgRg",
-     *     "feedType": "rss"
-     *   }
-     * ]
-     */
     pino.debug({ feeds: opmlData.feeds }, "OPML Feeds");
     for (const feed of opmlData.feeds) {
       pino.debug(feed);
