@@ -167,6 +167,43 @@ export default class FeedUpdater {
   }
 
   /**
+   * Filters feeds based on their update frequency.
+   * Feeds with frequency > 1 day are only included if 1 hour has passed since last update.
+   * All other feeds are included in every cycle.
+   * @param {Feed[]} feeds - Array of feeds to filter.
+   * @returns {Feed[]} Filtered array of feeds to update.
+   */
+  private filterByFrequency(feeds: Feed[]): Feed[] {
+    const ONE_DAY = ms("1d");
+    const ONE_HOUR = ms("1h");
+    const now = Date.now();
+
+    return feeds.filter((feed) => {
+      const feedId = `${feed.id}`;
+      const frequency = this.feedsProcCache.feedFrequencies[feedId];
+      const lastUpdateTime = this.feedsProcCache.lastUpdateTimes[feedId];
+
+      // New feeds without frequency data should be included
+      if (frequency === undefined) {
+        return true;
+      }
+
+      // High-frequency feeds (updated <= 1 day) are always included
+      if (frequency <= ONE_DAY) {
+        return true;
+      }
+
+      // Low-frequency feeds (updated > 1 day) are only included if 1 hour has passed
+      if (lastUpdateTime === undefined) {
+        return true;
+      }
+
+      // Check if at least 1 hour has passed since the last update
+      return now - lastUpdateTime >= ONE_HOUR;
+    });
+  }
+
+  /**
    * Processes feed data in bulk by chunking the feeds.
    * @param {Feed[]} feeds - Array of feeds to process.
    * @returns {Promise<void>} Completes after processing and inserting all feed data.
@@ -213,10 +250,11 @@ export default class FeedUpdater {
    */
   public async updateItems() {
     const feeds = await dataModel.getFeeds();
+    const feedsToUpdate = this.filterByFrequency(feeds);
 
     const updateStart = Date.now();
 
-    await this.processBulkFeedData(feeds);
+    await this.processBulkFeedData(feedsToUpdate);
 
     const updateEnd = Date.now();
 
