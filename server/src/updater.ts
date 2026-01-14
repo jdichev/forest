@@ -30,14 +30,11 @@ export default class Updater {
     // Perform an immediate update
     feedUpdater.updateItems();
 
-    // Schedule a task to run every 5 minutes
-    this.task = cron.schedule(
-      `*/5 * * * *`, // Cron expression: every 5 minutes
-      () => {
-        // Perform the update when the scheduled task runs
-        feedUpdater.updateItems();
-      }
-    );
+    // Schedule a task to run every 10 minutes
+    this.task = cron.schedule(`*/10 * * * *`, () => {
+      // Perform the update when the scheduled task runs
+      feedUpdater.updateItems();
+    });
 
     // Start the scheduled task after a 2-minute delay
     setTimeout(

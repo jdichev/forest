@@ -146,7 +146,7 @@ export default class FeedUpdater {
    * Updates the frequency data for a feed based on its items.
    * @param {FeedData} feedData - The feed data to update frequency for.
    */
-  public async updateFeedFrequencyData(feedData: FeedData) {
+  public updateFeedFrequencyData(feedData: FeedData) {
     // feedData.items = feedData.items.map((item) => {
     //   item.description = "__HIDDEN__";
     //   item.content = "__HIDDEN__";
@@ -196,7 +196,7 @@ export default class FeedUpdater {
 
       for (const individualData of resultOfFeeds) {
         await this.insertItems(individualData);
-        await this.updateFeedFrequencyData(individualData);
+        this.updateFeedFrequencyData(individualData);
       }
 
       const chunkInsertEnd = Date.now();
@@ -220,6 +220,6 @@ export default class FeedUpdater {
 
     const updateEnd = Date.now();
 
-    pino.trace("Crawl time %s", ms(updateEnd - updateStart));
+    pino.debug("Crawl time %s", ms(updateEnd - updateStart));
   }
 }
