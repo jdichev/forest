@@ -1,6 +1,9 @@
 import chunk from "lodash/chunk";
 import pinoLib from "pino";
 import ms from "ms";
+import fs from "fs";
+import os from "os";
+import path from "path";
 import MixedDataModel from "./MixedDataModel";
 import Scheduler from "./Scheduler";
 //@ts-ignore
@@ -15,6 +18,7 @@ const dataModel = MixedDataModel.getInstance();
 
 export default class FeedUpdater {
   private chunkSize = 4;
+  private feedsProcCacheFilePath: string;
 
   private feedsProcCache: {
     lastUpdateTimes: { [key: string]: number };
@@ -23,6 +27,77 @@ export default class FeedUpdater {
     lastUpdateTimes: {},
     feedFrequencies: {},
   };
+
+  constructor() {
+    const tempInstance = process.env.NODE_ENV === "test";
+    const storageDir = tempInstance
+      ? path.join(os.tmpdir(), ".forest-temp")
+      : path.join(os.homedir(), ".forest");
+    const cacheFileName = "feeds-proc-cache.json";
+    this.feedsProcCacheFilePath = path.join(storageDir, cacheFileName);
+
+    // Load existing cache if available
+    if (fs.existsSync(this.feedsProcCacheFilePath)) {
+      try {
+        this.feedsProcCache = JSON.parse(
+          fs.readFileSync(this.feedsProcCacheFilePath, "utf-8")
+        );
+        pino.debug("Feeds process cache loaded from disk");
+      } catch (error) {
+        pino.warn("Failed to load feeds process cache, starting fresh");
+      }
+    }
+  }
+
+  /**
+   * Gets the update frequency for a feed.
+   * @param {number | undefined} feedId - The feed ID.
+   * @returns {number | undefined} The frequency in milliseconds or undefined if not set.
+   */
+  private getFeedFrequency(feedId: number | undefined): number | undefined {
+    if (feedId === undefined) return undefined;
+    return this.feedsProcCache.feedFrequencies[`${feedId}`];
+  }
+
+  /**
+   * Gets the last update time for a feed.
+   * @param {number | undefined} feedId - The feed ID.
+   * @returns {number | undefined} The timestamp or undefined if not set.
+   */
+  private getFeedLastUpdateTime(
+    feedId: number | undefined
+  ): number | undefined {
+    if (feedId === undefined) return undefined;
+    return this.feedsProcCache.lastUpdateTimes[`${feedId}`];
+  }
+
+  /**
+   * Sets the frequency and last update time for a feed.
+   * @param {number | undefined} feedId - The feed ID.
+   * @param {number} frequency - The frequency in milliseconds.
+   * @param {number} lastUpdateTime - The last update timestamp.
+   */
+  private setFeedFrequencyData(
+    feedId: number | undefined,
+    frequency: number,
+    lastUpdateTime: number
+  ): void {
+    if (feedId === undefined) return;
+    this.feedsProcCache.feedFrequencies[`${feedId}`] = frequency;
+    this.feedsProcCache.lastUpdateTimes[`${feedId}`] = lastUpdateTime;
+  }
+
+  /**
+   * Persists the feeds process cache to disk.
+   */
+  private saveFeedsProcCache(): void {
+    try {
+      const cacheJson = JSON.stringify(this.feedsProcCache);
+      fs.writeFileSync(this.feedsProcCacheFilePath, cacheJson);
+    } catch (error) {
+      pino.error(error, "Failed to save feeds process cache");
+    }
+  }
 
   /**
    * Adds a new feed to the system and processes its items.
@@ -162,8 +237,9 @@ export default class FeedUpdater {
       pino.debug({ title: feedData.feed.title }, "Zero AVG time");
     }
 
-    this.feedsProcCache.lastUpdateTimes[`${feedData.feed.id}`] = Date.now();
-    this.feedsProcCache.feedFrequencies[`${feedData.feed.id}`] = avg;
+    const now = Date.now();
+    this.setFeedFrequencyData(feedData.feed.id, avg, now);
+    this.saveFeedsProcCache();
   }
 
   /**
@@ -179,9 +255,8 @@ export default class FeedUpdater {
     const now = Date.now();
 
     return feeds.filter((feed) => {
-      const feedId = `${feed.id}`;
-      const frequency = this.feedsProcCache.feedFrequencies[feedId];
-      const lastUpdateTime = this.feedsProcCache.lastUpdateTimes[feedId];
+      const frequency = this.getFeedFrequency(feed.id);
+      const lastUpdateTime = this.getFeedLastUpdateTime(feed.id);
 
       // New feeds without frequency data should be included
       if (frequency === undefined) {
