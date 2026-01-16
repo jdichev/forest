@@ -9,28 +9,59 @@ export default function Article({
   selectedFeed,
 }: ArticleProps) {
   const [videoId, setVideoId] = useState<String>();
+  const [videoKind, setVideoKind] = useState<"standard" | "short" | null>(null);
   const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    if (article && article.url) {
-      try {
-        const parsedUrl = new URL(article.url);
+    setVideoId(undefined);
+    setVideoKind(null);
 
-        if (parsedUrl.hostname.includes("youtube.com")) {
-          const foundVideoId = parsedUrl.searchParams.get("v");
+    if (!article || !article.url) return;
 
-          if (foundVideoId) {
-            setVideoId(foundVideoId);
-          } else {
-            setVideoId(undefined);
-          }
-        } else {
-          setVideoId(undefined);
-        }
-      } catch (error) {
-        console.error("Error parsing URL:", error);
-        setVideoId(undefined);
+    try {
+      const parsedUrl = new URL(article.url);
+      const host = parsedUrl.hostname.toLowerCase();
+      const pathSegments = parsedUrl.pathname.split("/").filter(Boolean);
+
+      const isYouTubeHost =
+        host.includes("youtube.com") ||
+        host === "youtu.be" ||
+        host.endsWith("youtube-nocookie.com");
+
+      if (!isYouTubeHost) return;
+
+      let foundVideoId: string | null = null;
+      let kind: "standard" | "short" | null = null;
+
+      // Handle shorts/reels URLs like youtube.com/shorts/<id>
+      if (pathSegments[0] === "shorts" && pathSegments[1]) {
+        foundVideoId = pathSegments[1];
+        kind = "short";
       }
+
+      // Handle youtu.be/<id>
+      if (!foundVideoId && host === "youtu.be" && pathSegments[0]) {
+        foundVideoId = pathSegments[0];
+        kind = "standard";
+      }
+
+      // Handle classic watch URLs with ?v=<id>
+      if (!foundVideoId) {
+        const vParam = parsedUrl.searchParams.get("v");
+        if (vParam) {
+          foundVideoId = vParam;
+          kind = "standard";
+        }
+      }
+
+      if (foundVideoId) {
+        setVideoId(foundVideoId);
+        setVideoKind(kind || "standard");
+      }
+    } catch (error) {
+      console.error("Error parsing URL:", error);
+      setVideoId(undefined);
+      setVideoKind(null);
     }
   }, [article]);
 
@@ -136,13 +167,22 @@ export default function Article({
         <div id="content">
           {videoId ? (
             <>
+              <div className="mb-2">
+                {videoKind === "short" ? (
+                  <span className="badge bg-info text-dark">YouTube Short</span>
+                ) : (
+                  <span className="badge bg-light text-dark">
+                    YouTube Video
+                  </span>
+                )}
+              </div>
               <iframe
                 title={article.title}
                 data-testid="yt-embed-frame"
                 id="player"
                 width="640"
                 height="390"
-                src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1`}
+                src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1`}
               />
               <br />
             </>
