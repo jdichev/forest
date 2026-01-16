@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 /* eslint-disable react/no-danger */
 import FormattedDate from "./FormattedDate";
 
@@ -9,6 +9,7 @@ export default function Article({
   selectedFeed,
 }: ArticleProps) {
   const [videoId, setVideoId] = useState<String>();
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
     if (article && article.url) {
@@ -32,6 +33,68 @@ export default function Article({
       }
     }
   }, [article]);
+
+  // Load YouTube IFrame API
+  useEffect(() => {
+    if (videoId) {
+      // Load YouTube IFrame API script
+      if (!(window as any).YT) {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+        (window as any).onYouTubeIframeAPIReady = () => {
+          initPlayer();
+        };
+      } else {
+        initPlayer();
+      }
+    }
+
+    return () => {
+      playerRef.current = null;
+    };
+  }, [videoId]);
+
+  const initPlayer = () => {
+    if (videoId) {
+      playerRef.current = new (window as any).YT.Player("player", {
+        videoId: videoId,
+      });
+    }
+  };
+
+  // Keyboard shortcut handler
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      // Only handle if video is present and we're not typing in an input/textarea
+      if (
+        videoId &&
+        playerRef.current &&
+        event.target instanceof HTMLElement &&
+        event.target.tagName !== "INPUT" &&
+        event.target.tagName !== "TEXTAREA"
+      ) {
+        // Space to play/pause
+        if (event.code === "Space") {
+          event.preventDefault();
+          const playerState = playerRef.current.getPlayerState();
+          // 1 = playing, 2 = paused
+          if (playerState === 1) {
+            playerRef.current.pauseVideo();
+          } else {
+            playerRef.current.playVideo();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [videoId]);
 
   if (article) {
     return (
@@ -80,7 +143,6 @@ export default function Article({
                 width="640"
                 height="390"
                 src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1`}
-                frameBorder="0"
               />
               <br />
             </>
