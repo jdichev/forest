@@ -19,6 +19,11 @@ export default function FeedAdd() {
 
   const [initialFormError, setInitialFormError] = useState(false);
 
+  const [exportStatus, setExportStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
   useEffect(() => {
     const loadFeedCategories = async () => {
       const res = await ds.getFeedCategories();
@@ -239,6 +244,43 @@ export default function FeedAdd() {
                   Import
                 </button>
               </form>
+
+              <div className="pt-4">
+                <h3>Export OPML file</h3>
+                <p>Download all your feeds in OPML format</p>
+
+                {exportStatus.type && <div>{exportStatus.message}</div>}
+
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-primary"
+                  onClick={async () => {
+                    try {
+                      setExportStatus({ type: null, message: "" });
+                      await ds.exportOpmlFile();
+                      setExportStatus({
+                        type: "success",
+                        message: "OPML file exported successfully!",
+                      });
+                      setTimeout(() => {
+                        setExportStatus({ type: null, message: "" });
+                      }, 3000);
+                    } catch (error) {
+                      console.error("Export failed:", error);
+                      setExportStatus({
+                        type: "error",
+                        message:
+                          "Failed to export OPML file. Please try again.",
+                      });
+                      setTimeout(() => {
+                        setExportStatus({ type: null, message: "" });
+                      }, 5000);
+                    }
+                  }}
+                >
+                  Export OPML
+                </button>
+              </div>
             </div>
           </div>
         </div>

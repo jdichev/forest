@@ -363,4 +363,27 @@ export default class DataService {
 
     return Promise.resolve(result);
   }
+
+  public async exportOpmlFile() {
+    try {
+      const response = await fetch("http://localhost:3031/opml-export");
+
+      if (!response.ok) {
+        throw new Error("Failed to export OPML");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "forest-feeds.opml";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error exporting OPML:", error);
+      throw error;
+    }
+  }
 }

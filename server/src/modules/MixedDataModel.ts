@@ -754,6 +754,72 @@ export default class DataService {
     });
   }
 
+  public async exportOpml(): Promise<string> {
+    const categories = await this.getFeedCategories();
+    const feeds = await this.getFeeds();
+
+    // Build OPML structure
+    const opmlLines: string[] = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<opml version="2.0">',
+      "  <head>",
+      "    <title>Forest Feeds</title>",
+      "  </head>",
+      "  <body>",
+    ];
+
+    // Group feeds by category
+    const feedsByCategory: { [key: number]: Feed[] } = {};
+    const uncategorizedFeeds: Feed[] = [];
+
+    feeds.forEach((feed: Feed) => {
+      if (feed.feedCategoryId === null || feed.feedCategoryId === undefined) {
+        uncategorizedFeeds.push(feed);
+      } else {
+        if (!feedsByCategory[feed.feedCategoryId]) {
+          feedsByCategory[feed.feedCategoryId] = [];
+        }
+        feedsByCategory[feed.feedCategoryId].push(feed);
+      }
+    });
+
+    // Add uncategorized feeds
+    uncategorizedFeeds.forEach((feed: Feed) => {
+      opmlLines.push(
+        `    <outline type="rss" text="${this.escapeXml(feed.title)}" xmlUrl="${this.escapeXml(feed.feedUrl)}" />`
+      );
+    });
+
+    // Add categorized feeds
+    categories.forEach((category: FeedCategory) => {
+      if (category.id === undefined) return; // Skip if no id
+      opmlLines.push(
+        `    <outline text="${this.escapeXml(category.title)}" type="category">`
+      );
+      if (feedsByCategory[category.id]) {
+        feedsByCategory[category.id].forEach((feed: Feed) => {
+          opmlLines.push(
+            `      <outline type="rss" text="${this.escapeXml(feed.title)}" xmlUrl="${this.escapeXml(feed.feedUrl)}" />`
+          );
+        });
+      }
+      opmlLines.push("    </outline>");
+    });
+
+    opmlLines.push("  </body>", "</opml>");
+
+    return opmlLines.join("\n");
+  }
+
+  private escapeXml(str: string): string {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;");
+  }
+
   public async markItemsRead(params: {
     feedCategory?: FeedCategory;
     feed?: Feed;

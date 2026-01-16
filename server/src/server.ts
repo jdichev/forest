@@ -272,6 +272,21 @@ app.post("/opml-import", jsonParser, async (req: Request, res: Response) => {
   res.json(result);
 });
 
+app.get("/opml-export", async (req: Request, res: Response) => {
+  try {
+    const opmlContent = await dataModel.exportOpml();
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="forest-feeds.opml"'
+    );
+    res.send(opmlContent);
+  } catch (error) {
+    pino.error(error, "Error exporting OPML");
+    res.status(500).json({ error: "Failed to export OPML" });
+  }
+});
+
 app.use((req: Request, res: Response) => {
   return res.status(404).send({ message: "Not found" });
 });
