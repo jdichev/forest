@@ -1,59 +1,38 @@
-name: CI
+name: Build Native Module
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
+
 jobs:
-  build:
-    name: build - ${{ matrix.settings.target }}
-    runs-on: ${{ matrix.settings.host }}
-    strategy:
-      fail-fast: false
-      matrix:
-        settings:
-          - host: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            architecture: x64
-          - host: macos-latest
-            target: x86_64-apple-darwin
-            architecture: x64
-          - host: macos-latest
-            target: aarch64-apple-darwin
-            architecture: arm64
-          - host: windows-latest
-            target: x86_64-pc-windows-msvc
-            architecture: x64
+  build-native:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup node
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          targets: ${{ matrix.settings.target }}
-      - name: Cache Cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ matrix.settings.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - name: Install packages
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Install dependencies
         run: npm install
-      - name: Run build
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Build native module
         run: |
           cd helpers/fetch-feed
-          npx napi build --release --features napi-export --target ${{ matrix.settings.target }}
+          npx napi build --release --features napi-export
+
       - name: Run tests
-        if: matrix.settings.host == 'ubuntu-latest'
-        run: npm run test
+        run: npm test
+
+      # - name: Run build
+      #   run: npm run build

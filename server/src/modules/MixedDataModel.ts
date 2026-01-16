@@ -78,7 +78,7 @@ export default class DataService {
     pino.debug({ dbPath }, "Database path");
 
     if (!fs.existsSync(storageDir)) {
-      fs.mkdirSync(storageDir);
+      fs.mkdirSync(storageDir, { recursive: true });
     }
 
     this.database = new Database(dbPath, (err) => {
