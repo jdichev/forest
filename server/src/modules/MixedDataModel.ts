@@ -5,7 +5,6 @@ import DOMPurify from "dompurify";
 import { Database } from "sqlite3";
 import { JSDOM } from "jsdom";
 import pinoLib from "pino";
-import emojiStrip from "emoji-strip";
 import opmlParser from "./OpmlParser";
 import FeedFinder from "./FeedFinder";
 
@@ -914,8 +913,6 @@ export default class DataService {
           }
 
           if (row) {
-            // pino.debug(row);
-
             row.content = domPurify.sanitize(row.content, {
               FORBID_TAGS: ["style"],
               FORBID_ATTR: [
@@ -1116,6 +1113,27 @@ export default class DataService {
     return publishedTime;
   }
 
+  /**
+   * Cleans a string by removing emojis and invisible characters.
+   *
+   * @param str
+   * @returns Cleaned string
+   */
+  private static cleanString(str: string) {
+    str = str
+      // 1. Remove the actual icons/pictographs
+      .replace(/\p{Extended_Pictographic}/gu, "")
+      // 2. Remove Zero-Width Joiners and Variation Selectors left behind
+      .replace(/[\u200d\ufe0f]/g, "")
+      // 3. Optional: Trim extra spaces left by removed emojis
+      .replace(/\s{2,}/g, " ")
+      .trim();
+
+    str = str.replace(/[^\x20-\x7E\u00A1-\uFFFF]/gu, " ");
+
+    return str;
+  }
+
   public async insertItem(item: Item, feedId: number | undefined) {
     // Check if item already exists by URL
     const exists = await this.itemExists(item);
@@ -1177,7 +1195,9 @@ export default class DataService {
         query,
         [
           item.link,
-          emojiStrip(domPurify.sanitize(item.title, { ALLOWED_TAGS: [] })),
+          DataService.cleanString(
+            domPurify.sanitize(item.title, { ALLOWED_TAGS: [] })
+          ),
           domPurify.sanitize(content, {
             FORBID_TAGS: ["style", "script", "svg"],
             FORBID_ATTR: ["style", "width", "height", "class", "id"],
