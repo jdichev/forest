@@ -3,7 +3,7 @@ import pinoLib from "pino";
 // Import the FeedUpdater class from a local module
 import FeedUpdater from "./modules/FeedUpdater";
 
-const INTERVAL_MS = 5 * 60_000; // 5 minutes
+const INTERVAL_MS = 10 * 60_000; // 10 minutes
 const INITIAL_DELAY_MS = 30_000; // first scheduled run after 30s
 const SLEEP_GAP_MS = 30_000; // treat larger as resume
 const CLOCK_JUMP_MS = 10_000; // treat large drift as clock change

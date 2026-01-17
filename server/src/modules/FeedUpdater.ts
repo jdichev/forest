@@ -5,7 +5,6 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import MixedDataModel from "./MixedDataModel";
-import Scheduler from "./Scheduler";
 //@ts-ignore
 import { fetchFeed } from "fetch-feed";
 
@@ -17,6 +16,13 @@ const pino = pinoLib({
 const dataModel = MixedDataModel.getInstance();
 
 export default class FeedUpdater {
+  // Time interval constants for scheduling
+  private static readonly HOUR_LENGTH = 1000 * 60 * 60;
+  private static readonly DAY_LENGTH = 1000 * 60 * 60 * 24;
+  private static readonly WEEK_LENGTH = 1000 * 60 * 60 * 24 * 7;
+  private static readonly HALF_DAY_LENGTH = 1000 * 60 * 60 * 12;
+  private static readonly QUARTER_DAY_LENGTH = 1000 * 60 * 60 * 6;
+
   private chunkSize = 4;
   private feedsProcCacheFilePath: string;
 
@@ -100,6 +106,63 @@ export default class FeedUpdater {
   }
 
   /**
+   * Calculates the rounded average of an array of numbers.
+   * @param arr - Array of numbers to average
+   * @returns The rounded average, or 0 if the array is empty
+   */
+  private static arrAvg(arr: number[]): number {
+    return arr.length === 0
+      ? 0
+      : Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
+  }
+
+  /**
+   * Computes the average frequency between a series of timestamps.
+   * Sorts the timestamps, calculates the time intervals between consecutive entries,
+   * and returns the average interval.
+   * Average interval is returned in milliseconds.
+   * Average interval computed as 0 is reset to 1 hour.
+   * Insufficient timestamps for frequency calculation resolves to one week.
+   *
+   * @param publishedTimes - Array of Unix timestamps in milliseconds (e.g., from Date.now())
+   * @returns Average interval in milliseconds between consecutive timestamps, or 0 if insufficient data.
+   *          Common reference values:
+   *          - 1 hour = 3,600,000 ms
+   *          - 1 day = 86,400,000 ms (see FeedUpdater.DAY_LENGTH)
+   */
+  private static computeFrequency(publishedTimes: number[]): number {
+    if (publishedTimes.length < 2) {
+      return FeedUpdater.WEEK_LENGTH;
+    }
+
+    const sortedPublishedTimes = publishedTimes.sort((a, b) => b - a);
+
+    const reversed = [...sortedPublishedTimes].reverse();
+    const timesBetweenA = reversed.map((pubTime, i) => {
+      if (i === 0) return 0;
+
+      return pubTime - reversed[i - 1];
+    });
+
+    const timesBetweenB = timesBetweenA.filter((pubTime) => {
+      return pubTime !== 0;
+    });
+
+    let avg = FeedUpdater.arrAvg(timesBetweenB);
+
+    // If frequency is 0, reset to 1 hour to prevent too frequent updates
+    if (avg === 0) {
+      avg = FeedUpdater.HOUR_LENGTH;
+      pino.trace(
+        { originalAvg: avg },
+        "Average interval computed as 0, resetting to 1 hour"
+      );
+    }
+
+    return avg;
+  }
+
+  /**
    * Adds a new feed to the system and processes its items.
    * @param {Feed} feedData - The feed data to add.
    * @returns {Promise<Feed>} A promise that resolves with the added feed.
@@ -174,7 +237,7 @@ export default class FeedUpdater {
       await dataModel.insertItem(individualItem, feedData.feed.id);
     }
 
-    pino.debug("FEED: %s - %s", feedData.feed.title, feedData.feed.url);
+    pino.debug("FEED: %s - %s", feedData.feed.id, feedData.feed.title);
   }
 
   /**
@@ -222,16 +285,9 @@ export default class FeedUpdater {
    * @param {FeedData} feedData - The feed data to update frequency for.
    */
   public updateFeedFrequencyData(feedData: FeedData) {
-    // feedData.items = feedData.items.map((item) => {
-    //   item.description = "__HIDDEN__";
-    //   item.content = "__HIDDEN__";
-    //   return item;
-    // });
-    // pino.trace({ feedData }, "Updating feed frequency data");
-
     const publishedTimes = feedData.items.map((item) => item.published * 1000);
 
-    const avg = Scheduler.computeFrequency(publishedTimes);
+    const avg = FeedUpdater.computeFrequency(publishedTimes);
 
     if (avg === 0) {
       pino.debug({ title: feedData.feed.title }, "Zero AVG time");
@@ -242,13 +298,6 @@ export default class FeedUpdater {
     this.saveFeedsProcCache();
   }
 
-  /**
-   * Filters feeds based on their update frequency.
-   * Feeds with frequency > 1 day are only included if 1 hour has passed since last update.
-   * All other feeds are included in every cycle.
-   * @param {Feed[]} feeds - Array of feeds to filter.
-   * @returns {Feed[]} Filtered array of feeds to update.
-   */
   private filterByFrequency(feeds: Feed[]): Feed[] {
     const ONE_DAY = ms("1d");
     const ONE_HOUR = ms("1h");
