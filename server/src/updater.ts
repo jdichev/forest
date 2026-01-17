@@ -1,9 +1,12 @@
-// Import the node-cron library for scheduling tasks and its ScheduledTask type
-import cron, { ScheduledTask } from "node-cron";
 // Import pino for logging
 import pinoLib from "pino";
 // Import the FeedUpdater class from a local module
 import FeedUpdater from "./modules/FeedUpdater";
+
+const INTERVAL_MS = 5 * 60_000; // 5 minutes
+const INITIAL_DELAY_MS = 30_000; // first scheduled run after 30s
+const SLEEP_GAP_MS = 30_000; // treat larger as resume
+const CLOCK_JUMP_MS = 10_000; // treat large drift as clock change
 
 // Initialize pino logger with trace level for detailed logging
 const pino = pinoLib({
@@ -14,8 +17,7 @@ const pino = pinoLib({
  * Updater class responsible for scheduling and managing periodic updates.
  */
 export default class Updater {
-  // Static property to hold the scheduled task reference
-  private static task: ScheduledTask;
+  private static timer?: NodeJS.Timeout;
 
   /**
    * Starts the updater service.
@@ -28,21 +30,39 @@ export default class Updater {
     // Log the start of regular updates
     pino.debug(`Updating regularly`);
     // Perform an immediate update
-    feedUpdater.updateItems();
+    void feedUpdater
+      .updateItems()
+      .catch((err) => pino.error(err, "Update failed"));
 
-    // Schedule a task to run every 10 minutes
-    this.task = cron.schedule(`*/10 * * * *`, () => {
-      // Perform the update when the scheduled task runs
-      feedUpdater.updateItems();
-    });
+    // Self-scheduling timer with drift detection to handle sleep/clock jumps
+    let nextAt = Date.now() + INITIAL_DELAY_MS;
 
-    // Start the scheduled task after a 2-minute delay
-    setTimeout(
-      () => {
-        this.task.start();
-      },
-      1000 * 60 * 2
-    ); // 2 minutes in milliseconds
+    const scheduleNext = () => {
+      const now = Date.now();
+      const drift = now - nextAt;
+
+      if (drift > SLEEP_GAP_MS) {
+        pino.warn({ drift }, "Resume detected; running catch-up update");
+        void feedUpdater
+          .updateItems()
+          .catch((err) => pino.error(err, "Update failed"));
+      } else if (drift < -CLOCK_JUMP_MS || drift > CLOCK_JUMP_MS) {
+        pino.warn({ drift }, "Clock change detected; running update");
+        void feedUpdater
+          .updateItems()
+          .catch((err) => pino.error(err, "Update failed"));
+      } else {
+        void feedUpdater
+          .updateItems()
+          .catch((err) => pino.error(err, "Update failed"));
+      }
+
+      nextAt += INTERVAL_MS;
+      const delay = Math.max(0, nextAt - Date.now());
+      this.timer = setTimeout(scheduleNext, delay);
+    };
+
+    this.timer = setTimeout(scheduleNext, INITIAL_DELAY_MS);
   }
 
   /**
@@ -50,8 +70,9 @@ export default class Updater {
    * Stops the scheduled task from running.
    */
   public static stop() {
-    this.task.stop();
-    // Optional: Uncomment to completely destroy the task if needed
-    // this.task.destroy();
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+    }
   }
 }
