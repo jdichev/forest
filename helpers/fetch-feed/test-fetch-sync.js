@@ -37,4 +37,13 @@ console.assert(
   `ALA feed item published timestamp is a valid date \n${JSON.stringify(alaFeedRes.items[0], null, 2)}`
 );
 
+// Fetch ala feed
+const devFeedResStr = fetchFeedSync("http://localhost:3000/dev-feed.xml");
+const devFeedRes = JSON.parse(devFeedResStr);
+
+console.assert(
+  devFeedRes.items[0].title.includes("Git"),
+  `Dev feed item has expected title \n${JSON.stringify(devFeedRes.items[0], null, 2)}`
+);
+
 console.log("All tests passed.");

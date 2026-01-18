@@ -39,7 +39,8 @@ pub fn fetch_feed_sync(feed_url: String) -> Result<String> {
 pub async fn fetch_feed(feed_url: String) -> std::result::Result<String, String> {
   let mut result_json_str = String::new();
   let client = reqwest::Client::builder()
-    .timeout(Duration::from_secs(2))
+    .user_agent("Forest/1.0 (Feed Reader)")
+    .timeout(Duration::from_secs(10))
     .build()
     .unwrap_or_default();
 

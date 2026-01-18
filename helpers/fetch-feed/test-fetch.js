@@ -1,9 +1,9 @@
 const { fetchFeed } = require(".");
 
 async function test() {
-  const res = await fetchFeed("http://localhost:3000/ala-feed.xml");
+  const res = await fetchFeed("https://dev.to/feed/");
   // console.log(res);
-  console.log(res.length);
+  console.log(res);
 }
 
 test();

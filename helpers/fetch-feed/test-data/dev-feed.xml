@@ -1,0 +1,1894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>DEV Community</title>
+    <description>The most recent home feed on DEV Community.</description>
+    <link>https://dev.to</link>
+    <atom:link rel="self" type="application/rss+xml" href="https://dev.to/feed/"/>
+    <language>en</language>
+    <item>
+      <title>Git and GitHub for Beginners: A Friendly Guide</title>
+      <dc:creator>Jedidah Ondiso</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:37:08 +0000</pubDate>
+      <link>https://dev.to/jedidah_ondiso_887753d76e/git-and-github-for-beginners-a-friendly-guide-4hoj</link>
+      <guid>https://dev.to/jedidah_ondiso_887753d76e/git-and-github-for-beginners-a-friendly-guide-4hoj</guid>
+      <description>&lt;p&gt;_ Installing Git Bash_&lt;/p&gt;
+
+&lt;p&gt;Google Git Bash&lt;/p&gt;
+
+&lt;p&gt;Download the Windows installer&lt;/p&gt;
+
+&lt;p&gt;Run the installer with these recommended settings:&lt;/p&gt;
+
+&lt;p&gt;Select "Use Git from Git Bash only "&lt;br&gt;
+Choose "Use the OpenSSL library"&lt;br&gt;
+Select "Checkout Windows-style, commit Unix-style line endings"&lt;br&gt;
+Choose "Use MinTTY"&lt;br&gt;
+Leave other options as default&lt;/p&gt;
+
+&lt;p&gt;Connecting Git to Your GitHub Account&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Check git verson&lt;br&gt;
+git --version&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Configure Your Identity&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;git config --global user.name " name"&lt;br&gt;
+git config --global user.email "email"&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Generate an SSH Key
+# Generate a new SSH key
+ssh-keygen -t ed25519 -C " email"&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;C:\Users\YOUR_USERNAME.ssh\id_ed25519.pub&lt;/p&gt;
+
+&lt;p&gt;Add SSH Key to GitHub&lt;/p&gt;
+
+&lt;p&gt;Go to your GitHub account&lt;br&gt;
+Go to settings then click SSH and GPG keys&lt;br&gt;
+Click "New SSH key"&lt;br&gt;
+Paste your key and give it a descriptive name&lt;br&gt;
+Click "Add SSH key"&lt;/p&gt;
+
+&lt;p&gt;Test Your Connection&lt;br&gt;
+ssh -T &lt;a href="mailto:git@github.com"&gt;git@github.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;WHAT IS GIT AND WHY IS VERSION CONTROL IMPORTANT &lt;/p&gt;
+
+&lt;p&gt;Git is a free, open-source distributed version control system (DVCS) used by developers to track changes in source code and other files during software development. It allows multiple people to collaborate on the same project without overwriting each other's work and enables users to revert to previous versions if needed. &lt;/p&gt;
+
+&lt;p&gt;IMPORTANCE OF VERSION CONTROL &lt;br&gt;
+•     Prevents losing work when mistakes happen.&lt;br&gt;
+•     Makes collaboration smooth and organized.&lt;br&gt;
+•     Helps track who made which changes and when.&lt;br&gt;
+•     Encourages experimentation—you can try new ideas without fear of breaking the main project.&lt;/p&gt;
+
+&lt;p&gt;HOW TO PUSH CODE TO GITHUB&lt;br&gt;
+GitHub is a platform that hosts your Git repositories online. Pushing code means sending your local changes to GitHub so others (or future you) can access them.&lt;br&gt;
+Steps to push code:&lt;br&gt;
+.   Initialize Git in your project (if not already):&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;    Bash
+    git init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;.   Add your files to Git’s staging area:&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;    Bash
+    git add
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;.   Commit your changes with a message:&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;     Bash
+     git commit -m "Initial commit"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;.   Connect your project to GitHub:&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;    Bash
+    git remote add origin      https://github.com/username/repository.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;.   Push your code:&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;    Bash
+    git push -u origin main
+
+      HOW TOP PULL CODE FROM GitHub
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Pulling means downloading the latest changes from GitHub to your local machine.&lt;br&gt;
+Steps to pull code:&lt;br&gt;
+.   Make sure you’re inside your project folder.&lt;br&gt;
+.   Run:&lt;br&gt;
+         Bash&lt;br&gt;
+         git pull origin main&lt;br&gt;
+This updates your local project with any new commits from GitHub.&lt;/p&gt;
+
+&lt;p&gt;HOW TO TRACK CHANGES USING GIT &lt;br&gt;
+Git makes it easy to see what’s happening in your project.&lt;br&gt;
+•     Check the status of your files:&lt;br&gt;
+         Bash&lt;br&gt;
+         git status&lt;/p&gt;
+
+&lt;p&gt;•     Shows which files are new, modified, or staged.&lt;br&gt;
+•     View commit history:&lt;br&gt;
+        Bash&lt;br&gt;
+        git log&lt;br&gt;
+•     Displays a list of commits with messages, authors, and     timestamps.&lt;br&gt;
+•     Compare changes before committing:&lt;br&gt;
+        Bash&lt;br&gt;
+        git diff&lt;br&gt;
+    Shows the exact lines that were added or removed.&lt;/p&gt;
+
+</description>
+      <category>beginners</category>
+      <category>git</category>
+      <category>github</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>Clean up your Controllers: Mastering File Uploads</title>
+      <dc:creator>Jose M Munoz</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:32:29 +0000</pubDate>
+      <link>https://dev.to/josemmunozz/clean-up-your-controllers-mastering-file-uploads-in-aspnet-core-with-extension-methods-hjn</link>
+      <guid>https://dev.to/josemmunozz/clean-up-your-controllers-mastering-file-uploads-in-aspnet-core-with-extension-methods-hjn</guid>
+      <description>&lt;p&gt;Handling file uploads is a daily task for ASP.NET Core developers. However, writing the validation logic and saving process inside every single Controller Action violates the DRY (Don't Repeat Yourself) principle.&lt;/p&gt;
+
+&lt;p&gt;In this guide, we will create a reusable Extension class to handle file validation (Type &amp;amp; Size) and the saving process cleanly.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fzxw5x5egshcs3o8qcsin.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fzxw5x5egshcs3o8qcsin.png" alt=" " width="770" height="417"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 1: Define the Size Enums&lt;/p&gt;
+
+&lt;p&gt;First, to make our size validation readable, let's define a simple Enum. This avoids "magic numbers" in our code.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;namespace CoreApp.Utilities.Enums
+{
+    public enum FileSize
+    {
+        KB,
+        MB,
+        GB
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;ol&gt;
+&lt;li&gt;File Size Validation&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Next, we implement the logic to check if a file exceeds a specific limit. Using our FileSize enum makes the call site very readable.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;// Returns TRUE if the file is LARGER than the limit
+        public static bool ValidateSize(this IFormFile formFile, FileSize fileSize, int size)
+        {
+            switch (fileSize)
+            {
+                case FileSize.KB:
+                    return formFile.Length &amp;gt; size * 1024;
+                case FileSize.MB:
+                    return formFile.Length &amp;gt; size * 1024 * 1024;
+                case FileSize.GB:
+                    return formFile.Length &amp;gt; size * 1024 * 1024 * 1024;
+            }
+            return false;
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8xwcnld8dgmabx0uit4o.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8xwcnld8dgmabx0uit4o.png" alt=" " width="785" height="332"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 3: The Save Logic (Async)&lt;/p&gt;
+
+&lt;p&gt;This is the most critical part. We need to:&lt;/p&gt;
+
+&lt;p&gt;Generate a unique filename (using Guid) to prevent overwriting existing files.&lt;/p&gt;
+
+&lt;p&gt;Combine paths safely using Path.Combine (works on Windows/Linux).&lt;/p&gt;
+
+&lt;p&gt;Save the file asynchronously to avoid blocking the thread.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;// Handles the unique naming and saving process
+        public async static Task&amp;lt;string&amp;gt; CreateFileAsync(this IFormFile formFile, params string[] roots)
+        {
+            // 1. Generate unique name (Guid + Original Name)
+            string fileName = string.Concat(Guid.NewGuid().ToString(), formFile.FileName);
+
+            string path = string.Empty;
+
+            // 2. Combine path parts dynamically
+            for (int i = 0; i &amp;lt; roots.Length; i++)
+            {
+                path = Path.Combine(path, roots[i]);
+            }
+
+            // Append the filename to the final path
+            path = Path.Combine(path, fileName);
+
+            // 3. Create the stream and copy the file content
+            using (FileStream fileStream = new(path, FileMode.Create))
+            {
+                await formFile.CopyToAsync(fileStream);
+            }
+
+            // Return the name to save in the Database
+            return fileName;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;Why did we use Async/Await?&lt;br&gt;
+You might notice we used CopyToAsync instead of CopyTo. Here is why asynchronous programming is critical for File Uploads.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Non-Blocking I/O (Scalability)
+Saving a file is an I/O bound operation. If we use synchronous code, the thread waits until the file is fully saved. With async, the thread is freed up to handle other user requests while the disk writes the file.
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;// ❌ BAD: Blocks the thread (Server freezes for other users)
+formFile.CopyTo(stream); 
+
+// ✅ GOOD: Thread is free while file saves
+await formFile.CopyToAsync(stream);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Parallel Execution (Performance)
+If a user uploads multiple product images (e.g., a Gallery), we don't need to save them one by one. using Task.WhenAll, we can save 5 images simultaneously!
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;
+![ ](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t54kykapay5hww8s1vvz.png)
+
+public async Task&amp;lt;List&amp;lt;string&amp;gt;&amp;gt; UploadMultipleAsync(List&amp;lt;IFormFile&amp;gt; files)
+{
+    var tasks = new List&amp;lt;Task&amp;lt;string&amp;gt;&amp;gt;();
+
+    foreach (var file in files)
+    {
+        // Starts the task but doesn't wait yet
+        tasks.Add(file.CreateFileAsync("wwwroot", "uploads")); 
+    }
+
+    // Runs all uploads at the exact same time
+    string[] results = await Task.WhenAll(tasks); 
+
+    return results.ToList();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+&lt;p&gt;How to Use It in a Controller?&lt;/p&gt;
+
+&lt;p&gt;Now, look at how clean our Controller becomes. No heavy logic, just simple checks!&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;[HttpPost]
+public async Task&amp;lt;IActionResult&amp;gt; Create(CreateProductVM model)
+{
+    // 1. Check if it's an image
+    if (!model.Photo.ValidateType("image/"))
+    {
+        ModelState.AddModelError("Photo", "Please upload a valid image file.");
+        return View(model);
+    }
+
+    // 2. Check if it's smaller than 2MB
+    if (model.Photo.ValidateSize(FileSize.MB, 2))
+    {
+        ModelState.AddModelError("Photo", "File size must be less than 2MB.");
+        return View(model);
+    }
+
+    // 3. Save the file and get the name
+    // Saves to: wwwroot/assets/images/products/
+    string fileName = await model.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "products");
+
+    // ... Save to DB logic here ...
+
+    return RedirectToAction(nameof(Index));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;Conclusion&lt;br&gt;
+By using Extension Methods, we moved the infrastructure logic out of the Controller. This makes our code testable, reusable, and strictly follows the Single Responsibility Principle.&lt;/p&gt;
+
+</description>
+      <category>aspnetcoremvc</category>
+      <category>mvcfilevalidation</category>
+      <category>csharp</category>
+      <category>csharpasync</category>
+    </item>
+    <item>
+      <title>I Needed an APP to Track My Learning Journey, AI built it in less than half an hour with a single prompt</title>
+      <dc:creator>Debbie O'Brien</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:31:26 +0000</pubDate>
+      <link>https://dev.to/debs_obrien/i-needed-an-app-to-track-my-learning-journey-ai-built-it-in-less-than-half-an-hour-with-a-single-31c4</link>
+      <guid>https://dev.to/debs_obrien/i-needed-an-app-to-track-my-learning-journey-ai-built-it-in-less-than-half-an-hour-with-a-single-31c4</guid>
+      <description>&lt;p&gt;I have been trying to build a Learning Hub App for a good few months using various tools and have had many iterations back and forth on trying to get it to work and ended up going round in circles fixing one thing and breaking another. &lt;/p&gt;
+
+&lt;p&gt;Today I gave it a shot using &lt;a href="https://block.github.io/goose/" rel="noopener noreferrer"&gt;goose coding agent&lt;/a&gt; and Claude Opus 4.5 as my modal. I used a simple prompt. No .prd file. Just clear instructions of what I wanted and I asked it to come up for a plan for it.&lt;/p&gt;
+
+&lt;p&gt;And it did. The plan was great. It started off with: What a great idea! Let me put together a comprehensive plan for this app. I'll call it "AI Learning Hub" - your personal knowledge management system for AI learning resources.&lt;/p&gt;
+
+&lt;p&gt;I got a Core Features Overview, Tech Stack Recommendation, Data Structure,  UI Layout Concept, Build phases and some extra nice to have stuff for future improvements. &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F3hj38yxohffpm2zn40sw.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F3hj38yxohffpm2zn40sw.png" alt="layout of a site design in goose" width="800" height="686"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I asked it to change two things and then off it went. In less than half an hour it was not just built but tested before my eyes by using the Playwright MCP. I watched as it added links tested out the filters and used the site like a user would ensuring everything worked. &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Foodhfu2u1ai94wo8cb30.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Foodhfu2u1ai94wo8cb30.png" alt="goose using Playwright MCP to verify its work" width="800" height="674"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  AI Learning Hub - Complete!
+&lt;/h2&gt;
+
+&lt;p&gt;My agent told me: I've built your AI Learning Hub app! Here's a summary of what's been created:&lt;/p&gt;
+
+&lt;p&gt;Features Implemented&lt;br&gt;
+Add URLs with metadata fetching: ✅ Auto-fetches title, description, detects category&lt;br&gt;
+Categories: ✅ Blog, Video, Podcast, Course, Paper, Other&lt;br&gt;
+Learning workflow :✅ Queue → Learning → Completed&lt;br&gt;
+Search: ✅ Full-text search across resources&lt;br&gt;
+Category filter: ✅ Filter dropdown&lt;br&gt;
+Notes: ✅ Rich notes modal per resource&lt;br&gt;
+Drag &amp;amp; Drop: ✅ dnd-kit installed, drag handles ready&lt;br&gt;
+Content Ideas: ✅ Sidebar with types (Blog, Video, Tutorial, Thread)&lt;br&gt;
+Password protection: ✅ Environment variable based&lt;br&gt;
+Netlify ready: ✅ Config file created&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8aa8jn48sfj1c3jxwbc3.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8aa8jn48sfj1c3jxwbc3.png" alt="ai learning hub site" width="800" height="427"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And how do I add the URLs of the sites I want to add, easy. Just paste them into goose and it will use the Playwright MCP which I already configured and it will populate them all for me so I don't have to.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Conclusion
+&lt;/h2&gt;
+
+&lt;p&gt;And that's it, finished and working in less than half an hour while I drank a beer on a Saturday night watching it all in amazement that something that should have taken me weeks to build was built before my very own eyes in minutes. &lt;/p&gt;
+
+&lt;p&gt;Now here is the thing. I didn't open an editor once. I haven't looked at the code. It is working as it should and that is really all I care about for this particular project. I studied coding. I care about the quality of code but right now I am ok with not caring. I am ok with trusting the agent and LLM to ensure the code is good and meets the standards it should.&lt;/p&gt;
+
+&lt;p&gt;I will add tests and check performance and out of curiosity I might just look at the code when doing the pr. But I am seriously blown away with how easy it is to do this. &lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Try it yourself
+&lt;/h2&gt;
+
+&lt;p&gt;Want to give it a try yourself: Here is the prompt I used:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I would like you to build me an app so that I can easily manage urls for blog posts, podcasts, videos and other things that I would like to learn when it comes to AI. It would be great to be able to easily add the URL and then have a title and description field which can be populated when adding it. search by category would be great. I would be cool to have some sort of system like a todo list so when it is done it goes to a different place but is still findable should i want to share it with someone. maybe even notes so i could add some notes on it for later findings or note taking. should be able to prioritize things so that i learn things based on a particualar order maybe drag or drop so i can change it. it should be a fun app that i can easily deploy, nice and easy on the eye. it would also great to have a section where i can put ideas on content creation based off of the stuff I have learnt. these could be create blog posts, videos etc. just an idea and not sure if this will look great but we could try it out. can you come up with some sort of a plan for this.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+      <category>mcp</category>
+      <category>goose</category>
+      <category>ai</category>
+      <category>playwright</category>
+    </item>
+    <item>
+      <title>🌽 *orn (Porn Quitter Conversational AI Agent )— A Private Recovery Companion in a Week</title>
+      <dc:creator>Syed Mohammad Abbas Rizvi</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:18:30 +0000</pubDate>
+      <link>https://dev.to/abbas7120/corn-a-private-recovery-companion-in-a-week-9bc</link>
+      <guid>https://dev.to/abbas7120/corn-a-private-recovery-companion-in-a-week-9bc</guid>
+      <description>&lt;p&gt;&lt;em&gt;This is a submission for the &lt;a href="https://dev.to/challenges/algolia"&gt;Algolia Agent Studio Challenge&lt;/a&gt;: Consumer-Facing Conversational Experiences&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  What I Built
+&lt;/h2&gt;
+
+&lt;p&gt;I built &lt;strong&gt;corn, a private, consumer-facing conversational AI&lt;/strong&gt; designed to support people who are trying to &lt;strong&gt;quit porn&lt;/strong&gt; and &lt;strong&gt;regain control&lt;/strong&gt; over compulsive habits.&lt;/p&gt;
+
+&lt;p&gt;corn is not a general chatbot and not a therapist.&lt;br&gt;
+It’s a calm, judgment-free recovery companion that focuses on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Managing urges in the moment&lt;/li&gt;
+&lt;li&gt;Handling relapse without shame&lt;/li&gt;
+&lt;li&gt;Staying motivated during difficult phases&lt;/li&gt;
+&lt;li&gt;Following a structured 90-day recovery program&lt;/li&gt;
+&lt;li&gt;Anonymous journaling and self-reflection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The core problem corn addresses is isolation. Many people struggle silently with this habit and don’t want lectures, guilt, or explicit discussions. corn provides a safe space where users can simply talk — especially during moments when willpower is weakest.&lt;/p&gt;
+
+&lt;p&gt;The conversational experience is intentionally simple:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Short, supportive responses&lt;/li&gt;
+&lt;li&gt;No explicit content&lt;/li&gt;
+&lt;li&gt;No medical claims&lt;/li&gt;
+&lt;li&gt;Focused on “get through this moment” rather than perfection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  Demo
+&lt;/h2&gt;
+
+&lt;p&gt;🔗 Live Demo:&lt;br&gt;
+👉 &lt;a href="https://corn-quitter.vercel.app/" rel="noopener noreferrer"&gt;https://corn-quitter.vercel.app/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;📸 Screenshots:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fbg97bb1qf345roma3jxx.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fbg97bb1qf345roma3jxx.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F20fstchbqp3k3yhlva1k.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F20fstchbqp3k3yhlva1k.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  RATE LIMIT IN GOOGLE GEMINI 2.5 FLASH FREE TIER stops the request for providing response. Overall the app works correctly in free testing process using Algolia Sandbox open AI
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fkofrn2c5u4ykg0ic2ux8.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fkofrn2c5u4ykg0ic2ux8.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frmz9aqmtxpijln0pqph6.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frmz9aqmtxpijln0pqph6.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fvkn1a0mepinaqddt1zas.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fvkn1a0mepinaqddt1zas.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F9yke638no68vyrim42bz.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F9yke638no68vyrim42bz.png" alt=" " width="800" height="450"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Testing Video G-Drive Link:
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://drive.google.com/file/d/17dZtFUAm1q4cPE5yExNzTKs60kbANQee/view?usp=sharing" rel="noopener noreferrer"&gt;https://drive.google.com/file/d/17dZtFUAm1q4cPE5yExNzTKs60kbANQee/view?usp=sharing&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  How I Used Algolia Agent Studio
+&lt;/h2&gt;
+
+&lt;p&gt;Algolia Agent Studio is the core engine behind corn’s conversational experience.&lt;/p&gt;
+
+&lt;p&gt;Instead of putting everything into one index, I designed the agent using multiple purpose-driven indexes, each with a clear responsibility:&lt;/p&gt;
+
+&lt;p&gt;Indexed Data Structure&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;corn_core_intents&lt;/strong&gt;&lt;br&gt;
+Handles real-time conversations like urges, relapse support, motivation, and fallback handling.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;corn_90_day_program&lt;/strong&gt;&lt;br&gt;
+Contains structured recovery logic mapped to days and phases (Day 1–90).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;corn_journaling_prompts&lt;/strong&gt;&lt;br&gt;
+Stores anonymous journaling prompts that help users process emotions through writing.&lt;/p&gt;
+
+&lt;p&gt;Why this mattered&lt;/p&gt;
+
+&lt;p&gt;This separation allowed me to:&lt;/p&gt;
+
+&lt;p&gt;Route user queries to the right knowledge source&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Avoid mixing emotional support with structured program data&lt;/li&gt;
+&lt;li&gt;Keep responses predictable, safe, and context-aware&lt;/li&gt;
+&lt;li&gt;Prompt &amp;amp; Instruction Design&lt;/li&gt;
+&lt;li&gt;I used strict system instructions to ensure the agent:&lt;/li&gt;
+&lt;li&gt;Never produces explicit or triggering content&lt;/li&gt;
+&lt;li&gt;Uses a supportive, non-judgmental tone&lt;/li&gt;
+&lt;li&gt;Stays strictly within recovery scope&lt;/li&gt;
+&lt;li&gt;Uses emojis sparingly to maintain warmth 🌱&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Retrieval from Algolia indexes ensures the agent responds based on indexed intent-specific data, not generic LLM guessing.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Why Fast Retrieval Matters
+&lt;/h2&gt;
+
+&lt;p&gt;For this use case, speed and relevance are critical.&lt;/p&gt;
+
+&lt;p&gt;When someone types:&lt;/p&gt;
+
+&lt;p&gt;“I have an urge right now”&lt;/p&gt;
+
+&lt;p&gt;They don’t want:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A long explanation&lt;/li&gt;
+&lt;li&gt;A generic motivational speech&lt;/li&gt;
+&lt;li&gt;A delayed response&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They need:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The right response&lt;/li&gt;
+&lt;li&gt;Immediately&lt;/li&gt;
+&lt;li&gt;In the right emotional tone&lt;/li&gt;
+&lt;li&gt;Algolia’s fast, contextual retrieval ensures:&lt;/li&gt;
+&lt;li&gt;The correct intent is matched instantly&lt;/li&gt;
+&lt;li&gt;The agent responds with focused, calming guidance&lt;/li&gt;
+&lt;li&gt;No unnecessary or off-topic content is introduced&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This makes the experience feel present and reliable, which is especially important for sensitive, time-critical moments.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fimxmvgs5rngdqf5kymla.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fimxmvgs5rngdqf5kymla.png" alt=" " width="800" height="533"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;DEV Team Member  Id : &lt;a href="https://dev.to/abbas7120"&gt;https://dev.to/abbas7120&lt;/a&gt;&lt;/p&gt;
+
+</description>
+      <category>devchallenge</category>
+      <category>algoliachallenge</category>
+      <category>ai</category>
+      <category>agents</category>
+    </item>
+    <item>
+      <title>How to DoS A server</title>
+      <dc:creator>Andrew Irorere</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:17:13 +0000</pubDate>
+      <link>https://dev.to/andreyscott/how-to-dos-a-server-452h</link>
+      <guid>https://dev.to/andreyscott/how-to-dos-a-server-452h</guid>
+      <description>&lt;p&gt;&lt;em&gt;disclamer&lt;/em&gt;&lt;br&gt;
+This experiment was done in a controlled home lab on systems I own. No real-world systems were harmed. oh and educational purposes only&lt;/p&gt;
+&lt;h2&gt;
+  
+  
+  How It Started
+&lt;/h2&gt;
+
+&lt;p&gt;Like many people learning cybersecurity, I used to think Denial of Service (DoS) attacks required massive botnets, insane bandwidth, and Hollywood-level hacking. Turns out, it doesn't. All you need is a vulnerable server and a way to exploit that vulnerability. No malware. No exploits. Just bad application design and a can-do attitude.&lt;/p&gt;
+&lt;h2&gt;
+  
+  
+  DoS vs DDoS
+&lt;/h2&gt;
+
+&lt;p&gt;A DoS attack (Denial of Service) attack uses a single source to overwhelm a target, making it simpler to execute and ultimately block, while DDoS (Distributed Denial of Service) uses a network of compromised devices called a &lt;em&gt;botnet&lt;/em&gt; to generate massive, distributed traffic, making it far harder to detect, mitigate, and more impactful. The key difference is distribution. DoS is one-to-one, while DDoS is many-to-one, leveraging a "distributed" network for greater power and stealth. Since I am using one machine to attack a target Dos&lt;/p&gt;
+&lt;h2&gt;
+  
+  
+  The Lab I Built
+&lt;/h2&gt;
+
+&lt;p&gt;I set up a small, isolated lab using Oracle VirtualBox&lt;br&gt;
+&lt;strong&gt;Kali Linux&lt;/strong&gt; → attacker machine&lt;br&gt;
+&lt;strong&gt;Ubuntu Linux&lt;/strong&gt; → target machine&lt;/p&gt;
+
+&lt;p&gt;Both VMs were connected using a Host-only network, so that they could communicate with each other, so nothing was exposed to the internet for security reasons, and most importantly, everything stayed legal and safe. This was the “real” environment: two machines, communicating two roles, one goal.&lt;/p&gt;
+&lt;h2&gt;
+  
+  
+  The Vulnerable Server
+&lt;/h2&gt;
+
+&lt;p&gt;Let's play a game. Can you spot what is wrong with the Python code below?&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;from http.server import BaseHTTPRequestHandler, HTTPServer
+import time
+
+a = 0
+
+class VulnerableHTTPRequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        global a
+        time.sleep(3)
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(bytes(f"Request processed. Count: {a}", "utf-8"))
+        a += 1
+
+def run(server_class=HTTPServer, handler_class=VulnerableHTTPRequestHandler, port=8080):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f"Starting vulnerable server on port {port}...")
+    httpd.serve_forever()
+
+if __name__ == "__main__":
+    run()
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;Did you see it?&lt;br&gt;
+&lt;code&gt;time.sleep(3)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This was added to simulate “heavy processing,” and this single line would become the entire vulnerability. Why is this server vulnerable?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It is single-threaded&lt;/li&gt;
+&lt;li&gt;Each request blocks for 3 seconds&lt;/li&gt;
+&lt;li&gt;No rate limiting&lt;/li&gt;
+&lt;li&gt;No concurrency handling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This makes it an ideal target for an application-layer DoS attack.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Starting the Server
+&lt;/h2&gt;
+
+&lt;p&gt;On Ubuntu, when I run the command&lt;br&gt;
+&lt;code&gt;python3 vulnerable_server1.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The server is running on port 8080.&lt;/p&gt;
+
+&lt;p&gt;which I can verify on my Kali by running:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;curl http://192.168.56.103:8080&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The server should respond correctly, and each request increases the counter.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  The attack
+&lt;/h2&gt;
+
+&lt;p&gt;On Kali, I ran this command:&lt;br&gt;
+&lt;code&gt;ab -n 50 -c 10 http://192.168.56.103:8080/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;At first glance, it didn’t look dangerous, but if you look closely, you will see that 50 total requests, 10 requests at a time, which in most development is nothing, but in the test development, almost immediately Responses slowed down, and requests started queuing. The server felt “stuck” I hadn’t flooded the network. and I hadn’t crashed the OS. I had simply asked the server to do more than it was designed to handle.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8p0c789c20970j2wpbvx.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8p0c789c20970j2wpbvx.png" alt=" " width="800" height="559"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  What Actually Happened
+&lt;/h2&gt;
+
+&lt;p&gt;Here’s the problem, since the server is single-threaded, each requests is blocks for 3 seconds&lt;br&gt;
+Only one request can be processed at a time, so when 10 requests arrive simultaneously. &lt;br&gt;
+One request ran while the other 9 waited.d New requests piled on top. This wasn’t a bandwidth attack. It was an application-layer DoS.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Watching the Attack in Wireshark
+&lt;/h2&gt;
+
+&lt;p&gt;As a Bonus and to truly understand what was happening, I opened Wireshark on my Kali Linux and captured traffic during the attack.&lt;/p&gt;
+
+&lt;p&gt;I applied this filter:&lt;br&gt;
+&lt;code&gt;ip.addr == 192.168.56.103 &amp;amp;&amp;amp; tcp.port == 8080&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;What I saw:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fcdptnhbcgw5xdrnvj1cm.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fcdptnhbcgw5xdrnvj1cm.png" alt=" " width="800" height="441"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Repeated HTTP GET requests&lt;/li&gt;
+&lt;li&gt;Delayed responses&lt;/li&gt;
+&lt;li&gt;TCP retransmissions&lt;/li&gt;
+&lt;li&gt;Congestion builds up&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the real world, this kind of vulnerability exists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Internal tools&lt;/li&gt;
+&lt;li&gt;APIs&lt;/li&gt;
+&lt;li&gt;Microservices&lt;/li&gt;
+&lt;li&gt;Custom dashboards&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Attackers don’t always break things. Sometimes they just wait for your code to break itself, such a vulnerability would never make it way to production, and if it did, it would be fixed or patched almost immediatialy but still this makes for a good learning exercise.&lt;/p&gt;
+
+&lt;p&gt;This could have been prevented by using async or multi-threaded servers, adding rate limiting and or placing a reverse proxy (like Nginx) &lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Conclusion
+&lt;/h2&gt;
+
+&lt;p&gt;Breaking my own server was one of the most valuable lessons I’ve learned so far. It showed me how application-layer DoS really works, why design choices matter and what attack traffic actually looks like. If you’re learning cybersecurity, I highly recommend building labs like this. They’re safe, legal, and incredibly eye-opening.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Add on&lt;/em&gt;, I made this blog post without a plan on how to finish it I also tested out, and http spray DoS attack, but the blog was getting too long for that. If you want to check out the tool, it's on my github. I'm planning on improving it later in the coming days if I ever get the time to do that&lt;/p&gt;
+
+</description>
+      <category>cybersecurity</category>
+      <category>programming</category>
+      <category>security</category>
+      <category>linux</category>
+    </item>
+    <item>
+      <title>I’m 18 and Terrified of AI Taking My Future Job—So I Made a Roadmap.</title>
+      <dc:creator>Murtaza Khan</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:16:30 +0000</pubDate>
+      <link>https://dev.to/murtaza_khan_53ce75626330/im-18-and-terrified-of-ai-taking-my-future-job-so-i-made-a-roadmap-2ll4</link>
+      <guid>https://dev.to/murtaza_khan_53ce75626330/im-18-and-terrified-of-ai-taking-my-future-job-so-i-made-a-roadmap-2ll4</guid>
+      <description>&lt;p&gt;Hi everyone,&lt;/p&gt;
+
+&lt;p&gt;I am Muhammad Murtaza Khan, an 18-year-old from Pakistan currently in my second semester of a Bachelor’s in Computer Science at Habib University in Karachi. My objective is to become a top-tier AI engineer by 2029. At the moment, however, I feel somewhat lost—like a needle in a haystack. I am frequently overwhelmed by the influx of information regarding "vibe coding" tools and the concern that the latest models from NVIDIA may eventually displace my career prospects.&lt;br&gt;
+This pressure has made me realize that the stakes are higher than ever before. The tech market has undergone a significant evolution: it has shifted from a welcoming granny in 2019, who might offer a $100K+ job to anyone capable of writing "hello world," to a big bad wolf. If you are not at the forefront of the industry, you aren't just falling behind—you are at risk of being replaced by AI.&lt;/p&gt;
+
+&lt;p&gt;While this sense of hopelessness can be daunting, it has brought me to a crossroads. I can either complain about the ethical implications of AI or evolve into a version of myself that is simply too valuable to be turned down. Currently, I may not be the most technically sound in my field, but I am committed to ensuring there are no shortcomings on my end by the time I graduate in 2029. To succeed, I must stand out from the hundreds of other graduates entering the market with the same curriculum.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  The Strategy
+&lt;/h2&gt;
+
+&lt;p&gt;Instead of succumbing to "vibe coding," I have decided to master the fundamentals. I will write code manually, leveraging AI as a tutor rather than a coding intern, to accelerate my learning tenfold. My journey is divided into three phases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Phase 1: The Basics – Drawing on my non-CS background, I will focus on Python, HTML, and CSS to gain the ability to ship full-stack applications.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Phase 2: System Design – I will investigate why certain algorithms and methods are better suited for specific situations. As I am studying Data structures and algorithms (DSA) this semester, I will also focus on web architecture, security, and building robust solutions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Phase 3: Leveraging AI – Once I have mastered the fundamentals, I will utilize "vibe coding" tools to increase my productivity and share new tools and applications weekly on social media.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I will not let my skills stagnate; I will continue to use my own knowledge to bug-proof code and reinforce security. As Jensen Huang noted, "You're not going to lose your job to an AI, but you're going to lose your job to someone who uses AI". I intend to be the individual who utilizes AI more effectively than others to maintain my relevance.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Summary
+&lt;/h2&gt;
+
+&lt;p&gt;This plan represents my current roadmap, and while it will evolve as I learn more, I am certain of the outcome I want to achieve. Big tech recruiters in 2029: please take note.&lt;/p&gt;
+
+&lt;p&gt;There is a popular saying: "If you want to go fast, go alone; if you want to go far, go together". Many of us may feel lost and seek direction. While I cannot promise a perfect journey, I am confident in our shared ambition and discipline. I want us to build a community of the next wave of elite coders, designers, and engineers. We will not wait for AI to replace us; we will evolve and become the professionals who set the standard.&lt;/p&gt;
+
+&lt;p&gt;I look forward to our progress. See you in the next post regarding my first Python project.&lt;/p&gt;
+
+</description>
+      <category>beginners</category>
+      <category>ai</category>
+      <category>career</category>
+      <category>discuss</category>
+    </item>
+    <item>
+      <title>ActivityPub: Protocolo para Redes Descentralizadas</title>
+      <dc:creator>rafaelbonilha</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:14:02 +0000</pubDate>
+      <link>https://dev.to/rafaelbonilha/activitypub-protocolo-para-redes-descentralizadas-425e</link>
+      <guid>https://dev.to/rafaelbonilha/activitypub-protocolo-para-redes-descentralizadas-425e</guid>
+      <description>&lt;p&gt;Para começar o ano, vamos falar sobre um importante protocolo utilizado em redes descentralizadas, o ActivityPub.&lt;br&gt;
+Ele é um componente importante do chamado Fediverso, conjunto de recursos 'federados' (descentralizados) para compartilhar informações e recursos entre os usuários.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fl14z0l7iwrmwtwwq71mr.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fl14z0l7iwrmwtwwq71mr.png" alt=" " width="500" height="130"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;O ActivityPub é um protocolo criado em 2018 pelo World Wide Web Consortium (W3C), consórcio internacional responsável pelos padrões de criação e interpretação de interfaces na internet.&lt;br&gt;
+Isso foi feito para permitir a comunicação entre as redes sociais abertas e descentralizadas sem que uma grande empresa controle o sistema de forma centralizada e única.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Do que é feito o ActivityPub?&lt;/strong&gt;&lt;br&gt;
+O ActivityPub possui dois componentes: Caixa de Entrada e Caixa de Saída, que são endpoints de API que podem ser acessados usando o protocolo HTTP/HTTPS.&lt;br&gt;&lt;br&gt;
+Para garantir a privacidade, a localização de ambas as caixas só podem ser recuperadas através do uso do protocolo WebFinger. E para testar os recursos do ActivityPub, basta usar a ferramenta ActivityPub Explorer. &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftfv4h3h304ivcoi99qeb.png" class="article-body-image-wrapper"&gt;&lt;img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftfv4h3h304ivcoi99qeb.png" alt=" " width="761" height="333"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Aplicações para o ActivityPub&lt;/strong&gt;&lt;br&gt;
+Apesar de ser usado em redes sociais, o ActivityPub tem compatibilidade com diversas aplicações que usam seu protocolo, como por exemplo plataformas de gerenciamento de conteúdo, assim como também ferramentas de colaboração como ferramentas de desenvolvimento colaborativo de software.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Considerações&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;O ActivityPub é um protocolo que já tem mais de 20 milhões de usuários e todo o suporte do W3C, trazendo respaldo para o seu contínuo desenvolvimento. Apesar de ainda possuir problemas técnicos e de design, seu nível de maturidade e desenvolvimento faz com que os problemas existentes sejam possíveis de contornar e com amplo apoio da comunidade.&lt;/p&gt;
+
+&lt;p&gt;Além disso, o ActivityPub possui uma moderação consolidada e funcional, problema comum em outros protocolos utilizados em redes descentralizadas. &lt;br&gt;
+Várias redes usam o ActivityPub como o Mastodon, o Organica entre outros, mas o mais importante é o fato do ActivityPub ser desde o começo um protocolo aberto e mantido pela comunidade, o que o torna uma das iniciativas mais interessantes existentes hoje para tornar as redes sociais melhores.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Referências.:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://activitypub.rocks/" rel="noopener noreferrer"&gt;https://activitypub.rocks/&lt;/a&gt;&lt;br&gt;
+&lt;a href="https://pt.wikipedia.org/wiki/ActivityPub" rel="noopener noreferrer"&gt;https://pt.wikipedia.org/wiki/ActivityPub&lt;/a&gt;&lt;br&gt;
+&lt;a href="https://elysiatools.com/pt/samples/activitypub" rel="noopener noreferrer"&gt;https://elysiatools.com/pt/samples/activitypub&lt;/a&gt;&lt;br&gt;
+&lt;a href="https://canaltech.com.br/redes-sociais/o-que-e-activitypub/" rel="noopener noreferrer"&gt;https://canaltech.com.br/redes-sociais/o-que-e-activitypub/&lt;/a&gt;&lt;br&gt;
+&lt;a href="https://medium.com/@campos.felps/construindo-um-servidor-activitypub-minimalista-em-python-695cde9a9965" rel="noopener noreferrer"&gt;https://medium.com/@campos.felps/construindo-um-servidor-activitypub-minimalista-em-python-695cde9a9965&lt;/a&gt;&lt;/p&gt;
+
+</description>
+      <category>web3</category>
+      <category>fediverse</category>
+      <category>cloud</category>
+      <category>activitypub</category>
+    </item>
+    <item>
+      <title>Flexispot E7 Flow: A detailed review and installation tips</title>
+      <dc:creator>Sleeyax</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:10:20 +0000</pubDate>
+      <link>https://dev.to/sleeyax/flexispot-e7-flow-a-detailed-review-and-installation-tips-48af</link>
+      <guid>https://dev.to/sleeyax/flexispot-e7-flow-a-detailed-review-and-installation-tips-48af</guid>
+      <description>&lt;p&gt;This is my detailed review of the E7 Flow standing desk from Flexispot, including my experience with the ordering process, shipment, installation, and daily use. I'll also provide some tips and insights to help others who are considering this desk.&lt;/p&gt;
+
+&lt;p&gt;If you're looking for a TL;DR, see the conclusion at the bottom.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Desk specifications
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;strong&gt;Model&lt;/strong&gt;: Flexispot E7 Flow&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Size&lt;/strong&gt;: 160 × 80 cm&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Color&lt;/strong&gt;: Volcano Grey&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Accessories&lt;/strong&gt;: No Extras&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Site&lt;/strong&gt;: flexispot.nl&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Order date&lt;/strong&gt;: 2025-11-28&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Assembly date&lt;/strong&gt;: 2025-12-06&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  Introduction
+&lt;/h2&gt;
+
+&lt;p&gt;My previous desk was a simple rectangular, solid wood block-style desk with a 3-level drawer on the left and sitting area on the right. It was only 130 × 75 cm in size. I've been using that desk all my life as a student and later as a remote worker. It was boring, but extremely stable.&lt;/p&gt;
+
+&lt;p&gt;At work, I tried a standing desk for the first time and really liked it, so I decided to finally upgrade my home office with one as well. Finding a solid standing desk can be challenging, especially with so many options available and most of the well-known companies being based in the US.&lt;/p&gt;
+
+&lt;p&gt;After a couple of days of research, I found Flexispot to be a good option given its desk features, price/quality ratio, and positive reviews.&lt;/p&gt;
+
+&lt;p&gt;Initially, I wanted to go for the E7 Plus (four-legged standing desk) as I was afraid to experience the infamous wobble. But after reading further into it and considering my simple setup (desktop PC, monitor and dual speakers, no heavy equipment), I convinced myself it was overkill for my use case and placed my bet on a two-legged desk instead. The E7 Flow was just released around that time, so I decided to order it.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Ordering process
+&lt;/h2&gt;
+
+&lt;p&gt;Black Friday was only a few months away, so I decided to wait for the sale. Flexispot had an "enter your email here and get a discount code" pop-up on their website for the E7 Flow, so I signed up. On the day, I noticed they had another discount going, and my code only saved me about 20 bucks more compared to that one - but hey, every bit counts.&lt;/p&gt;
+
+&lt;p&gt;The ordering process itself was smooth and I got a confirmation email right away.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Shipment
+&lt;/h2&gt;
+
+&lt;p&gt;The package shipped in 3 separate packages, as mentioned on the website. Delivery was fast and professional, handled by local carriers.&lt;/p&gt;
+
+&lt;p&gt;Some minor annoyances:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The tracking numbers were not provided on the dashboard; it just said "shipping". I had to check my email for the tracking numbers received from the shipping companies.&lt;/li&gt;
+&lt;li&gt;The packages arrived on different days, one of which was sent by a different shipping company, so I had to keep track of multiple shipments and make sure I was home on those days.&lt;/li&gt;
+&lt;li&gt;Two of the packages were processed on the same day and shipped by the same company, so it would've been nice if they were aware they belonged together so both could be delivered on the same day by the same courier.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I'm not sure how much control Flexispot has over these issues, if any, though. So no big deal.&lt;/p&gt;
+
+&lt;h3&gt;
+  
+  
+  The package
+&lt;/h3&gt;
+
+&lt;p&gt;The packages arrived in good condition, with no visible damage. The boxes were sturdy and well-sealed. This became even more apparent when I opened them and found the contents wrapped in multiple layers of protective material, including foam and plastic wrappers. No scratches or dents were visible on any of the parts.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Installation process
+&lt;/h2&gt;
+
+&lt;p&gt;In the instruction video, they promised it would take about 20 minutes to install... Yeah well.&lt;/p&gt;
+
+&lt;p&gt;It took me - a complete newbie at assembling furniture - about 10 hours for the desk assembly itself, and 20+ hours total including cable management and organizing my workspace. If you're a complete newbie like me, take your time and don't rush it. It can be a fun project if you approach it with the right mindset.&lt;/p&gt;
+
+&lt;p&gt;It probably would've been easier if the instructions were more detailed. More on that below.&lt;/p&gt;
+
+&lt;h3&gt;
+  
+  
+  The instructions
+&lt;/h3&gt;
+
+&lt;p&gt;I'll be honest: the instructions are a nightmare, especially for beginners. They're very minimal and lack detail. Some steps are not explained well, and some of the parts were scattered around the different boxes (for example the instruction manual says a part can be found in box A but it was actually in box C). I had to watch the installation video + read the manual multiple times to put the complete puzzle together and understand what to do.&lt;/p&gt;
+
+&lt;p&gt;Below I'll go over each step of the installation process and share my experience, including any issues I encountered and how I resolved them.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  Preparation before installation
+&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install on foam / carpet to prevent scratches: I used the cardboard from the desktop box, which worked out alright. I had a minor scratch in the middle after assembly, but that's entirely my fault as I wasn't careful enough when moving the desk around.&lt;/li&gt;
+&lt;li&gt;Screwdriver / drill: not needed; I only used the tools that came with the package.&lt;/li&gt;
+&lt;li&gt;Get a friend to help: I managed to do the assembly and desk flip alone (I'm not exactly strong), but I did ask for help to move the desk into its final position. If you must do it solo from start to finish then it should be possible with some furniture sliders and patience.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;
+  
+  
+  01 - Attach the side brackets to the beam
+&lt;/h4&gt;
+
+&lt;p&gt;This step was already pretty difficult for me. In the instruction video and manual, they only mention which side of the beam should be up, but they don't explain how to &lt;em&gt;rotate&lt;/em&gt; the beam into the correct orientation. If you skip through the video, it is briefly shown that the "blue part" of the beam is on the instructor's right side, but it's easy to miss. Basically, if you have a power plug on the left of your desk (as I do), it's best to have the blue part on the other side of the beam than what is shown, so the power cable is closest to the plug. It would've been nice if this was mentioned in the instructions.&lt;/p&gt;
+
+&lt;p&gt;You also have to pay close attention to the side brackets, as one side of the bracket is longer than the other. Remember the E7 Flow has C-shaped legs, not T-shaped. This is easy to miss if you go over the instructions too fast. Also would've been nice if there was some kind of warning about this in the manual.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, the manual mentions to "fit the shock-absorbing washers". But I couldn't for the life of me find these in the box. The video didn't even mention it and someone on the subreddit (a mod, if I recall correctly) said that they are not necessary. So I decided to skip this step. As I briefly mentioned above, the rubbers turned out to be placed in a completely random box at the bottom, in a different location than what the manual said. So be sure to check all boxes for any small parts you think you're missing.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  02 - Adjust the length of the frame
+&lt;/h4&gt;
+
+&lt;p&gt;A crucial piece of information is missing for this step: how to correctly position the desktop. The manual only shows a square desktop, but the E7 Flow has an ergonomic edge, so there is a clear "front" and "back" to the desk. The video doesn't clarify this either. If you look closely, you'll see that the "back" of the desk has two white "dots" on the underside, which are not present on the front. Make sure to align the frame with the correct side facing forward.&lt;/p&gt;
+
+&lt;p&gt;This positioning step itself was pretty straightforward, but demanded patience. I needed a flashlight to properly "look under" the beam as I positioned it to see if the holes aligned.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  03 - Affix the desktop
+&lt;/h4&gt;
+
+&lt;p&gt;This step should've been easy but caused another major confusion. There are unused screw holes on the beam in the middle of the frame. The manual mentions that "you may have extra screws depending on how far the frame is extended", but it doesn't clarify. In the video, they don't even mention it and skip over it. Looking this up on the subreddit, some people said they skipped it and other people said they just drilled the holes themselves. Given this is supposed to be a "pre-drilled holes" desk, I decided to just leave the holes unused as well.&lt;/p&gt;
+
+&lt;p&gt;The manual also warns to "keep the centerline label centered when adjusting the frame". This is not mentioned in the video, and I didn't notice it until after I had already positioned the frame. Luckily I had some room to adjust it a bit further inwards to center the label. Why wasn't this mentioned in the previous step where you position the frame?&lt;/p&gt;
+
+&lt;p&gt;Furthermore, the screws closest to the center of the beam didn't actually screw in as there was no real hole to screw them into. The pointy screw was basically pressing against the metal beam. Looking this up on the subreddit, people said this is a normal thing and you're just supposed to tighten it this way, not screw it in. This was so strange to me and it's not mentioned anywhere in the manual or video. More on that later.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  04 - Install the leg columns
+&lt;/h4&gt;
+
+&lt;p&gt;This step was (finally) easy.&lt;/p&gt;
+
+&lt;p&gt;According to a comment on the subreddit, this is the point where you could test the motors if you want to see if they work. It would've been nice if this was mentioned in the manual or video as well. I imagine this could have saved some people a lot of trouble if they discovered a faulty motor before fully assembling the desk.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  05 - Attach the feet
+&lt;/h4&gt;
+
+&lt;p&gt;This step required some extra attention again because the feet part has a long and a short side, similar to the side brackets. It's difficult to see on the picture in the manual, but the video shows it briefly. Make sure to attach the feet with the long side facing outwards. You can check out pictures of the assembled desk online to figure this out if you're unsure.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  06 - Fix the keypad
+&lt;/h4&gt;
+
+&lt;p&gt;This step was easy as well. Just make sure you attach it on the side you prefer. Remember that we still have to turn the desk around later, so choose accordingly.&lt;/p&gt;
+
+&lt;p&gt;I assembled the desk in a small corner in my room. If you're in a similar spot like me, make sure you don't accidentally break the keypad either when turning the desk around or moving it to its final position.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  07 - Connect the wires
+&lt;/h4&gt;
+
+&lt;p&gt;Finally another easy step. Just make sure to connect the wires properly according to the labels. The power cable didn't "click" into place for me like the other cables, but I just pushed it in firmly and it has worked fine so far.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  08 - Adjust the foot pads for balance
+&lt;/h4&gt;
+
+&lt;p&gt;This is where the video diverges from the manual a bit. The video goes over the cable tray first. For consistency, I'll document my experience in the same order as the manual.&lt;/p&gt;
+
+&lt;p&gt;The foot pads adjustment was pretty straightforward. Just make sure to adjust them evenly on both sides to keep the desk level. I heard some people skipped over this step and had issues with wobbling later on, so don't skip it unless you have a good reason to.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  09 - Pre-installation preparation for the cable tray
+&lt;/h4&gt;
+
+&lt;p&gt;This step was the worst one of them all. It says to "check if there are any protruding screws on the beam, if so replace them with set screws". So in other words, remember those screws in step 3 that didn't actually screw in? Yeah, unscrew those again and use these other screws instead! What?! This is so incredibly counter-intuitive. Why wasn't this mentioned in step 3 where you actually put in the screws? This would've saved me so much confusion.&lt;/p&gt;
+
+&lt;p&gt;Also, I kind of messed up one of the screws because I tightened it too much and it got stuck. I can't unscrew it anymore, so now I have a "set screw" that I can't replace. I'm not completely sure it affects the desk's stability or function, but so far it seems alright. But still, what a pain.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  10 - Adjust the cable tray assembly
+&lt;/h4&gt;
+
+&lt;p&gt;This step was easy. The tray itself felt a bit more flimsy than I expected, but it does its job.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  11 - Attach the cable tray
+&lt;/h4&gt;
+
+&lt;p&gt;This step was also straightforward, though I wasn't sure how tight the screws should be. Too tight and it feels like the tray might crack, too loose and it wobbles a bit. I just tightened them until they felt secure enough (though there's a bit of wobble still).&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  12 - Cable management
+&lt;/h4&gt;
+
+&lt;p&gt;The included velcro straps are a nice touch. They are sturdy and reusable, which is great for cable management. I used them to bundle my cables together and keep them organized under the desk. Personally I had plenty of strap left over after managing all my cables, but that depends on your setup of course.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  13 - Install the cable management U-bracket
+&lt;/h4&gt;
+
+&lt;p&gt;Another nice touch to help with cable management. The included bracket feels sturdy. Sometimes it shifts a bit when I open the cable tray, but it's easy to reposition it. It doesn't fall off or anything, so no big deal.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  14 - Install the cable organizer post
+&lt;/h4&gt;
+
+&lt;p&gt;The next set of parts to improve cable management even further. The cable clips are easy to attach and move around. It does its job to keep the cables organized. I used it to route my monitor, dual speakers and desktop cables, which helps keep them from tangling.&lt;/p&gt;
+
+&lt;p&gt;The only minor gripe I have with this system is that the clips can't interfere with the beam (as mentioned in the manual). Thus, there's less "real" space in the tray than it looks initially. Depending on the type of cable (thick head or flat head, thick or thin cable), you might not be able to fit everything in there. For my setup, after fiddling around with it for a couple of hours and attaching the power strip at the perfect angle, it was just enough room to fit everything.&lt;/p&gt;
+
+&lt;p&gt;Out of the box you get 5 clips, which was more than enough for me. I only ended up using 3 of them. Again, your usage will vary depending on your setup and cable types.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  15 - Install the power distribution unit
+&lt;/h4&gt;
+
+&lt;p&gt;You can tell that the included power strip is of high quality. It has just the right amount of outlets (6) for my (present and future) needs. I had to apply a lot of pressure to plug my cables in though, so I recommend plugging them in before installing the power strip into the cable tray if possible.&lt;/p&gt;
+
+&lt;p&gt;At first, I was worried that the sockets were not compatible with my Belgian plugs. I contacted Flexispot support and they offered to refund me the cost of the power strip if it turned out to be incompatible. Very professional of them to offer that. After learning a bit more about international plug standards, I realized it was indeed compatible. The power strip has a universal design that accepts various plug types, including the Netherlands Type C, modern Belgian/French Type E and German Type F plugs.&lt;/p&gt;
+
+&lt;p&gt;One small complaint about the instructions: it would have been helpful if they mentioned that you can remove and rotate the mounting brackets on the sides of the power strip. Apparently, this is common for "server rack" style power strips, but I only discovered it after doing some research. Knowing this earlier would have saved me a lot of time fitting the power strip into the cable tray, since rotating the brackets allows for a better fit. In the video, the mounting brackets were also oriented differently than on my unit, which made me worry at first that I had received a faulty product.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  16 - Install the velcro strap
+&lt;/h4&gt;
+
+&lt;p&gt;A nice addition I didn't expect. The tray already closes magnetically, so it's not absolutely necessary but offers an additional layer of security to keep it closed when not in use.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  17 - Install the magnetic cable channel
+&lt;/h4&gt;
+
+&lt;p&gt;Another nice touch to keep the power strip cable and desk cable organized. The magnetic channel is easy to attach and remove. At first I felt like I didn't need it because my cable management was already managed so well thanks to all the other features, but it's a nice finishing touch nonetheless.&lt;/p&gt;
+
+&lt;h4&gt;
+  
+  
+  18 - Attach the cable clip
+&lt;/h4&gt;
+
+&lt;p&gt;Personally I skipped this step because my cables were already well managed without it. But if you have extra cables that need organizing, I can see this extra cable clip being useful. You can peel off the sticker and glue it wherever you need it.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  My experience using the desk
+&lt;/h2&gt;
+
+&lt;p&gt;Below I'll go over my experience using the desk after having it for a couple of weeks now. I don't like to do 'scores' so I'll just list the best and worst experiences using the desk so far.&lt;/p&gt;
+
+&lt;h3&gt;
+  
+  
+  Best experiences
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Stable in standing position. Wobble isn't as bad as I feared. With my light setup, I can type and work without any issues. I did notice some slight wobble when pushing against the desk, but it's not a big deal for normal use.&lt;/li&gt;
+&lt;li&gt;Smooth and quiet height adjustment. The dual motors work well together to provide a stable lift. This is my first standing desk, so I don't have much to compare it to, but I'm very satisfied with the performance. It's exactly as advertised.&lt;/li&gt;
+&lt;li&gt;Cable management system. The included cable management features are a big plus for me. The cable tray, clips, and power strip help keep my workspace tidy and organized. I appreciate the thought put into these features.&lt;/li&gt;
+&lt;li&gt;The USB-C port on the keypad is a nice addition for charging (mobile) devices. It's conveniently located and I use it more than I would have expected.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  
+  
+  Worst experiences
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Unstable in sitting position. My monitor wobbles when my desk is lowered to sitting position and I type on the keyboard. This was the most unexpected issue for me. I thought issues like this would be more pronounced when standing, but it's actually worse when sitting. My current theory is that it's actually my monitor (Gigabyte M28U) stand that is causing the wobble. When I touch my monitor lightly by hand, it already wobbles quite a bit. So when I type on the keyboard, the vibrations from the keystrokes transfer through the table to the monitor stand and cause the screen to wobble. I'm considering getting a more stable monitor or monitor arm in the future to see if that helps. This is close to being a deal-breaker for me, and made me question whether I should return the desk. My old desk is extremely stable so I never experienced this before. For now, I manage using a DIY solution by placing foam pads (from the desk's packaging) under the left and right sides of the monitor to stabilize it a bit more.&lt;/li&gt;
+&lt;li&gt;I'm not a fan of the "ergonomic" edge. I've been sitting on a desk with straight edges my whole life, so this took some getting used to. At first it felt like my arms were constantly slipping off the edge. After a couple of weeks, I've adapted to it, but at this point in time I would still prefer straight edges. Another thing I didn't consider enough when I purchased this desk is the fact that it's impossible to "clip" things to the front of the desk. For example I have a racing wheel (for video games like Forza Horizon 4/5) that I can no longer use on this desk. I use my desk more for work than gaming, so it's not a big deal, but something to consider if you plan to use accessories that need to be clamped to the desk.&lt;/li&gt;
+&lt;li&gt;The tabletop collects a lot of dust. Or maybe my room has always been dusty and it's just more visible now due to the grey color of the tabletop. Either way, I find myself cleaning the desk more often than I expected. Probably not a deal-breaker, but something to keep in mind.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  Conclusion
+&lt;/h2&gt;
+
+&lt;p&gt;Overall, I'm satisfied with my Flexispot E7 Flow desk. It has its quirks and challenges, especially during assembly, but once set up, it provides a functional and enjoyable workspace. The standing feature is a great addition to my home office, and the cable management system helps keep things tidy.&lt;/p&gt;
+
+&lt;p&gt;For me, it's a great standing desk, but the sitting experience is subpar because of my monitor wobble issue described above. If you're primarily looking for a standing desk and don't mind the ergonomic edge, I would recommend it. However, if you plan to use it mainly for sitting or have the exact same monitor as I do, I would advise caution and consider testing it out first if possible.&lt;/p&gt;
+
+</description>
+      <category>flexispot</category>
+      <category>standingdesk</category>
+      <category>review</category>
+      <category>ergonomics</category>
+    </item>
+    <item>
+      <title>From Funnels to Pipelines: Why I’m Trading Digital Marketing for DevOps</title>
+      <dc:creator>Sumit Jha</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 20:02:40 +0000</pubDate>
+      <link>https://dev.to/sumit-jha/from-funnels-to-pipelines-why-im-trading-digital-marketing-for-devops-3e08</link>
+      <guid>https://dev.to/sumit-jha/from-funnels-to-pipelines-why-im-trading-digital-marketing-for-devops-3e08</guid>
+      <description>&lt;p&gt;After 5+ years in Digital Marketing, I’ve decided to make a major pivot. I’m shifting my career focus toward DevOps.&lt;/p&gt;
+
+&lt;p&gt;To my marketing colleagues, this might sound like I’m moving to a different planet. To my future tech colleagues, it might look like I’m a "non-tech" outsider. But here is the truth: Marketing and DevOps are built on the same DNA.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Why the Shift?
+&lt;/h2&gt;
+
+&lt;p&gt;In Marketing, I obsessed over Automation. I spent my days building email funnels and lead workflows to make sure no user was dropped. In DevOps, that same "workflow" mindset applies—only instead of moving leads through a funnel, I’m moving code through a pipeline.&lt;/p&gt;
+
+&lt;p&gt;I’m moving to DevOps because I want to build the systems that make the products, rather than just selling them. The "Technical Debt" we feel in marketing operations—broken APIs, slow landing pages, and siloed data—is exactly what DevOps is designed to solve.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  My 6-Month Roadmap (2026 Edition)
+&lt;/h2&gt;
+
+&lt;p&gt;I don’t believe in "overnight" success. I’ve laid out a rigorous 4–6 month plan to become job-ready while balancing my current role.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Month 1&lt;/strong&gt;: The Foundation (Linux &amp;amp; Networking)&lt;br&gt;
+Goal: Move away from the GUI. I’m spending my first month in the terminal (Ubuntu).&lt;/p&gt;
+
+&lt;p&gt;Key Skills: Bash scripting, SSH, DNS, and the OSI model. If you can’t navigate a server, you can't automate it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Month 2&lt;/strong&gt;: The "Version Control" Phase (Git &amp;amp; Python)&lt;br&gt;
+Goal: Treat "Infrastructure as Code."&lt;/p&gt;
+
+&lt;p&gt;Key Skills: Mastering Git workflows. I’m also picking up Python to automate the repetitive tasks that used to take me hours in marketing spreadsheets.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Month 3&lt;/strong&gt;: Containerization (Docker)&lt;br&gt;
+Goal: "It works on my machine" should never be an excuse.&lt;/p&gt;
+
+&lt;p&gt;Key Skills: Learning to package applications into Docker containers so they run anywhere—from my laptop to the cloud.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Month 4-5&lt;/strong&gt;: Cloud &amp;amp; Orchestration (AWS &amp;amp; Kubernetes)&lt;br&gt;
+Goal: Scaling for millions.&lt;/p&gt;
+
+&lt;p&gt;Key Skills: I’ll be focusing on AWS (specifically EC2, S3, and IAM) and learning how Kubernetes manages container clusters at scale. This is the "Big Leagues" of DevOps.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Month 6&lt;/strong&gt;: The "Project" Phase &amp;amp; Career Bridging&lt;br&gt;
+Goal: Build a portfolio that speaks both languages.&lt;/p&gt;
+
+&lt;p&gt;Outcome: I plan to build a "Full-Stack Observability" project, showing how system performance directly impacts Marketing Conversion Rates.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Final Thoughts
+&lt;/h2&gt;
+
+&lt;p&gt;Transitioning isn't about throwing away my marketing experience; it's about upgrading the toolkit. I’m still focused on the "Customer Journey," but now I’m ensuring that journey happens on a fast, secure, and unbreakable infrastructure.&lt;/p&gt;
+
+</description>
+      <category>webdev</category>
+      <category>beginners</category>
+      <category>career</category>
+      <category>devops</category>
+    </item>
+    <item>
+      <title>Production-Grade Spring Boot APIs — Part 3: Consistent Responses &amp; Global Exception Handling</title>
+      <dc:creator>Pratik280</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 19:59:41 +0000</pubDate>
+      <link>https://dev.to/pratik280/production-grade-spring-boot-apis-part-3-consistent-responses-global-exception-handling-47c2</link>
+      <guid>https://dev.to/pratik280/production-grade-spring-boot-apis-part-3-consistent-responses-global-exception-handling-47c2</guid>
+      <description>&lt;p&gt;In real systems, APIs don’t fail gracefully by default.&lt;/p&gt;
+
+&lt;p&gt;Without discipline, you end up with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Different response formats per endpoint&lt;/li&gt;
+&lt;li&gt;Unclear error messages&lt;/li&gt;
+&lt;li&gt;Controllers full of try-catch blocks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This article explains how we design predictable, consistent API responses using a common response wrapper and centralized exception handling.&lt;/p&gt;
+
+&lt;p&gt;This is Part 3 of the &lt;a href="https://dev.to/pratik280/series/35113"&gt;Production-Grade Spring Boot API Design series&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Code Gihub Repo: &lt;a href="https://github.com/Pratik280/order-system/tree/develop" rel="noopener noreferrer"&gt;https://github.com/Pratik280/order-system/tree/develop&lt;/a&gt;&lt;/p&gt;
+
+
+
+
+&lt;p&gt;&lt;strong&gt;What this post covers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Why API response consistency matters in microservices&lt;/li&gt;
+&lt;li&gt;Designing a generic BaseResponse&lt;/li&gt;
+&lt;li&gt;Builder pattern in API responses&lt;/li&gt;
+&lt;li&gt;ResponseEntity and real HTTP semantics&lt;/li&gt;
+&lt;li&gt;Global exception handling with @RestControllerAdvice&lt;/li&gt;
+&lt;li&gt;Translating domain exceptions into HTTP responses&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Why we need a common response format
+&lt;/h2&gt;
+
+&lt;p&gt;In microservices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;APIs must look identical&lt;/li&gt;
+&lt;li&gt;Errors must be predictable&lt;/li&gt;
+&lt;li&gt;Clients must not guess formats&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  BaseResponse — A Single Contract for All APIs
+&lt;/h2&gt;
+
+
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="nd"&gt;@Getter&lt;/span&gt;
+&lt;span class="nd"&gt;@Setter&lt;/span&gt;
+&lt;span class="nd"&gt;@AllArgsConstructor&lt;/span&gt;
+&lt;span class="nd"&gt;@NoArgsConstructor&lt;/span&gt;
+&lt;span class="nd"&gt;@Builder&lt;/span&gt;
+&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nc"&gt;String&lt;/span&gt; &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// success payload&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="no"&gt;T&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// error details&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;String&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;Object&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Why this structure works&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Generic () — supports any response payload&lt;/li&gt;
+&lt;li&gt;Clear separation:
+
+&lt;ul&gt;
+&lt;li&gt;data → success responses&lt;/li&gt;
+&lt;li&gt;errors → failure responses&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/li&gt;
+
+&lt;li&gt;Consistent fields across all endpoints&lt;/li&gt;
+
+&lt;li&gt;Easy for clients to consume and validate&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Success vs Error clarity&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Success response → data is filled, errors is null&lt;/li&gt;
+&lt;li&gt;Error response → errors is filled, data is null&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  This eliminates ambiguity for API consumers.
+&lt;/h2&gt;
+
+&lt;h2&gt;
+  
+  
+  Builder Pattern for Clean Response Creation
+&lt;/h2&gt;
+
+&lt;p&gt;Instead of manually constructing responses everywhere, we centralize response creation.&lt;/p&gt;
+
+&lt;p&gt;ResponseBuilder.java&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ResponseBuilder&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;ResponseEntity&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nf"&gt;success&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+            &lt;span class="nc"&gt;HttpStatus&lt;/span&gt; &lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;String&lt;/span&gt; &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="no"&gt;T&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;){&lt;/span&gt;
+
+        &lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;baseResponse&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;gt;(&lt;/span&gt;
+                &lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;(),&lt;/span&gt;
+                &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                &lt;span class="kc"&gt;null&lt;/span&gt;
+        &lt;span class="o"&gt;);&lt;/span&gt;
+
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nc"&gt;ResponseEntity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;status&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;body&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;baseResponse&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;ResponseEntity&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nf"&gt;error&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+            &lt;span class="nc"&gt;HttpStatus&lt;/span&gt; &lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;String&lt;/span&gt; &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;String&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;Object&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt; &lt;span class="o"&gt;){&lt;/span&gt;
+
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nc"&gt;ResponseEntity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;status&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;body&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;.&amp;lt;&lt;/span&gt;&lt;span class="no"&gt;T&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;builder&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+                        &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;status&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt;
+                        &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;message&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                        &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                        &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;build&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Why a ResponseBuilder?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Prevents duplication across controllers&lt;/li&gt;
+&lt;li&gt;Enforces one response format everywhere&lt;/li&gt;
+&lt;li&gt;Reduces mistakes in status codes and payloads&lt;/li&gt;
+&lt;li&gt;Makes controllers thin and readable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Controllers should orchestrate requests, not construct response objects.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Why Controllers Should NOT Handle Exceptions
+&lt;/h2&gt;
+
+&lt;p&gt;A common beginner mistake is this:&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+   &lt;span class="c1"&gt;// business logic&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;Exception&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+   &lt;span class="c1"&gt;// return error response&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;In production, this leads to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Repeated try-catch blocks&lt;/li&gt;
+&lt;li&gt;Inconsistent error responses&lt;/li&gt;
+&lt;li&gt;Bloated controllers&lt;/li&gt;
+&lt;li&gt;Hard-to-maintain code&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Global Exception Handling with @RestControllerAdvice
+&lt;/h2&gt;
+
+&lt;p&gt;GlobalExceptionHandler.java&lt;br&gt;
+&lt;/p&gt;
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="nd"&gt;@RestControllerAdvice&lt;/span&gt;
+&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;GlobalExceptionHandler&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;What &lt;strong&gt;@RestControllerAdvice&lt;/strong&gt; does&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Applies to all controllers&lt;/li&gt;
+&lt;li&gt;Automatically returns JSON responses&lt;/li&gt;
+&lt;li&gt;Centralizes exception-to-response translation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It is the REST equivalent of a global error boundary.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Handling Domain Exceptions with @ExceptionHandler
+&lt;/h2&gt;
+
+
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="nd"&gt;@ExceptionHandler&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;ResourceNotFoundException&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nc"&gt;ResponseEntity&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;BaseResponse&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nc"&gt;Object&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nf"&gt;handleResourceNotfound&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+        &lt;span class="nc"&gt;ResourceNotFoundException&lt;/span&gt; &lt;span class="n"&gt;exception&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+        &lt;span class="nc"&gt;HttpServletRequest&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt; &lt;span class="o"&gt;){&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nc"&gt;ResponseBuilder&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;error&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+            &lt;span class="nc"&gt;HttpStatus&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;NOT_FOUND&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;exception&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="o"&gt;(),&lt;/span&gt;
+            &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;of&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;of&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+                    &lt;span class="s"&gt;"code"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"RESOURCENOTFOUND"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                    &lt;span class="s"&gt;"message"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;exception&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="o"&gt;(),&lt;/span&gt;
+                    &lt;span class="s"&gt;"path"&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getRequestURI&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+            &lt;span class="o"&gt;))&lt;/span&gt;
+    &lt;span class="o"&gt;);&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Why this is production-grade&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Services throw domain-specific exceptions&lt;/li&gt;
+&lt;li&gt;Controllers remain clean&lt;/li&gt;
+&lt;li&gt;HTTP status codes are correct&lt;/li&gt;
+&lt;li&gt;Error payloads are structured and informative&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each error includes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Error code (for frontend / monitoring)&lt;/li&gt;
+&lt;li&gt;Human-readable message&lt;/li&gt;
+&lt;li&gt;Request path (debugging)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Custom Exceptions Represent Business Failures
+&lt;/h2&gt;
+
+
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ResourceNotFoundException&lt;/span&gt; &lt;span class="kd"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;RuntimeException&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;ResourceNotFoundException&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;String&lt;/span&gt; &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;){&lt;/span&gt;
+        &lt;span class="kd"&gt;super&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;p&gt;&lt;strong&gt;Why custom exceptions matter&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Express business meaning, not technical failure&lt;/li&gt;
+&lt;li&gt;Decouple service logic from HTTP concerns&lt;/li&gt;
+&lt;li&gt;Make error handling explicit and readable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Services should throw what went wrong, not how to respond.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  The End Result
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;With this approach:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Every API response looks the same&lt;/li&gt;
+&lt;li&gt;Error handling is centralized&lt;/li&gt;
+&lt;li&gt;Controllers stay lean&lt;/li&gt;
+&lt;li&gt;APIs are predictable and client-friendly&lt;/li&gt;
+&lt;li&gt;The system scales across teams&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This is the difference between APIs that merely work and APIs that survive production.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;h2&gt;
+  
+  
+  Final Thoughts
+&lt;/h2&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;exact structure&lt;/strong&gt; we followed in real Spring Boot microservices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Clean layers&lt;/li&gt;
+&lt;li&gt;Explicit dependencies&lt;/li&gt;
+&lt;li&gt;Consistent APIs&lt;/li&gt;
+&lt;li&gt;Interview‑defensible design&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Production‑grade Spring Boot is less about annotations — and more about &lt;strong&gt;discipline and structure&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;blockquote&gt;
+&lt;p&gt;This concludes the Production-Grade Spring Boot API Design series — based on real project experience and refined personal notes.&lt;/p&gt;
+
+&lt;p&gt;The goal was simple:&lt;br&gt;
+APIs that are clean, consistent, scalable, and interview-ready.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;p&gt;📌 &lt;em&gt;This blog is based on real project experience and refined personal notes.&lt;/em&gt;&lt;/p&gt;
+
+</description>
+      <category>java</category>
+      <category>springboot</category>
+      <category>microservices</category>
+    </item>
+    <item>
+      <title>Getting started with GitHub</title>
+      <dc:creator>tonny otieno</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 19:57:16 +0000</pubDate>
+      <link>https://dev.to/tonny-o/getting-started-with-github-4547</link>
+      <guid>https://dev.to/tonny-o/getting-started-with-github-4547</guid>
+      <description>&lt;p&gt;GitHub is a version control tool that provides software as a service used to store and track changes for an individual or a team collaborating on a project. There are also other tools for the same purpose such as Gitlab,Bitbucket that also incorporates GUI.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  &lt;u&gt;Setting up Git locally&lt;/u&gt;
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Below is how to configure your git to connect to your remote account.&lt;/li&gt;
+&lt;li&gt;For linux/macOS users input the commands to your terminal while windows users after installing gitbash, will use it to write the commands. Verification is done by &lt;code&gt;git config --global --list&lt;/code&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;git config --global user.name "Name"&lt;br&gt;
+git config --global user.email "email-address"&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Navigate to your local project directory and initialize git using &lt;code&gt;git init&lt;/code&gt; . &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a README.md file using &lt;code&gt;touch README.md&lt;/code&gt;or other files e.g a python file called users.py. The README.md file is used to tell what the project is all about and how one can use it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  Pushing Code
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;After working on your project, you have to add the changes to the staging area using &lt;code&gt;git add .&lt;/code&gt; (for everything).&lt;/li&gt;
+&lt;li&gt;Commit the changes having a short message of what is committed e.g &lt;code&gt;git commit -m "signup function"&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;Push your code to the remote account using &lt;code&gt;git push -u origin main&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt; Without commiting, the changes won't be effected to the remote repository and will only remain in the local repository.First push may prompt for authentication (set up SSH keys or a Personal Access Token for HTTPS).&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Pulling updated Code from GitHub
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It is best practice to check the status of your code using &lt;code&gt;git status&lt;/code&gt; to ensure no uncommitted changes exist. Then do a pull using &lt;code&gt;git pull&lt;/code&gt; which is a combination of &lt;code&gt;git fetch&lt;/code&gt; (downloads the latest commits) and &lt;code&gt;git merge
+&lt;/code&gt;(merges the downloaded commits)&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+      <category>beginners</category>
+      <category>git</category>
+      <category>github</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>FastAPI vs Flask: Which Python Framework Should You Choose?</title>
+      <dc:creator>Maheshnath09</dc:creator>
+      <pubDate>Sat, 17 Jan 2026 19:55:17 +0000</pubDate>
+      <link>https://dev.to/maheshnath09/fastapi-vs-flask-which-python-framework-should-you-choose-16in</link>
+      <guid>https://dev.to/maheshnath09/fastapi-vs-flask-which-python-framework-should-you-choose-16in</guid>
+      <description>&lt;p&gt;I've shipped production apps with both Flask and FastAPI, and here's what I've learned: they're both great, but for different reasons.&lt;/p&gt;
+
+&lt;h2&gt;
+  
+  
+  Flask: The Reliable Classic
+&lt;/h2&gt;
+
+&lt;p&gt;Flask has been around since 2010, and it's still popular for good reason.&lt;/p&gt;
+
+&lt;h3&gt;
+  
+  
+  What works:
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Dead simple to learn. Minimal boilerplate, just Python functions&lt;/li&gt;
+&lt;li&gt;Massive ecosystem with extensions for everything&lt;/li&gt;
+&lt;li&gt;Complete flexibility—build your app however you want&lt;/li&gt;
+&lt;li&gt;Battle-tested in production by thousands of companies&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  
+  
+  The challenges:
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Manual data validation gets repetitive fast&lt;/li&gt;
+&lt;li&gt;No automatic API documentation (need extra libraries)&lt;/li&gt;
+&lt;li&gt;Async support exists but feels tacked on&lt;/li&gt;
+&lt;li&gt;More code to achieve the same results as FastAPI&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  
+  
+  Quick example:
+&lt;/h3&gt;
+
+
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight python"&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="n"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;
+
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app.route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;/users&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;methods&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;POST&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_user&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;get_json&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="c1"&gt;# Manual validation needed
+&lt;/span&gt;    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="ow"&gt;or&lt;/span&gt; &lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;email&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;error&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;Invalid data&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;400&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;id&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;123&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;h2&gt;
+  
+  
+  FastAPI: The Modern Powerhouse
+&lt;/h2&gt;
+
+&lt;p&gt;Launched in 2018, FastAPI takes advantage of modern Python features.&lt;/p&gt;
+
+&lt;h3&gt;
+  
+  
+  What works:
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatic validation using type hints—seriously reduces bugs&lt;/li&gt;
+&lt;li&gt;Free interactive API docs at &lt;code&gt;/docs&lt;/code&gt; (Swagger UI)&lt;/li&gt;
+&lt;li&gt;Built for async from the ground up&lt;/li&gt;
+&lt;li&gt;Noticeably faster performance (2-3x in my tests)&lt;/li&gt;
+&lt;li&gt;Less code, more features&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  
+  
+  The challenges:
+&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Smaller ecosystem (though growing fast)&lt;/li&gt;
+&lt;li&gt;Learning curve if your team doesn't know type hints or async&lt;/li&gt;
+&lt;li&gt;The "magic" can be confusing when debugging&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;
+  
+  
+  Same example in FastAPI:
+&lt;/h3&gt;
+
+
+
+&lt;div class="highlight js-code-highlight"&gt;
+&lt;pre class="highlight python"&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="n"&gt;fastapi&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;FastAPI&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="n"&gt;pydantic&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BaseModel&lt;/span&gt;
+
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;FastAPI&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;User&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BaseModel&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;
+    &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;
+
+&lt;span class="nd"&gt;@app.post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;/users&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_user&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="s"&gt;id&lt;/span&gt;&lt;span class="sh"&gt;'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;123&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;  &lt;span class="c1"&gt;# Validation automatic!
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;h2&gt;
+  
+  
+  When I Use Flask
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Quick internal tools and admin panels&lt;/li&gt;
+&lt;li&gt;Projects where Flask extensions solve my exact problem&lt;/li&gt;
+&lt;li&gt;Teams new to Python web development&lt;/li&gt;
+&lt;li&gt;"If it ain't broke" maintenance mode apps&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  When I Use FastAPI
+&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Public APIs where performance matters&lt;/li&gt;
+&lt;li&gt;High-throughput microservices&lt;/li&gt;
+&lt;li&gt;ML model deployment&lt;/li&gt;
+&lt;li&gt;Any project with complex data validation&lt;/li&gt;
+&lt;li&gt;Modern teams comfortable with type hints&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;
+  
+  
+  Bottom Line
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;New API project?&lt;/strong&gt; → Start with FastAPI. The productivity boost is real.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Simple CRUD app or internal tool?&lt;/strong&gt; → Flask gets you there faster.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Already using Flask and it works?&lt;/strong&gt; → Don't rewrite unless you're hitting actual limitations.&lt;/p&gt;
+
+&lt;p&gt;Both are excellent choices. FastAPI is my default now for APIs, but Flask still earns its place on plenty of my projects.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;What's your go-to? Let me know in the comments! 👇&lt;/p&gt;
+
+</description>
+      <category>python</category>
+      <category>fastapi</category>
+      <category>flask</category>
+      <category>webdev</category>
+    </item>
+  </channel>
+</rss>
