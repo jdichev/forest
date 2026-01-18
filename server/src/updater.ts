@@ -4,13 +4,12 @@ import pinoLib from "pino";
 import FeedUpdater from "./modules/FeedUpdater";
 
 const INTERVAL_MS = 10 * 60_000; // 10 minutes
-const INITIAL_DELAY_MS = 30_000; // first scheduled run after 30s
 const SLEEP_GAP_MS = 30_000; // treat larger as resume
 const CLOCK_JUMP_MS = 10_000; // treat large drift as clock change
 
-// Initialize pino logger with trace level for detailed logging
 const pino = pinoLib({
-  level: "trace",
+  level: process.env.LOG_LEVEL || "trace",
+  name: "updater",
 });
 
 /**
@@ -26,43 +25,35 @@ export default class Updater {
   public static start() {
     // Create an instance of FeedUpdater
     const feedUpdater = new FeedUpdater();
-
     // Log the start of regular updates
     pino.debug(`Updating regularly`);
     // Perform an immediate update
     void feedUpdater
       .updateItems()
       .catch((err) => pino.error(err, "Update failed"));
-
     // Self-scheduling timer with drift detection to handle sleep/clock jumps
-    let nextAt = Date.now() + INITIAL_DELAY_MS;
-
+    let nextAt = Date.now() + INTERVAL_MS;
     const scheduleNext = () => {
       const now = Date.now();
       const drift = now - nextAt;
 
+      // Log warnings for abnormal drift
       if (drift > SLEEP_GAP_MS) {
         pino.warn({ drift }, "Resume detected; running catch-up update");
-        void feedUpdater
-          .updateItems()
-          .catch((err) => pino.error(err, "Update failed"));
       } else if (drift < -CLOCK_JUMP_MS || drift > CLOCK_JUMP_MS) {
         pino.warn({ drift }, "Clock change detected; running update");
-        void feedUpdater
-          .updateItems()
-          .catch((err) => pino.error(err, "Update failed"));
-      } else {
-        void feedUpdater
-          .updateItems()
-          .catch((err) => pino.error(err, "Update failed"));
       }
+
+      // Always run the update
+      void feedUpdater
+        .updateItems()
+        .catch((err) => pino.error(err, "Update failed"));
 
       nextAt += INTERVAL_MS;
       const delay = Math.max(0, nextAt - Date.now());
       this.timer = setTimeout(scheduleNext, delay);
     };
-
-    this.timer = setTimeout(scheduleNext, INITIAL_DELAY_MS);
+    this.timer = setTimeout(scheduleNext, INTERVAL_MS);
   }
 
   /**

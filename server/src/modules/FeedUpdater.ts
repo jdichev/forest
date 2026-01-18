@@ -9,7 +9,7 @@ import MixedDataModel from "./MixedDataModel";
 import { fetchFeed } from "fetch-feed";
 
 const pino = pinoLib({
-  level: "trace",
+  level: process.env.LOG_LEVEL || "trace",
   name: "FeedUpdater",
 });
 
@@ -204,6 +204,7 @@ export default class FeedUpdater {
     };
 
     try {
+      pino.debug({ feed }, "Inserting feed into database");
       await dataModel.insertFeed(feed);
     } catch (error: any) {
       pino.error(

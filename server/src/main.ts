@@ -1,26 +1,18 @@
-import { ChildProcess, fork } from "child_process";
-import path from "path";
-
-const run = (program: string) => {
-  return fork(program, [], {
-    stdio: "inherit",
-  });
-};
+import forestserver from "./server";
+import Updater from "./updater";
 
 export default class Main {
-  private static serverStarter: ChildProcess;
-  private static updaterStarter: ChildProcess;
+  static async start() {
+    await forestserver.start({ port: 3031 });
 
-  static start() {
-    this.serverStarter = run(path.join(__dirname, "scripts", "server-starter"));
-
-    this.updaterStarter = run(
-      path.join(__dirname, "scripts", "updater-starter")
-    );
+    // Start updater after 30 seconds delay
+    setTimeout(() => {
+      Updater.start();
+    }, 30e3);
   }
 
   static stop() {
-    this.serverStarter.kill();
-    this.updaterStarter.kill();
+    forestserver.stop();
+    Updater.stop();
   }
 }

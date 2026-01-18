@@ -9,7 +9,8 @@ import FeedFinder from "./modules/FeedFinder";
 import projectConfig from "forestconfig";
 
 const pino = pinoLib({
-  level: "trace",
+  level: process.env.LOG_LEVEL || "trace",
+  name: "server",
 });
 
 const dataModel = MixedDataModel.getInstance();
@@ -200,6 +201,7 @@ app.get("/feeds", async (req: Request, res: Response) => {
 
     if (selectedFeedCategory) {
       feeds = await dataModel.getFeeds({ selectedFeedCategory });
+      pino.debug({ feeds }, "Feeds retrieved for category");
       res.json(feeds);
     } else {
       res.status(404).send({ message: "Feed category not found" });
@@ -244,8 +246,10 @@ app.put("/feeds", jsonParser, async (req: Request, res: Response) => {
 app.post("/feeds", jsonParser, async (req: Request, res: Response) => {
   try {
     const result = await updater.addFeed(req.body);
+    pino.debug({ result }, "Feed added successfully");
     res.json(result);
   } catch (error: any) {
+    pino.error({ error: error.message || String(error) }, "Error adding feed");
     res.status(500).json({ error: error.message || String(error) });
   }
 });
@@ -281,8 +285,11 @@ app.get("/opml-export", async (req: Request, res: Response) => {
       'attachment; filename="forest-feeds.opml"'
     );
     res.send(opmlContent);
-  } catch (error) {
-    pino.error(error, "Error exporting OPML");
+  } catch (error: any) {
+    pino.error(
+      { error: error.message || String(error) },
+      "Error exporting OPML"
+    );
     res.status(500).json({ error: "Failed to export OPML" });
   }
 });
@@ -304,7 +311,7 @@ export default class server {
       pino.debug(config, "config");
 
       server.inst = app.listen(config.port, () => {
-        pino.debug(`Server running on port ${projectConfig.dataServerPort}`);
+        pino.debug(`Server running on port ${config.port}`);
 
         resolve(app);
       });
